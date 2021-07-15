@@ -4,9 +4,11 @@ import android.app.Application
 import android.content.res.Resources
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.yc.jetpacklib.BuildConfig
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.YcLogExt
 import okhttp3.Interceptor
+import org.xutils.x
 
 /**
  * Creator: yc
@@ -54,6 +56,8 @@ class YcJetpack private constructor() {
         mApplication = app
         //Logger初始化
         Logger.addLogAdapter(AndroidLogAdapter())
+        x.Ext.init(mApplication)
+        x.Ext.setDebug(BuildConfig.DEBUG)
     }
 
 

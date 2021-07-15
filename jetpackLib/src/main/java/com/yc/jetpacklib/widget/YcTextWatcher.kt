@@ -8,7 +8,7 @@ import android.text.TextWatcher
  * Date: 2021/7/15 18:12
  * UseDes:
  */
-class YcTextWatcher : TextWatcher {
+open class YcTextWatcher : TextWatcher {
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
     }
