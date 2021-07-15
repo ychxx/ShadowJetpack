@@ -66,14 +66,14 @@ fun Button.ycSetTextColorRes(@ColorRes textColorRes: Int) {
 /**
  * 加载网络图片
  */
-fun ImageView.ycLoadImageNet(imageNet: String) {
+fun ImageView.ycLoadImageNet(imageNet: String?) {
     GlideApp.with(this.context)
         .asBitmap()
         .load(imageNet)
         .into(this)
 }
 
-fun ImageView.ycLoadImageNetCircle(imageNet: String) {
+fun ImageView.ycLoadImageNetCircle(imageNet: String?) {
     GlideApp.with(this.context)
         .asBitmap()
         .load(imageNet)
@@ -84,7 +84,7 @@ fun ImageView.ycLoadImageNetCircle(imageNet: String) {
 /**
  * 加载网络图片（用时间来区分地址相同，图片内容不相同情况）
  */
-fun ImageView.ycLoadImageNet(imgNetUrl: String, imageUpdateTime: String) {
+fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
     GlideApp.with(this.context)
         .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
         .asBitmap()
@@ -95,7 +95,7 @@ fun ImageView.ycLoadImageNet(imgNetUrl: String, imageUpdateTime: String) {
 /**
  * 加载网络图片
  */
-fun ImageView.ycLoadImageNetCircle(imgNetUrl: String, imageUpdateTime: String) {
+fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) {
     GlideApp.with(this.context)
         .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
         .asBitmap()
