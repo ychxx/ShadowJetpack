@@ -1,0 +1,3 @@
+rootProject.name = "ShadowJetpack"
+include ':app'
+include ':jetpackLib'

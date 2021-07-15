@@ -1,0 +1,5 @@
+<resources>
+    <string name="every_lib_account_limit">0123456789abasdasdcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~*(),./?;\:"|[]{}!@#$%^&#038;*=+-</string>
+    <string name="every_lib_password_limit">0123456789abasdasdcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ~*(),./?;\:"|[]{}!@#$%^&#038;*=+-</string>
+    <string name="every_lib_chart_data_empty">暂无数据</string>
+</resources>

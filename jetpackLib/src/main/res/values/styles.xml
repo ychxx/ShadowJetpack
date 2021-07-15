@@ -1,0 +1,16 @@
+<resources>
+    <!-- 对话框风格 -->
+    <style name="YcCommonDialogStyle" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowBackground">#00000000</item>
+    </style>
+    <!-- 加载框框风格 -->
+    <style name="YcLoadingDialogStyle" parent="Theme.MaterialComponents.Light.Dialog">
+        <item name="android:windowFrame">@null</item><!--边框-->
+        <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
+        <item name="android:windowIsTranslucent">false</item><!--半透明-->
+        <item name="android:windowNoTitle">true</item><!--无标题-->
+        <item name="android:windowBackground">#00000000</item><!--背景透明-->
+        <item name="android:backgroundDimEnabled">false</item><!--模糊-->
+        <item name="android:backgroundDimAmount">0.0</item> <!-- 设置背景模糊的透明度-->
+    </style>
+</resources>

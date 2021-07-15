@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/clWidget"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/yc_shape_underline"
+    android:minHeight="38dp">
+
+    <ImageView
+        android:id="@+id/ivWidgetRight1"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/yc_icon_eye_gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivWidgetRight2"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/yc_icon_delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivWidgetRight1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivWidgetLeft"
+        android:layout_width="32dp"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/yc_icon_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edtWidget"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@null"
+        android:digits="@string/every_lib_account_limit"
+        android:gravity="center_vertical"
+        android:hint="请输入"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:textColor="@color/every_lib_edt_text"
+        android:textColorHint="@color/every_lib_edt_text_hide"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/ivWidgetRight2"
+        app:layout_constraintStart_toEndOf="@id/ivWidgetLeft"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

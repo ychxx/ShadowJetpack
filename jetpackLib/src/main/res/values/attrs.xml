@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="ycBg" format="reference|color" />
+    <declare-styleable name="YcEdtImg">
+        <attr name="ycBg" />
+        <attr name="ycImgRight1Bg" format="reference" />
+        <attr name="ycImgRight1Visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="ycImgRight2Bg" format="reference" />
+        <attr name="ycImgRight2Visibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="ycImgLeftBg" format="reference" />
+        <attr name="ycImgLeftVisibility" format="enum">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="ycEdtTextSize" format="dimension" />
+        <attr name="ycEdtHint" format="string" />
+        <attr name="ycEdtHintColor" format="color" />
+        <attr name="ycEdtText" format="string" />
+        <attr name="ycEdtTextColor" format="color" />
+        <attr name="ycEdtMaxEms" format="string" />
+        <attr name="ycEdtDigits" format="string" />
+        <attr name="ycEdtInputType">
+            <flag name="none" value="0x00000000" />
+            <flag name="text" value="0x00000001" />
+            <flag name="textPassword" value="0x00000081" />
+            <flag name="textVisiblePassword" value="0x00000091" />
+            <flag name="number" value="0x00000002" />
+            <flag name="numberDecimal" value="0x00002002" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="YcBtnCommon">
+        <attr name="ycBgIsAble" format="boolean" />
+        <attr name="ycBg" />
+        <attr name="ycBgEnable" format="reference|color" />
+        <attr name="ycTextColor" format="color" />
+        <attr name="ycTextColorEnable" format="color" />
+    </declare-styleable>
+</resources>
