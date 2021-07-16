@@ -15,6 +15,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
+import com.yc.jetpacklib.extension.ycCreateResultLauncher
 import com.yc.jetpacklib.manager.YcActivityManager
 import com.yc.jetpacklib.utils.YcViewModelLazy
 import kotlinx.coroutines.launch
@@ -76,23 +77,5 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
 
     protected fun <T> LiveData<T>.observe(observer: Observer<T>) {
         this.observe(this@YcBaseActivity, observer)
-    }
-
-    protected inline fun createResultLauncher(crossinline success: ((result: ActivityResult) -> Unit)) =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK) {
-                success(it)
-            }
-        }
-
-    protected inline fun createResultLauncher(
-        crossinline success: ((result: ActivityResult) -> Unit),
-        crossinline fail: ((result: ActivityResult) -> Unit)
-    ) = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) {
-            success(it)
-        } else {
-            fail(it)
-        }
     }
 }

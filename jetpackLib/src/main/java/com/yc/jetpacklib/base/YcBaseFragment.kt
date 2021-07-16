@@ -93,22 +93,4 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
             block()
         }
     }
-
-    protected inline fun createResultLauncher(crossinline success: ((result: ActivityResult) -> Unit)) =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-            if (it.resultCode != Activity.RESULT_OK) {
-                success(it)
-            }
-        }
-
-    protected inline fun createResultLauncher(
-        crossinline success: ((result: ActivityResult) -> Unit),
-        crossinline fail: ((result: ActivityResult) -> Unit)
-    ) = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
-        if (it.resultCode != Activity.RESULT_OK) {
-            success(it)
-        } else {
-            fail(it)
-        }
-    }
 }

@@ -21,11 +21,14 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
 ) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback) {
     private var mItemClick: ((Data, Int) -> Unit)? = null
 
+    protected lateinit var mContext: Context
+
     fun setItemClick(block: (Data, Int) -> Unit) {
         mItemClick = block
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
+        mContext = parent.context
         return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context)))
     }
 

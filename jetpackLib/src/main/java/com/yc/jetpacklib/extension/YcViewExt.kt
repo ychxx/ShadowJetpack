@@ -2,12 +2,17 @@ package com.yc.jetpacklib.extension
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +28,53 @@ import java.io.File
  * Date: 2021/2/2 21:03
  * UseDes:
  */
+/**
+ * 创建跳转回调的launcher（必须在onCreate生命周期里创建）
+ */
+inline fun AppCompatActivity.ycCreateResultLauncher(crossinline success: ((result: ActivityResult) -> Unit)): ActivityResultLauncher<Intent> =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            success(it)
+        }
+    }
+
+/**
+ * 创建跳转回调的launcher（必须在onCreate生命周期里创建）
+ */
+inline fun AppCompatActivity.ycCreateResultLauncher(
+    crossinline success: ((result: ActivityResult) -> Unit),
+    crossinline fail: ((result: ActivityResult) -> Unit)
+): ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    if (it.resultCode == Activity.RESULT_OK) {
+        success(it)
+    } else {
+        fail(it)
+    }
+}
+
+/**
+ * 创建跳转回调的launcher（必须在onCreate生命周期里创建）
+ */
+inline fun Fragment.ycCreateResultLauncher(crossinline success: ((result: ActivityResult) -> Unit)): ActivityResultLauncher<Intent> =
+    registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+        if (it.resultCode == Activity.RESULT_OK) {
+            success(it)
+        }
+    }
+
+/**
+ * 创建跳转回调的launcher（必须在onCreate生命周期里创建）
+ */
+inline fun Fragment.ycCreateResultLauncher(
+    crossinline success: ((result: ActivityResult) -> Unit),
+    crossinline fail: ((result: ActivityResult) -> Unit)
+): ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+    if (it.resultCode == Activity.RESULT_OK) {
+        success(it)
+    } else {
+        fail(it)
+    }
+}
 
 fun Activity.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     if (this.isFinishing) {
