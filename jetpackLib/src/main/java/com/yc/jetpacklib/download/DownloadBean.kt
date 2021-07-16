@@ -5,25 +5,29 @@ import java.io.Serializable
 /**
  *
  */
-class DownloadBean : Serializable {
+data class DownloadBean(
     /**
      * 下载地址
      */
-    var fileName: String? = null
+    var fileName: String? = null,
 
     /**
      * 下载地址
      */
-    var url: String? = null
+    var url: String? = null,
 
     /**
      * 当前下载.进度
      */
-    var progress = 0
-
+    var progress: Int = 0,
+    /**
+     * 当前下载状态
+     */
     @DownLoadState.State
-    var state = DownLoadState.DOWNLOAD_NOT_STARTED //当前下载状态
+    var state: String = DownLoadState.DOWNLOAD_NOT_STARTED,
 
-
-    var fileSavePath = "" //文件保存地址
-}
+    /**
+     * 文件保存地址
+     */
+    var fileSavePath: String = "",
+) : Serializable

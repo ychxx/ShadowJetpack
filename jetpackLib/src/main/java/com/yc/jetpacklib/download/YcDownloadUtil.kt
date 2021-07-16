@@ -5,11 +5,10 @@ import android.content.Context
 import android.net.Uri
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.ycIsEmpty
-import com.yc.jetpacklib.extension.ycLogD
 import com.yc.jetpacklib.extension.ycLogDSimple
 import com.yc.jetpacklib.extension.ycLogE
+import com.yc.jetpacklib.file.YcFileUtils
 import com.yc.jetpacklib.file.YcFileUtils.createFile
-import com.yc.jetpacklib.utils.YcFileUtils
 import com.yc.jetpacklib.utils.YcResources
 import org.xutils.common.Callback
 import org.xutils.http.RequestParams
