@@ -8,6 +8,7 @@ import com.yc.jetpacklib.extension.ycIsEmpty
 import com.yc.jetpacklib.extension.ycLogD
 import com.yc.jetpacklib.extension.ycLogDSimple
 import com.yc.jetpacklib.extension.ycLogE
+import com.yc.jetpacklib.file.YcFileUtils.createFile
 import com.yc.jetpacklib.utils.YcFileUtils
 import com.yc.jetpacklib.utils.YcResources
 import org.xutils.common.Callback
@@ -21,8 +22,10 @@ object YcDownloadUtil {
         return Uri.encode(url, ":._-$,;~()/+-=*?&") //转码防止中文下载地址导致无法下载
     }
 
+    /*url:apk下载路径
+    * savePath：保存本地路径*/
     @JvmStatic
-    fun downloadApk(context: Context?, url: String?, apkPath: String?, downloadCall: DownloadCall?) {
+    fun downloadApk(context: Context?, url: String?, savePath: String?, downloadCall: DownloadCall?) {
         val progressDialog = ProgressDialog(context)
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
         progressDialog.setProgressDrawable(YcResources.getDrawable(R.drawable.yc_progessbar))
@@ -30,7 +33,7 @@ object YcDownloadUtil {
         progressDialog.setCancelable(false)
         progressDialog.setCanceledOnTouchOutside(false)
         progressDialog.setProgressNumberFormat("")
-        downloadApk(url, apkPath, progressDialog, downloadCall)
+        downloadApk(url, savePath, progressDialog, downloadCall)
     }
 
     /**
@@ -40,6 +43,7 @@ object YcDownloadUtil {
     fun downloadApk(url: String?, savePath: String?, progressDialog: ProgressDialog?, downloadCall: DownloadCall?) {
         val urlEncode: String = urlToEncode(url)
         val requestParams = RequestParams(urlEncode) // 下载地址
+        createFile(savePath)
         requestParams.saveFilePath = savePath // 为RequestParams设置文件下载后的保存路径
         // requestParams.setAutoRename(false); // 下载完成后自动为文件命名
         x.http().get(requestParams, object : Callback.ProgressCallback<File?> {
