@@ -43,14 +43,19 @@ open class YcBaseViewModel : ViewModel() {
      * 冷流开始时，显示加载框
      * 冷流结束时，自动隐藏加载框
      */
-    protected fun <T> Flow<T>.ycHasLoading(delayTime: Long = mDefaultDelayTime): Flow<T> {
-        this.onStart {
-            showLoading(delayTime)
-        }.onCompletion {
-            hideLoading()
-        }
-        return this
+    protected fun <T> Flow<T>.ycHasLoading(delayTime: Long = mDefaultDelayTime): Flow<T> = onStart {
+        showLoading(delayTime)
+    }.onCompletion {
+        hideLoading()
     }
+//    protected fun <T> Flow<T>.ycHasLoading(delayTime: Long = mDefaultDelayTime): Flow<T> {
+//        this.onStart {
+//            showLoading(delayTime)
+//        }.onCompletion {
+//            hideLoading()
+//        }
+//        return this
+//    }
 
     /**
      * 冷流开始时，显示加载框

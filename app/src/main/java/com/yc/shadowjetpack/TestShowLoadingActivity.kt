@@ -40,11 +40,11 @@ class TestShowLoadingActivity : YcBaseActivityPlus<TestLoadingActivityBinding>(T
 
 
         fun testShowFlowTime() = ycLaunch {
-            flow {
+            channelFlow {
                 ycLogESimple("emit1：${System.currentTimeMillis()}")
                 delay(5000)
                 ycLogESimple("emit2：${System.currentTimeMillis()}")
-                emit(true)
+                send(true)
                 ycLogESimple("emit3：${System.currentTimeMillis()}")
             }.onStart {
                 ycLogESimple("showLoading1：${System.currentTimeMillis()}")
