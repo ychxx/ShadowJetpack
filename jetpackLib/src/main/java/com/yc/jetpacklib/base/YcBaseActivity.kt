@@ -18,6 +18,7 @@ import androidx.viewbinding.ViewBinding
 import com.yc.jetpacklib.extension.ycCreateResultLauncher
 import com.yc.jetpacklib.manager.YcActivityManager
 import com.yc.jetpacklib.utils.YcViewModelLazy
+import com.yc.jetpacklib.widget.dialog.YcLoadingDialog
 import kotlinx.coroutines.launch
 
 
@@ -29,8 +30,10 @@ import kotlinx.coroutines.launch
 @SuppressLint("SetTextI18n")
 abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutInflater) -> VB)? = null) : AppCompatActivity() {
     protected lateinit var mViewBinding: VB
+    protected open lateinit var mYcLoadingDialog: YcLoadingDialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        mYcLoadingDialog = YcLoadingDialog(this, this)
         if (createVB != null) {
             mViewBinding = createVB.invoke(LayoutInflater.from(this as Context))
             setContentView(mViewBinding.root)
@@ -68,12 +71,17 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
         })
     }
 
-    protected fun showLoading() {}
-    protected fun hideLoading() {}
-    protected fun launch(block: suspend () -> Unit) =
-        lifecycleScope.launch {
-            block()
-        }
+    open fun showLoading() {
+        mYcLoadingDialog.show()
+    }
+
+    open fun hideLoading() {
+        mYcLoadingDialog.hide()
+    }
+
+    protected fun launch(block: suspend () -> Unit) = lifecycleScope.launch {
+        block()
+    }
 
     protected fun <T> LiveData<T>.observe(observer: Observer<T>) {
         this.observe(this@YcBaseActivity, observer)

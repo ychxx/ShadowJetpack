@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-abstract class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(
+abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
     protected val createVB: ((LayoutInflater) -> VB)? = null,
 ) :
     RecyclerView.Adapter<YcViewHolder<VB>>() {
