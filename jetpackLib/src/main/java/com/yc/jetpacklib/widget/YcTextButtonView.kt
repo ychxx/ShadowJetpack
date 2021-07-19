@@ -20,7 +20,7 @@ import java.lang.annotation.RetentionPolicy
 /**
  *
  */
-class TextButtonView @JvmOverloads constructor(
+class YcTextButtonView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
