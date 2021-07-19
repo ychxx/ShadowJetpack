@@ -44,4 +44,26 @@
         <attr name="ycTextColor" format="color" />
         <attr name="ycTextColorEnable" format="color" />
     </declare-styleable>
+
+
+
+    <declare-styleable name="YcDefaultTextView">
+        <attr name="defaultText" format="string" />
+        <attr name="textDefaultColor" format="color" />
+        <attr name="DefaultTvTextColor" format="color" />
+        <attr name="textMaxLength" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="YcTextButtonView">
+        <attr name="TextButtonViewDefaultText" format="string" />
+        <attr name="TextButtonViewDefaultTextColor" format="color" />
+        <attr name="TextButtonViewTextMaxLength" format="integer" />
+        <attr name="TextButtonViewTextColor" format="color" />
+        <attr name="TextButtonViewTextColor2" format="color" />
+        <attr name="TextButtonViewTextSize" format="dimension" />
+        <attr name="TextButtonViewText" format="string" />
+        <attr name="TextButtonViewSingleLine" format="boolean" />
+        <attr name="TextButtonViewNextImage" format="reference|color" />
+    </declare-styleable>
 </resources>

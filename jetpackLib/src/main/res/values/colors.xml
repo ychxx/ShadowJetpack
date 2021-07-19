@@ -20,4 +20,8 @@
     <color name="every_lib_chart_value_circle_color">#F8A73E</color>
     <color name="every_lib_chart_bar_color1">#2CBB70</color>
     <color name="every_lib_chart_bar_color2">#FFB72C</color>
+
+
+    <color name="every_lib_grey_6C7282">#6C7282</color>
+    <color name="every_lib_black_333A40">#333A40</color>
 </resources>
