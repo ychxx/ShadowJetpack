@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="51dp"
+    android:layout_marginEnd="49dp"
+    android:background="@drawable/yc_shape_white_round"
+    android:minHeight="173dp"
+    tools:ignore="HardcodedText">
+
+    <TextView
+        android:id="@+id/dialogContentTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="22dp"
+        android:lineSpacingExtra="4dp"
+        android:text=""
+        android:textColor="#333A40"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <EditText
+        android:id="@+id/dialogInputContentET"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="23dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="23dp"
+        android:layout_marginBottom="6dp"
+        android:background="@drawable/yc_shape_round_edt_gray"
+        android:gravity="top"
+        android:hint=""
+        android:maxLength="30"
+        android:paddingLeft="6dp"
+        android:paddingTop="8dp"
+        android:paddingRight="6dp"
+        android:paddingBottom="8dp"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toTopOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dialogContentTv" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="0dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/dialogLeftBt"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:text="确定"
+            android:textColor="@color/every_lib_blue"
+            android:textSize="15sp" />
+
+        <View
+            android:id="@+id/dialogLineV"
+            style="@style/YcLineHorizontalStyle" />
+
+        <Button
+            android:id="@+id/dialogRightBt"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:text="取消"
+            android:textColor="@color/every_lib_blue"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view"
+        style="@style/YcLineHorizontalStyle"
+        android:layout_marginBottom="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

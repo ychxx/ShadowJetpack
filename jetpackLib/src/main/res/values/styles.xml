@@ -13,4 +13,17 @@
         <item name="android:backgroundDimEnabled">false</item><!--模糊-->
         <item name="android:backgroundDimAmount">0.0</item> <!-- 设置背景模糊的透明度-->
     </style>
+
+
+    <!-- EditText对话框风格 -->
+    <style name="YcCommonEditDialogStyle" parent="android:style/Theme.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+
+    <style name="YcLineHorizontalStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/every_lib_line</item>
+    </style>
 </resources>
