@@ -26,4 +26,9 @@
         <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/every_lib_line</item>
     </style>
+    <style name="YcLineVerticalStyle">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/every_lib_line</item>
+    </style>
 </resources>

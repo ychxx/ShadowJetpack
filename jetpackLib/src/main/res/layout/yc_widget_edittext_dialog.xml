@@ -72,7 +72,7 @@
 
         <View
             android:id="@+id/dialogLineV"
-            style="@style/YcLineHorizontalStyle" />
+            style="@style/YcLineVerticalStyle" />
 
         <Button
             android:id="@+id/dialogRightBt"
