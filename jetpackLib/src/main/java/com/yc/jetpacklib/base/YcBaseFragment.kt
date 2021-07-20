@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.viewbinding.ViewBinding
 import com.yc.jetpacklib.utils.YcViewModelLazy
+import com.yc.jetpacklib.widget.dialog.YcLoadingDialog
 import kotlinx.coroutines.launch
 
 /**
@@ -25,11 +26,14 @@ import kotlinx.coroutines.launch
 abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) : Fragment() {
     private var _mViewBinding: VB? = null
     protected val mViewBinding get() = _mViewBinding!!
+    protected open lateinit var mYcLoadingDialog: YcLoadingDialog
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return if (createVB != null) {
+            mYcLoadingDialog = YcLoadingDialog(requireContext(), this)
             _mViewBinding = createVB.invoke(inflater, container, false)
             _mViewBinding!!.root
         } else {
+            mYcLoadingDialog = YcLoadingDialog(requireContext(), this)
             super.onCreateView(inflater, container, savedInstanceState)
         }
     }
@@ -85,8 +89,13 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
         })
     }
 
-    protected fun showLoading() {}
-    protected fun hideLoading() {}
+    open fun showLoading() {
+        mYcLoadingDialog.show()
+    }
+
+    open fun hideLoading() {
+        mYcLoadingDialog.hide()
+    }
 
     protected fun launch(block: suspend () -> Unit) {
         lifecycleScope.launch {
