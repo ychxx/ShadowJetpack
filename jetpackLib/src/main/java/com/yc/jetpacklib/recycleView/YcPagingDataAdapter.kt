@@ -15,7 +15,7 @@ import androidx.viewbinding.ViewBinding
  * 封装PagingDataAdapter
  */
 abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
-    private val createVB: ((LayoutInflater) -> VB)? = null,
+    private val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
     diffCallback: DiffUtil.ItemCallback<Data>
 
 ) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback) {
@@ -29,7 +29,7 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
         mContext = parent.context
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context)))
+        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: YcViewHolder<VB>, position: Int) {
