@@ -3,8 +3,15 @@ package com.yc.jetpacklib.image
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.drawable.Drawable
 import android.os.Handler
 import android.os.Looper
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.transition.Transition
 import com.yc.jetpacklib.extension.ycLogE
@@ -18,6 +25,33 @@ import java.io.*
  */
 object YcImgUtils {
     /**
+     * 加载圆角图片
+     */
+    @JvmStatic
+    fun loadRoundedCornerImgFromDrawableId(imageView: ImageView, drawableId: Int) {
+        GlideApp.with(imageView.context)
+            .load(drawableId)
+            .transform(CenterCrop(), RoundedCorners(14))
+            .into(imageView)
+    }
+    /**
+     * 加载圆形图片
+     */
+    @JvmStatic
+    fun loadCircleImgFromUrl(
+        context: Context,
+        imageView: ImageView,
+        imgUrl: String,
+        placeHolder: Drawable?
+    ) {
+        GlideApp.with(context)
+            .load(imgUrl)
+            .placeholder(placeHolder)
+            .apply(RequestOptions.bitmapTransform(CircleCrop()))
+            .into(imageView)
+    }
+
+    /**
      * 加载网络图片(返回Bitmap)
      */
     @JvmStatic
@@ -26,7 +60,10 @@ object YcImgUtils {
             .asBitmap()
             .load(imgUrl)
             .into(object : SimpleTarget<Bitmap?>() {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap?>?
+                ) {
                     Handler(Looper.getMainLooper()).post {
                         callBack.invoke(resource)
                     }
@@ -38,12 +75,21 @@ object YcImgUtils {
      * 加载网络图片(返回Bitmap)
      */
     @JvmStatic
-    fun loadNetImg(context: Context, imgUrl: String?, width: Int, height: Int, callBack: (Bitmap) -> Unit) {
+    fun loadNetImg(
+        context: Context,
+        imgUrl: String?,
+        width: Int,
+        height: Int,
+        callBack: (Bitmap) -> Unit
+    ) {
         GlideApp.with(context)
             .asBitmap()
             .load(imgUrl)
             .into(object : SimpleTarget<Bitmap?>(width, height) {
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
+                override fun onResourceReady(
+                    resource: Bitmap,
+                    transition: Transition<in Bitmap?>?
+                ) {
                     Handler(Looper.getMainLooper()).post {
                         callBack.invoke(resource)
                     }
@@ -84,7 +130,11 @@ object YcImgUtils {
         }
     }
 
-    fun bitmapToFile(bitmap: Bitmap, imgPathSave: String, format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG): File? {
+    fun bitmapToFile(
+        bitmap: Bitmap,
+        imgPathSave: String,
+        format: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG
+    ): File? {
         return try {
             val file: File? = YcFileUtils.createFile(imgPathSave)
             val bos = BufferedOutputStream(FileOutputStream(file))

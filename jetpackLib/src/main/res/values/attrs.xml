@@ -66,4 +66,20 @@
         <attr name="TextButtonViewSingleLine" format="boolean" />
         <attr name="TextButtonViewNextImage" format="reference|color" />
     </declare-styleable>
+
+
+    <!--可绘制的TextView-->
+    <declare-styleable name="YcDrawableTextView">
+        <attr name="dtvEnableCenterDrawables" format="boolean" />
+        <attr name="dtvEnableTextInCenter" format="boolean" />
+        <attr name="dtvRadius" format="dimension" />
+        <attr name="dtvDrawableStartWidth" format="dimension" />
+        <attr name="dtvDrawableStartHeight" format="dimension" />
+        <attr name="dtvDrawableTopWidth" format="dimension" />
+        <attr name="dtvDrawableTopHeight" format="dimension" />
+        <attr name="dtvDrawableEndWidth" format="dimension" />
+        <attr name="dtvDrawableEndHeight" format="dimension" />
+        <attr name="dtvDrawableBottomWidth" format="dimension" />
+        <attr name="dtvDrawableBottomHeight" format="dimension" />
+    </declare-styleable>
 </resources>
