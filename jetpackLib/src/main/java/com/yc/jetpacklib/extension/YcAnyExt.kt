@@ -31,6 +31,32 @@ object YcAnyExt {
     var mCommonDoubleFormat: String = "0.##"
 }
 
+
+/*
+* 截取str
+* prefix：首部
+* unit：单元
+*/
+fun String?.ycNoEmptySplit(
+    defaultData: String = YcAnyExt.mCommonDefaultString,
+    prefix: String = "",
+    unit: String = "",
+    regex: String
+): String {
+    return if (this.ycIsEmpty()) {
+        prefix + defaultData
+    } else {
+        try {
+            val result = this?.split(regex)?.toTypedArray()?.get(0)
+            prefix + result + unit
+        } catch (e: Exception) {
+            e.printStackTrace()
+            prefix + this + unit
+        }
+    }
+}
+
+
 /**
  * 将许空字符串转为非空字符串（空用ycGetDefault()里的值替代）
  */
@@ -139,12 +165,14 @@ fun Int?.ycToStringNoEmptyNoZero(defaultData: String = YcAnyExt.mCommonDefaultSt
         "$this"
     }
 }
+
 /**
  * 计算总页数
  */
 fun Int.toPageSum(pageSize: Int = 30): Int {
     return (this + pageSize - 1) / pageSize
 }
+
 /**
  * 将许空Float转为非空Float（空用0替代）
  */

@@ -16,8 +16,8 @@ import com.yc.jetpacklib.widget.chart.data.ChartData
  * 首页考勤
  */
 class ChartLineMarkerView(context: Context?, chart: Chart<*>?) : MarkerView(context, R.layout.yc_chart_marker_view) {
-    private val mItem1Tv: TextView
-    private val mItem2Tv: TextView
+    private val mItem1Tv: TextView = findViewById(R.id.chartMakerItem1Tv)
+    private val mItem2Tv: TextView = findViewById(R.id.chartMakerItem2Tv)
     private var mChartBarData: ChartData? = null
     fun setChartBarData(chartBarData: ChartData?) {
         mChartBarData = chartBarData
@@ -38,8 +38,6 @@ class ChartLineMarkerView(context: Context?, chart: Chart<*>?) : MarkerView(cont
     }
 
     init {
-        mItem1Tv = findViewById(R.id.chartMakerItem1Tv)
-        mItem2Tv = findViewById(R.id.chartMakerItem2Tv)
         chartView = chart
     }
 }
