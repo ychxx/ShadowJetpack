@@ -2,15 +2,20 @@ package com.yc.jetpacklib.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
+import android.text.method.DigitsKeyListener
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.LifecycleOwner
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.widget.YcTextWatcher
+import kotlin.math.max
 
 
 /**
@@ -23,29 +28,28 @@ import com.yc.jetpacklib.R
 /**
  * 通用的对话框
  */
-class YcCommonEditTextDialog(context: Context, theme: Int) : Dialog(context, theme) {
-    private var mContentView //内容
-            : TextView? = null
-    private var mDialogInputContentET: EditText? = null
-    private var mLeftBtn: Button? = null
-    private var mRightBtn: Button? = null
-    private var mLineV: View? = null
-    private var mOnScanImageClick: OnScanImageClick? = null
+open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mLifecycleOwner: LifecycleOwner, theme: Int = R.style.YcCommonDialogStyle) :
+    Dialog(context, theme) {
+    protected var mMaxLength: Int = Int.MAX_VALUE
+
+    //内容
+    protected val mContentView: TextView
+    val mDialogInputContentET: EditText
+
+    protected val mLeftBtn: Button
+    protected val mRightBtn: Button
+    protected val mLineV: View
 
     var mLeftClick: ((v: View) -> Unit)? = null
     var mRightClick: ((v: View, str: String) -> Unit)? = null
 
-    constructor(context: Context) : this(context, R.style.YcCommonEditDialogStyle) {
-        //ycManage.add(this)
-    }
-
-    private fun initViews(context: Context) {
+    init {
         setContentView(R.layout.yc_widget_edittext_dialog)
-        mContentView = findViewById<View>(R.id.dialogContentTv) as TextView
-        mDialogInputContentET = findViewById<View>(R.id.dialogInputContentET) as EditText
-        mLeftBtn = findViewById<View>(R.id.dialogLeftBt) as Button
+        mContentView = findViewById(R.id.dialogContentTv)
+        mDialogInputContentET = findViewById(R.id.dialogInputContentET)
+        mLeftBtn = findViewById(R.id.dialogLeftBt)
         mLineV = findViewById(R.id.dialogLineV)
-        mRightBtn = findViewById<View>(R.id.dialogRightBt) as Button
+        mRightBtn = findViewById(R.id.dialogRightBt)
 
         //设置对话框位置大小
         val dialogWindow = window
@@ -55,11 +59,11 @@ class YcCommonEditTextDialog(context: Context, theme: Int) : Dialog(context, the
         dialogWindow.attributes = lp //此处暂未设置偏移量
         setCancelable(false)
         setCanceledOnTouchOutside(false)
-        mLeftBtn!!.setOnClickListener { v ->
+        mLeftBtn.setOnClickListener { v ->
             dismiss()
             mLeftClick?.invoke(v)
         }
-        mRightBtn!!.setOnClickListener { v ->
+        mRightBtn.setOnClickListener { v ->
             dismiss()
             mRightClick?.invoke(v, mDialogInputContentET?.text.toString())
 
@@ -73,8 +77,8 @@ class YcCommonEditTextDialog(context: Context, theme: Int) : Dialog(context, the
 
 
     fun showSingle() {
-        mRightBtn!!.visibility = View.GONE
-        mLineV!!.visibility = View.GONE
+        mRightBtn.visibility = View.GONE
+        mLineV.visibility = View.GONE
         show()
     }
 
@@ -82,7 +86,7 @@ class YcCommonEditTextDialog(context: Context, theme: Int) : Dialog(context, the
      * 设置输入框hint
      */
     fun setEditTextHint(msg: String?): YcCommonEditTextDialog {
-        if (!TextUtils.isEmpty(msg)) mDialogInputContentET!!.hint = msg
+        if (!TextUtils.isEmpty(msg)) mDialogInputContentET.hint = msg
         return this
     }
 
@@ -106,16 +110,7 @@ class YcCommonEditTextDialog(context: Context, theme: Int) : Dialog(context, the
      * 设置右侧按钮字符串
      */
     fun setRightBtnText(text: String?): YcCommonEditTextDialog {
-        if (!TextUtils.isEmpty(text)) mRightBtn!!.text = text
-        return this
-    }
-
-
-    /**
-     * 设置扫描二维码按钮点击事件
-     */
-    fun setOnScanImageClick(onScanImageClick: OnScanImageClick?): YcCommonEditTextDialog {
-        mOnScanImageClick = onScanImageClick
+        if (!TextUtils.isEmpty(text)) mRightBtn.text = text
         return this
     }
 
@@ -123,39 +118,42 @@ class YcCommonEditTextDialog(context: Context, theme: Int) : Dialog(context, the
      * 设置右侧按钮字符串
      */
     fun setInputContentEditText(text: String?): YcCommonEditTextDialog {
-        if (!TextUtils.isEmpty(text)) mDialogInputContentET!!.setText(text)
+        if (!TextUtils.isEmpty(text)) mDialogInputContentET.setText(text)
         return this
     }
 
     /**
-     * 设置右侧按钮字符串
+     * 输入框的过滤器
      */
-    fun setFilters(inputFilters: Array<InputFilter>): YcCommonEditTextDialog {
+    fun setEdtFilters(inputFilters: Array<InputFilter>): YcCommonEditTextDialog {
         if (inputFilters.isNotEmpty()) {
-            mDialogInputContentET!!.filters = inputFilters
+            mDialogInputContentET.filters = inputFilters
         }
         return this
     }
 
-    val inputContentEditText: String
-        get() = mDialogInputContentET!!.text.toString()
-
-    fun onDestroy() {
-        dismiss()
+    /**
+     * 输入框的输入内容限制
+     */
+    fun setEdtDigits(digits: String): YcCommonEditTextDialog {
+        mDialogInputContentET.keyListener = DigitsKeyListener.getInstance(digits);
+        return this
     }
 
-    interface OnLeftClick {
-        fun OnClick(v: View?)
+    /**
+     * 输入框的输入长度限制
+     */
+    fun setEdtMaxLength(maxLength: Int): YcCommonEditTextDialog {
+        mMaxLength = maxLength
+        mDialogInputContentET.addTextChangedListener(object : YcTextWatcher() {
+            override fun afterTextChanged(s: Editable?) {
+                if (s.toString().length > mMaxLength) {
+                    mDialogInputContentET.setText(s!!.substring(0, maxLength - 1))
+                }
+            }
+        })
+        return this
     }
 
-
-    interface OnScanImageClick {
-        fun OnClick(v: View?)
-    }
-
-    init {
-        initViews(context)
-    }
-
-
+    val inputContentEditText: String get() = mDialogInputContentET.text.toString()
 }

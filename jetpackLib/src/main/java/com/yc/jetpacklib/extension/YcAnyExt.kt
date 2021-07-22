@@ -1,5 +1,7 @@
 package com.yc.jetpacklib.extension
 
+import android.text.InputFilter
+import android.text.Spanned
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -7,6 +9,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
+import java.util.regex.Pattern
 
 /**
  * 用于类型转换
@@ -38,17 +41,16 @@ object YcAnyExt {
 * unit：单元
 */
 fun String?.ycNoEmptySplit(
+    regex: String,
     defaultData: String = YcAnyExt.mCommonDefaultString,
     prefix: String = "",
-    unit: String = "",
-    regex: String
+    unit: String = ""
 ): String {
     return if (this.ycIsEmpty()) {
         prefix + defaultData
     } else {
         try {
-            val result = this?.split(regex)?.toTypedArray()?.get(0)
-            prefix + result + unit
+            prefix + this!!.split(regex)[0] + unit
         } catch (e: Exception) {
             e.printStackTrace()
             prefix + this + unit

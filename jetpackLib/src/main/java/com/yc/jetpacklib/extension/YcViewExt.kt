@@ -22,6 +22,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.BaseTransientBottomBar
@@ -182,29 +184,29 @@ fun Context.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTICAL) {
-    this.layoutManager = LinearLayoutManager(this.context, orientation, false)
+    this.layoutManager = LinearLayoutManager(context, orientation, false)
 }
 
 fun TextView.ycSetTextColorRes(@ColorRes textColorRes: Int) {
-    this.setTextColor(this.context.resources.getColor(textColorRes))
+    this.setTextColor(context.resources.getColor(textColorRes))
 }
 
 fun Button.ycSetTextColorRes(@ColorRes textColorRes: Int) {
-    this.setTextColor(this.context.resources.getColor(textColorRes))
+    this.setTextColor(context.resources.getColor(textColorRes))
 }
 
 /**
  * 加载网络图片
  */
 fun ImageView.ycLoadImageNet(imageNet: String?) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .asBitmap()
         .load(imageNet)
         .into(this)
 }
 
 fun ImageView.ycLoadImageNetCircle(imageNet: String?) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .asBitmap()
         .load(imageNet)
         .circleCrop()
@@ -212,10 +214,21 @@ fun ImageView.ycLoadImageNetCircle(imageNet: String?) {
 }
 
 /**
+ * 加载圆角图片(自定义弧度)
+ */
+fun ImageView.ycLoadImageNetCircle(imageNet: String?, roundingRadius: Int) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(imageNet)
+        .transform(CenterCrop(), RoundedCorners(roundingRadius))
+        .into(this)
+}
+
+/**
  * 加载网络图片（用时间来区分地址相同，图片内容不相同情况）
  */
 fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
         .asBitmap()
         .load(imgNetUrl)
@@ -226,7 +239,7 @@ fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
  * 加载网络图片
  */
 fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
         .asBitmap()
         .load(imgNetUrl)
@@ -234,32 +247,72 @@ fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) 
         .into(this)
 }
 
+fun ImageView.ycLoadImagePath(imageFilePath: String) {
+    this.ycLoadImageFile(File(imageFilePath))
+}
+
+fun ImageView.ycLoadImagePathCircle(imageFilePath: String) {
+    this.ycLoadImageFileCircle(File(imageFilePath))
+}
+
+fun ImageView.ycLoadImagePathCircle(imageFilePath: String, roundingRadius: Int) {
+    this.ycLoadImageFileCircle(File(imageFilePath), roundingRadius)
+}
+
+/**
+ * 加载本地图片
+ */
 fun ImageView.ycLoadImageFile(imageFile: File) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .asBitmap()
         .load(imageFile)
         .into(this)
 }
 
 fun ImageView.ycLoadImageFileCircle(imageFile: File) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .asBitmap()
         .load(imageFile)
         .circleCrop()
         .into(this)
 }
 
+fun ImageView.ycLoadImageFileCircle(imageFile: File, roundingRadius: Int) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(imageFile)
+        .circleCrop()
+        .into(this)
+}
+
+/**
+ * 加载资源图片
+ */
 fun ImageView.ycLoadImageRes(@DrawableRes imgRes: Int) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .asBitmap()
         .load(imgRes)
         .into(this)
 }
 
+/**
+ * 加载资源图片圆角
+ */
 fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int) {
-    GlideApp.with(this.context)
+    GlideApp.with(context)
         .asBitmap()
         .load(imgRes)
         .circleCrop()
+        .into(this)
+}
+
+/**
+ * 加载资源图片圆角图片(自定义弧度)
+ */
+fun ImageView.ycLoadImageResCircle(imageNet: String?, roundingRadius: Int) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(imageNet)
+        .transform(CenterCrop(), RoundedCorners(roundingRadius))
         .into(this)
 }

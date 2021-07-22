@@ -10,13 +10,11 @@ import androidx.appcompat.widget.AppCompatEditText
 /**
  *
  */
-class YcEditTextChangeView @JvmOverloads constructor(context: Context?, attrs: AttributeSet? = null) :
-    AppCompatEditText(
-        context!!, attrs
-    ) {
+class YcEditTextChangeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : AppCompatEditText(context, attrs) {
     private var mBeforeData: String? = null
     private var mTextChanged: TextChanged? = null
-    private fun init() {
+
+    init {
         if (text != null) {
             mBeforeData = text.toString()
         }
@@ -42,8 +40,7 @@ class YcEditTextChangeView @JvmOverloads constructor(context: Context?, attrs: A
         }
     }
 
-    val isEmpty: Boolean
-        get() = TextUtils.isEmpty(text.toString())
+    val isEmpty: Boolean get() = TextUtils.isEmpty(text.toString())
 
     fun setTextChanged(textChanged: TextChanged?) {
         mTextChanged = textChanged
@@ -51,9 +48,5 @@ class YcEditTextChangeView @JvmOverloads constructor(context: Context?, attrs: A
 
     interface TextChanged {
         fun call(data: String?)
-    }
-
-    init {
-        init()
     }
 }

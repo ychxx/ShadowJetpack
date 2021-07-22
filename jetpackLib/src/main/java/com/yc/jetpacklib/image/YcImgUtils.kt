@@ -25,33 +25,6 @@ import java.io.*
  */
 object YcImgUtils {
     /**
-     * 加载圆角图片
-     */
-    @JvmStatic
-    fun loadRoundedCornerImgFromDrawableId(imageView: ImageView, drawableId: Int) {
-        GlideApp.with(imageView.context)
-            .load(drawableId)
-            .transform(CenterCrop(), RoundedCorners(14))
-            .into(imageView)
-    }
-    /**
-     * 加载圆形图片
-     */
-    @JvmStatic
-    fun loadCircleImgFromUrl(
-        context: Context,
-        imageView: ImageView,
-        imgUrl: String,
-        placeHolder: Drawable?
-    ) {
-        GlideApp.with(context)
-            .load(imgUrl)
-            .placeholder(placeHolder)
-            .apply(RequestOptions.bitmapTransform(CircleCrop()))
-            .into(imageView)
-    }
-
-    /**
      * 加载网络图片(返回Bitmap)
      */
     @JvmStatic
@@ -60,10 +33,7 @@ object YcImgUtils {
             .asBitmap()
             .load(imgUrl)
             .into(object : SimpleTarget<Bitmap?>() {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap?>?
-                ) {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
                     Handler(Looper.getMainLooper()).post {
                         callBack.invoke(resource)
                     }
@@ -86,10 +56,7 @@ object YcImgUtils {
             .asBitmap()
             .load(imgUrl)
             .into(object : SimpleTarget<Bitmap?>(width, height) {
-                override fun onResourceReady(
-                    resource: Bitmap,
-                    transition: Transition<in Bitmap?>?
-                ) {
+                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
                     Handler(Looper.getMainLooper()).post {
                         callBack.invoke(resource)
                     }
