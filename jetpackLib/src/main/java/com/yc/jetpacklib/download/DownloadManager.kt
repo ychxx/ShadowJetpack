@@ -2,6 +2,8 @@ package com.yc.jetpacklib.download
 
 import com.yc.jetpacklib.extension.ycIsEmpty
 import com.yc.jetpacklib.extension.ycLogE
+import com.yc.jetpacklib.file.YcFileUtils
+import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.utils.YcRandom
 import org.xutils.common.Callback
 import org.xutils.common.Callback.CommonCallback
@@ -44,10 +46,11 @@ class DownloadManager {
         val urlEncode = YcDownloadUtil.urlToEncode(downloadBean.url)
         val requestParams = RequestParams(urlEncode)
         if (downloadBean.fileSavePath.ycIsEmpty()) {
-            requestParams.saveFilePath = "temp_" + YcRandom.nameImgOfJPG
+            requestParams.saveFilePath = YcJetpack.mInstance.mApplication.filesDir.path + File.separator + "temp_" + YcRandom.nameImgOfJPG
         } else {
             requestParams.saveFilePath = downloadBean.fileSavePath
         }
+        YcFileUtils.createFile(requestParams.saveFilePath)
         x.http().get(requestParams, object : CommonCallback<File> {
             override fun onSuccess(result: File) {
                 downloadBean.fileSavePath = result.absolutePath

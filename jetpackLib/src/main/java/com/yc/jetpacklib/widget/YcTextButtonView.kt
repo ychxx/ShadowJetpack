@@ -11,6 +11,7 @@ import android.widget.LinearLayout
 import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.extension.ycGetColorRes
 import com.yc.jetpacklib.extension.ycToNoEmpty
 import com.yc.jetpacklib.utils.YcResources
 import java.lang.annotation.Retention
@@ -39,11 +40,7 @@ class YcTextButtonView @JvmOverloads constructor(
     private var isSingleLine = false
     private fun init(context: Context, attrs: AttributeSet?) {
         val a = context.obtainStyledAttributes(attrs, R.styleable.YcTextButtonView)
-        val defaultColor = a.getColor(
-            R.styleable.YcTextButtonView_TextButtonViewDefaultTextColor, YcResources.getColorRes(
-                R.color.every_lib_black_333A40
-            )
-        )
+        val defaultColor = a.getColor(R.styleable.YcTextButtonView_TextButtonViewDefaultTextColor, ycGetColorRes(R.color.every_lib_black_333A40))
         var defaultText = a.getString(R.styleable.YcTextButtonView_TextButtonViewDefaultText)
         var text = a.getString(R.styleable.YcTextButtonView_TextButtonViewText)
         if (TextUtils.isEmpty(defaultText)) {
@@ -52,26 +49,12 @@ class YcTextButtonView @JvmOverloads constructor(
         if (TextUtils.isEmpty(text)) {
             text = ""
         }
-        mTextColor1 = a.getColor(
-            R.styleable.YcTextButtonView_TextButtonViewTextColor, YcResources.getColorRes(
-                R.color.every_lib_black_333A40
-            )
-        )
-        mTextColor2 = a.getColor(
-            R.styleable.YcTextButtonView_TextButtonViewTextColor2, YcResources.getColorRes(
-                R.color.every_lib_blue
-            )
-        )
-        val maxLength = a.getInt(
-            R.styleable.YcTextButtonView_TextButtonViewTextMaxLength,
-            Int.MAX_VALUE - 1
-        )
+        mTextColor1 = a.getColor(R.styleable.YcTextButtonView_TextButtonViewTextColor, ycGetColorRes(R.color.every_lib_black_333A40))
+        mTextColor2 = a.getColor(R.styleable.YcTextButtonView_TextButtonViewTextColor2, ycGetColorRes(R.color.every_lib_blue))
+        val maxLength = a.getInt(R.styleable.YcTextButtonView_TextButtonViewTextMaxLength, Int.MAX_VALUE - 1)
         val textSize = a.getDimension(R.styleable.YcTextButtonView_TextButtonViewTextSize, 18f)
         isSingleLine = a.getBoolean(R.styleable.YcTextButtonView_TextButtonViewSingleLine, false)
-        val imageViewResource = a.getResourceId(
-            R.styleable.YcTextButtonView_TextButtonViewNextImage,
-            -1
-        )
+        val imageViewResource = a.getResourceId(R.styleable.YcTextButtonView_TextButtonViewNextImage, -1)
         a.recycle()
         mTextView = YcDefaultTextView(getContext())
         mTextView.setTextDefaultColor(defaultColor)
@@ -79,12 +62,12 @@ class YcTextButtonView @JvmOverloads constructor(
         mTextView.setTextMaxLength(maxLength)
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         mTextView.setTextColorNew(mTextColor1)
-        mTextView.setText(text)
+        mTextView.text = text
         mTextView.setPadding(0, 0, 0, 0)
-        mTextView.setGravity(Gravity.END or Gravity.CENTER_VERTICAL)
+        mTextView.gravity = Gravity.END or Gravity.CENTER_VERTICAL
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         params.weight = 1.0f //在此处设置weight
-        mTextView.setLayoutParams(params)
+        mTextView.layoutParams = params
         addView(mTextView)
         mImageView = ImageView(getContext())
         if (imageViewResource == -1) {
@@ -96,17 +79,15 @@ class YcTextButtonView @JvmOverloads constructor(
         mImageView!!.adjustViewBounds = true
         mImageView!!.setPadding(resources.getDimensionPixelOffset(R.dimen.margin_10dp), 0, 0, 0)
         val imageSize = resources.getDimensionPixelOffset(R.dimen.every_lib_icon_next_height)
-        mImageView!!.layoutParams = ViewGroup.LayoutParams(
-            imageSize + resources.getDimensionPixelOffset(
+        mImageView!!.layoutParams = ViewGroup.LayoutParams(imageSize + resources.getDimensionPixelOffset(
                 R.dimen.margin_10dp
-            ), imageSize
-        )
+            ), imageSize)
         addView(mImageView)
         setBackgroundResource(R.color.transparent)
         gravity = Gravity.CENTER_VERTICAL
-        mTextView.setSingleLine(isSingleLine)
+        mTextView.isSingleLine = isSingleLine
         if (isSingleLine) {
-            mTextView.setEllipsize(TextUtils.TruncateAt.END)
+            mTextView.ellipsize = TextUtils.TruncateAt.END
         }
     }
 

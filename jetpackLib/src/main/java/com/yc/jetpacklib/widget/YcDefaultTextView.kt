@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.extension.ycGetColorRes
 import com.yc.jetpacklib.utils.YcResources
 
 /**
@@ -29,8 +30,8 @@ class YcDefaultTextView @JvmOverloads constructor(context: Context, attrs: Attri
         if (TextUtils.isEmpty(defaultText)) {
             defaultText = ""
         }
-        textDefaultColor = a.getColor(R.styleable.YcDefaultTextView_textDefaultColor, YcResources.getColorRes(R.color.every_lib_grey_6C7282))
-        mTextColor = a.getColor(R.styleable.YcDefaultTextView_DefaultTvTextColor, YcResources.getColorRes(R.color.every_lib_black_333A40))
+        textDefaultColor = a.getColor(R.styleable.YcDefaultTextView_textDefaultColor, ycGetColorRes(R.color.every_lib_grey_6C7282))
+        mTextColor = a.getColor(R.styleable.YcDefaultTextView_DefaultTvTextColor, ycGetColorRes(R.color.every_lib_black_333A40))
         mTextMaxLength = a.getInt(R.styleable.YcDefaultTextView_textMaxLength, Int.MAX_VALUE - 1)
         a.recycle()
         onRefresh(text.toString())
@@ -77,6 +78,7 @@ class YcDefaultTextView @JvmOverloads constructor(context: Context, attrs: Attri
     fun setTextMaxLength(maxLength: Int) {
         mTextMaxLength = maxLength
         text = text.toString()
+
     }
 
     fun setDefaultText(defaultText: String?) {

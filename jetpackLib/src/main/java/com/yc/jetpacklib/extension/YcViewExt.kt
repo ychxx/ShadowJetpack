@@ -1,8 +1,12 @@
 package com.yc.jetpacklib.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.drawable.Drawable
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -10,6 +14,7 @@ import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +26,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.yc.jetpacklib.image.GlideApp
+import com.yc.jetpacklib.init.YcJetpack
 import java.io.File
 
 /**
@@ -97,6 +103,78 @@ fun Fragment.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
         return
     }
     requireContext().showToast(msg, duration)
+}
+
+@ColorInt
+fun Fragment.ycGetColorRes(resId: Int): Int {
+    return resources.getColor(resId)
+}
+
+@ColorInt
+fun Activity.ycGetColorRes(resId: Int): Int {
+    return resources.getColor(resId)
+}
+
+@ColorInt
+fun Context.ycGetColorRes(resId: Int): Int {
+    return resources.getColor(resId)
+}
+
+@ColorInt
+fun View.ycGetColorRes(resId: Int): Int {
+    return resources.getColor(resId)
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+fun View.ycGetDrawable(resId: Int): Drawable {
+    return resources.getDrawable(resId)
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+fun Fragment.ycGetDrawable(resId: Int): Drawable {
+    return resources.getDrawable(resId)
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+fun Activity.ycGetDrawable(resId: Int): Drawable {
+    return resources.getDrawable(resId)
+}
+
+@SuppressLint("UseCompatLoadingForDrawables")
+fun Context.ycGetDrawable(resId: Int): Drawable {
+    return resources.getDrawable(resId)
+}
+
+fun View.ycGetString(resId: Int): String {
+    return resources.getString(resId)
+}
+
+fun Fragment.ycGetString(resId: Int): String {
+    return resources.getString(resId)
+}
+
+fun Activity.ycGetString(resId: Int): String {
+    return resources.getString(resId)
+}
+
+fun Context.ycGetString(resId: Int): String {
+    return resources.getString(resId)
+}
+
+fun View.ycGetStringArray(resId: Int): Array<String> {
+    return resources.getStringArray(resId)
+}
+
+fun View.ycGetStringList(resId: Int): List<String> {
+    return mutableListOf(*resources.getStringArray(resId))
+}
+
+fun Context.ycDpToPx(dp: Float): Int {
+    return (resources.displayMetrics.density * dp + 0.5f).toInt()
+}
+
+fun View.ycDpToPx(dp: Float): Int {
+    return (resources.displayMetrics.density * dp + 0.5f).toInt()
 }
 
 fun Context.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {

@@ -49,6 +49,7 @@ open class YcEdtImg @JvmOverloads constructor(context: Context, attrs: Attribute
         val edtMaxEms = a.getInt(R.styleable.YcEdtImg_ycEdtMaxEms, -1)
         val edtDigits = a.getString(R.styleable.YcEdtImg_ycEdtDigits)
         val edtInputType = a.getInt(R.styleable.YcEdtImg_ycEdtInputType, -1)
+        val edtSingleLine = a.getBoolean(R.styleable.YcEdtImg_ycEdtInputType, false)
 
         val view = LayoutInflater.from(context).inflate(R.layout.yc_widget_edt_img, null, false)
         view.findViewById<ConstraintLayout>(R.id.clWidget).setBackgroundResource(bg)
@@ -70,6 +71,8 @@ open class YcEdtImg @JvmOverloads constructor(context: Context, attrs: Attribute
         mEdt.setTextColor(edtTextColor)
         mEdt.setHintTextColor(edtHintColor)
         mEdt.setTextSize(TypedValue.COMPLEX_UNIT_PX, edtTextSize)
+        mEdt.isSingleLine = edtSingleLine
+
         if (!TextUtils.isEmpty(edtHint)) {
             mEdt.hint = edtHint
         }
