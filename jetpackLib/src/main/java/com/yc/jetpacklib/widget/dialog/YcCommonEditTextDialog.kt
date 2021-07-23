@@ -2,7 +2,6 @@ package com.yc.jetpacklib.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.text.Editable
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.method.DigitsKeyListener
@@ -12,10 +11,9 @@ import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.yc.jetpacklib.R
-import com.yc.jetpacklib.widget.YcTextWatcher
-import kotlin.math.max
 
 
 /**
@@ -30,8 +28,6 @@ import kotlin.math.max
  */
 open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mLifecycleOwner: LifecycleOwner, theme: Int = R.style.YcCommonDialogStyle) :
     Dialog(context, theme) {
-    protected var mMaxLength: Int = Int.MAX_VALUE
-
     //内容
     protected val mContentView: TextView
     val mDialogInputContentET: EditText
@@ -44,6 +40,13 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
     var mRightClick: ((v: View, str: String) -> Boolean)? = null
 
     init {
+        mLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+            override fun onDestroy(owner: LifecycleOwner) {
+                if (this@YcCommonEditTextDialog.isShowing) {
+                    cancel()
+                }
+            }
+        })
         setContentView(R.layout.yc_widget_edittext_dialog)
         mContentView = findViewById(R.id.dialogContentTv)
         mDialogInputContentET = findViewById(R.id.dialogInputContentET)
@@ -71,6 +74,7 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
                 }
             }
         }
+
     }
 
     fun setSingleBtnText(text: String?): YcCommonEditTextDialog {
