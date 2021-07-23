@@ -22,6 +22,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -195,6 +196,13 @@ fun Button.ycSetTextColorRes(@ColorRes textColorRes: Int) {
     this.setTextColor(context.resources.getColor(textColorRes))
 }
 
+inline fun SwipeRefreshLayout.refreshUtil(crossinline getData: (() -> Unit)) {
+    setOnRefreshListener {
+        isRefreshing = true
+        getData.invoke()
+    }
+}
+
 /**
  * 加载网络图片
  */
@@ -236,7 +244,7 @@ fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
 }
 
 /**
- * 加载网络图片
+ * 加载网络图片（圆）
  */
 fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) {
     GlideApp.with(context)
@@ -295,6 +303,8 @@ fun ImageView.ycLoadImageRes(@DrawableRes imgRes: Int) {
         .into(this)
 }
 
+
+
 /**
  * 加载资源图片圆角
  */
@@ -308,11 +318,14 @@ fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int) {
 
 /**
  * 加载资源图片圆角图片(自定义弧度)
+ * roundingRadius：px
  */
-fun ImageView.ycLoadImageResCircle(imageNet: String?, roundingRadius: Int) {
+fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int, roundingRadius: Int) {
     GlideApp.with(context)
         .asBitmap()
-        .load(imageNet)
+        .load(imgRes)
         .transform(CenterCrop(), RoundedCorners(roundingRadius))
         .into(this)
 }
+
+
