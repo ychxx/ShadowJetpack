@@ -41,7 +41,7 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
     protected val mLineV: View
 
     var mLeftClick: ((v: View) -> Unit)? = null
-    var mRightClick: ((v: View, str: String) -> Unit)? = null
+    var mRightClick: ((v: View, str: String) -> Boolean)? = null
 
     init {
         setContentView(R.layout.yc_widget_edittext_dialog)
@@ -64,9 +64,12 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
             mLeftClick?.invoke(v)
         }
         mRightBtn.setOnClickListener { v ->
-            dismiss()
-            mRightClick?.invoke(v, mDialogInputContentET?.text.toString())
-
+            mRightClick?.apply {
+                //根据返回的值，决定是否隐藏dialog
+                if (invoke(v, mDialogInputContentET.text.toString())) {
+                    dismiss()
+                }
+            }
         }
     }
 
@@ -74,7 +77,6 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
         if (!TextUtils.isEmpty(text)) mLeftBtn!!.text = text
         return this
     }
-
 
     fun showSingle() {
         mRightBtn.visibility = View.GONE
@@ -139,21 +141,4 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
         mDialogInputContentET.keyListener = DigitsKeyListener.getInstance(digits);
         return this
     }
-
-    /**
-     * 输入框的输入长度限制
-     */
-    fun setEdtMaxLength(maxLength: Int): YcCommonEditTextDialog {
-        mMaxLength = maxLength
-        mDialogInputContentET.addTextChangedListener(object : YcTextWatcher() {
-            override fun afterTextChanged(s: Editable?) {
-                if (s.toString().length > mMaxLength) {
-                    mDialogInputContentET.setText(s!!.substring(0, maxLength - 1))
-                }
-            }
-        })
-        return this
-    }
-
-    val inputContentEditText: String get() = mDialogInputContentET.text.toString()
 }

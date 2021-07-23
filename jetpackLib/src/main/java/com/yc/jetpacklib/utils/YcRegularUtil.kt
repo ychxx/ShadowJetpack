@@ -13,27 +13,27 @@ object YcRegularUtil {
     /**
      * 只能是字母
      */
-    const val ONLY_NUM_AND_LETTER = "^[A-Za-z0-9]+"
+    const val ONLY_NUM_AND_LETTER = "^[A-Za-z0-9]"
 
     /**
      * 只能是纯汉字+数字
      */
-    const val ONLY_NUM_AND_CHINESE = "^[0-9\u4e00-\u9fa5]+"
+    const val ONLY_NUM_AND_CHINESE = "^[0-9\u4e00-\u9fa5]"
 
     /**
      * 只能是纯汉字+字母
      */
-    const val ONLY_CHINESE_AND_LETTER = "^[A-Za-z\u4e00-\u9fa5]+"
+    const val ONLY_CHINESE_AND_LETTER = "^[A-Za-z\u4e00-\u9fa5]"
 
     /**
      * 只能是纯汉字
      */
-    const val ONLY_CHINESE = "^[\u4e00-\u9fa5]+"
+    const val ONLY_CHINESE = "^[\u4e00-\u9fa5]"
 
     /**
-     * 只能是纯汉字+字母+数字
+     * 只能是汉字或字母或数字
      */
-    const val ONLY_CHINESE_AND_NUM_AND_LETTER = "^[A-Za-z0-9\u4e00-\u9fa5]+"
+    const val ONLY_CHINESE_OR_NUM_OR_LETTER = "^[A-Za-z0-9\u4e00-\u9fa5]"
 
     /**
      * 只能是纯汉字或汉字+字母或汉字+数字
