@@ -12,10 +12,14 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
     val mAdapter: YcRecyclerViewAdapter<String, TestItemBinding> by lazy {
         object : YcRecyclerViewAdapter<String, TestItemBinding>(TestItemBinding::inflate) {
             override fun onUpdate(holder: YcViewHolder<TestItemBinding>, position: Int, data: String) {
+                holder.viewBinding.btnTestItem.text = data
                 holder.viewBinding.btnTestItem.setOnClickListener {
                     when (position) {
                         0 -> {
                             startActivity(Intent(this@MainActivity, TestShowLoadingActivity::class.java))
+                        }
+                        1 -> {
+                            startActivity(Intent(this@MainActivity, TestSpecialReleaseActivity::class.java))
                         }
                     }
                 }
@@ -26,8 +30,8 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
     override fun ActivityMainBinding.initView() {
         rv.ycInitLinearLayoutManage()
         rv.adapter = mAdapter
-        mAdapter.addData("")
-        mAdapter.addData("")
+        mAdapter.addData("测试加载框")
+        mAdapter.addData("测试替换布局")
         mAdapter.addData("")
 
     }

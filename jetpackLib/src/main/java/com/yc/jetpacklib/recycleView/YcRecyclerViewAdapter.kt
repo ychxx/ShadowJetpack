@@ -5,12 +5,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-
 /**
  *
  */
 abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
-    protected val createVB: ((LayoutInflater) -> VB)? = null,
+    protected val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
 ) :
     RecyclerView.Adapter<YcViewHolder<VB>>() {
 
@@ -30,7 +29,7 @@ abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context)))
+        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
     private var mItemClick: ((item: Data, position: Int) -> Unit)? = null
