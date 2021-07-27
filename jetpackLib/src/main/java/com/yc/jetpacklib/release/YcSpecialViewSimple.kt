@@ -1,6 +1,7 @@
 package com.yc.jetpacklib.release
 
 import android.app.Activity
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,6 +20,7 @@ class YcSpecialViewSimple : YcSpecialView<YcSpecialReleaseBinding> {
     var mTitleRightTv: String? = null
     var mTitleRightIv: Int? = null
 
+    constructor() : super(YcSpecialReleaseBinding::inflate)
     constructor(originalView: View) : super(originalView, YcSpecialReleaseBinding::inflate)
     constructor(activity: Activity) : super(activity, YcSpecialReleaseBinding::inflate)
 
@@ -76,7 +78,7 @@ class YcSpecialViewSimple : YcSpecialView<YcSpecialReleaseBinding> {
      * @param rightTv String?                   右侧文字
      * @param rightIv Int?                      右侧图片
      */
-    protected fun setTitle(
+    fun setTitle(
         titleName: String = "",
         leftClick: ((View) -> Unit)? = null,
         rightClick: ((View) -> Unit)? = null,

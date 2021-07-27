@@ -11,8 +11,17 @@ import androidx.viewbinding.ViewBinding
  *
  */
 abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
-    protected val mOriginalView: View
+    /**
+     * 原始View（即要被替换的View）
+     */
+    lateinit var mOriginalView: View
+    /**
+     * 替换View
+     */
     protected var mReleaseView: View? = null
+    /**
+     * 是否显示替换View
+     */
     protected var isReleaseViewShow = false
 
     @YcSpecialState
@@ -27,6 +36,13 @@ abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
      * 修改UI布局和绑定事件
      */
     var mCustomUi: (VB.() -> Unit)? = null
+
+    /**
+     * 后续再设置原始布局View
+     */
+    constructor(releaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) {
+
+    }
 
     /**
      * 只替换部分View
