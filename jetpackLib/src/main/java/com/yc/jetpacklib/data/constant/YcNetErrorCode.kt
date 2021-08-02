@@ -9,7 +9,7 @@ object YcNetErrorCode {
     const val UN_KNOWN_ERROR = 1000
 
     /**
-     * 网络错误
+     * 网络错误(连接超时、没网络)
      */
     const val NETWORK_ERROR = 1002
 

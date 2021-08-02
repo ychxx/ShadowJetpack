@@ -1,6 +1,7 @@
 package com.yc.jetpacklib.base
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.hc.jatpacklib.data.entity.YcDataSourceEntity
 /**
  *
@@ -30,11 +31,13 @@ abstract class YcBaseDataSource<T : Any> : PagingSource<Int, T>() {
     } catch (e: Exception) {
         LoadResult.Error(throwable = e)
     }
-
     private fun getPreKey(key: Int?): Int? = if (key == null) {
         null
     } else {
         key - 1
+    }
+    override fun getRefreshKey(state: PagingState<Int, T>): Int? {
+        return null
     }
 
     abstract suspend fun load(pageIndex: Int, pageSize: Int): YcDataSourceEntity<T>

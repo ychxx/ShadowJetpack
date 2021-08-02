@@ -14,6 +14,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.yc.jetpacklib.extension.ycCreateResultLauncher
 import com.yc.jetpacklib.manager.YcActivityManager
@@ -85,5 +88,9 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
 
     protected fun <T> LiveData<T>.observe(observer: Observer<T>) {
         this.observe(this@YcBaseActivity, observer)
+    }
+
+    protected fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.ycSubmitData(pagingData: PagingData<T>) {
+        this.submitData(this@YcBaseActivity.lifecycle, pagingData)
     }
 }

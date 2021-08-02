@@ -13,6 +13,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
+import androidx.paging.PagingDataAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 import com.yc.jetpacklib.utils.YcViewModelLazy
 import com.yc.jetpacklib.widget.dialog.YcLoadingDialog
@@ -27,6 +30,7 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
     private var _mViewBinding: VB? = null
     protected val mViewBinding get() = _mViewBinding!!
     protected open lateinit var mYcLoadingDialog: YcLoadingDialog
+    protected var mIsShow: Boolean = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return if (createVB != null) {
             mYcLoadingDialog = YcLoadingDialog(requireContext(), this)
@@ -41,6 +45,10 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView(view, savedInstanceState)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
     }
 
     protected abstract fun initView(view: View, savedInstanceState: Bundle?)
@@ -101,5 +109,9 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
         lifecycleScope.launch {
             block()
         }
+    }
+
+    protected fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.ycSubmitData(pagingData: PagingData<T>) {
+        this.submitData(this@YcBaseFragment.lifecycle, pagingData)
     }
 }

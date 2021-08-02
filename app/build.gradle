@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -75,4 +76,9 @@ dependencies {
     implementation "androidx.paging:paging-guava:$paging_version"
     // Jetpack Compose Integration
     implementation "androidx.paging:paging-compose:$paging_compose_version"
+
+    /**-- 加载更多和刷新 --**/
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行
+
 }

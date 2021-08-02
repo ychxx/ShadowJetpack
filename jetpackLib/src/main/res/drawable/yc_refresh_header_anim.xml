@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/yc_refresh_01" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_02" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_03" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_04" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_05" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_06" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_07" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_08" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_09" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_10" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_11" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_12" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_13" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_14" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_15" android:duration="62" />
+    <item android:drawable="@drawable/yc_refresh_16" android:duration="62" />
+</animation-list>

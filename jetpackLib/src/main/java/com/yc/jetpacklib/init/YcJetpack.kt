@@ -4,9 +4,13 @@ import android.app.Application
 import android.content.res.Resources
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smartrefresh.layout.footer.ClassicsFooter
 import com.yc.jetpacklib.BuildConfig
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.YcLogExt
+import com.yc.jetpacklib.refresh.YcFooterAdapter
+import com.yc.jetpacklib.refresh.YcRefreshHeaderView
 import okhttp3.Interceptor
 import org.xutils.x
 
@@ -53,13 +57,15 @@ class YcJetpack private constructor() {
     lateinit var mApplication: Application
 
     fun init(app: Application) {
+        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ -> YcRefreshHeaderView(context) }
+        //设置全局的Footer构建器
+        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> YcFooterAdapter(context) }
         mApplication = app
         //Logger初始化
         Logger.addLogAdapter(AndroidLogAdapter())
         x.Ext.init(mApplication)
         x.Ext.setDebug(BuildConfig.DEBUG)
     }
-
 
     fun setBaseUrl(baseUrl: String = "") {
         mDefaultBaseUrl = baseUrl

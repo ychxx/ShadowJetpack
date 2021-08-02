@@ -4,7 +4,10 @@ import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
+import androidx.paging.filter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
 
@@ -14,18 +17,16 @@ import androidx.viewbinding.ViewBinding
  * UseDes:
  * 封装PagingDataAdapter
  */
-abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
+abstract class YcPagingDataAdapterPlus<Data : Any, VB : ViewBinding>(
     protected val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
     diffCallback: DiffUtil.ItemCallback<Data>
 
 ) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback) {
-    private var mItemClick: ((Data, Int) -> Unit)? = null
+    var mItemClick: ((Data, Int) -> Unit)? = null
 
     protected lateinit var mContext: Context
-    fun setItemClick(block: (Data, Int) -> Unit) {
-        mItemClick = block
-    }
-
+    protected lateinit var mPagingData: PagingData<Data>
+    abstract fun VB.onUpdate(position: Int, data: Data)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
         mContext = parent.context
         return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
@@ -37,12 +38,10 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
             holder.viewBinding.root.setOnClickListener {
                 mItemClick?.invoke(dataBean!!, position)
             }
-            onUpdate(holder, position, dataBean!!)
+            holder.viewBinding.onUpdate(position, dataBean!!)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()
         }
     }
-
-    abstract fun onUpdate(holder: YcViewHolder<VB>, position: Int, data: Data)
 }

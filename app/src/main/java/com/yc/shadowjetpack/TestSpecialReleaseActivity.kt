@@ -1,8 +1,7 @@
 package com.yc.shadowjetpack
 
-import android.R
 import com.yc.jetpacklib.base.YcBaseActivityPlus
-import com.yc.jetpacklib.release.YcSpecialViewSimple
+import com.yc.jetpacklib.release.YcSpecialViewCommon
 import com.yc.shadowjetpack.databinding.TestSpecialReleaseActivityBinding
 /**
  * Creator: yc
@@ -10,11 +9,11 @@ import com.yc.shadowjetpack.databinding.TestSpecialReleaseActivityBinding
  * UseDes:
  */
 class TestSpecialReleaseActivity : YcBaseActivityPlus<TestSpecialReleaseActivityBinding>(TestSpecialReleaseActivityBinding::inflate) {
-    private lateinit var mSpecialView: YcSpecialViewSimple
-    private lateinit var mSpecialView2: YcSpecialViewSimple
+    private lateinit var mSpecialView: YcSpecialViewCommon
+    private lateinit var mSpecialView2: YcSpecialViewCommon
     override fun TestSpecialReleaseActivityBinding.initView() {
-        mSpecialView = YcSpecialViewSimple(this@TestSpecialReleaseActivity)
-        mSpecialView2 = YcSpecialViewSimple(rvTestSpecial)
+        mSpecialView = YcSpecialViewCommon(this@TestSpecialReleaseActivity)
+        mSpecialView2 = YcSpecialViewCommon(rvTestSpecial)
         btnTestSpecial1.setOnClickListener {
             mSpecialView.apply {
                 mCustomUi = {

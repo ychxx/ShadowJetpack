@@ -9,10 +9,11 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
+abstract class YcRecyclerViewAdapterPlus<Data, VB : ViewBinding>(
     protected val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
 ) :
     RecyclerView.Adapter<YcViewHolder<VB>>() {
+    var mItemClick: ((item: Data, position: Int) -> Unit)? = null
 
     private var mData: MutableList<Data> = mutableListOf()
     fun clearData() {
@@ -33,10 +34,6 @@ abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
         return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
-    private var mItemClick: ((item: Data, position: Int) -> Unit)? = null
-    fun setItemClick(block: (item: Data, position: Int) -> Unit) {
-        mItemClick = block
-    }
 
     open fun getItem(position: Int): Data? {
         return if (position < 0 || position >= mData.size) null else mData[position]
@@ -53,12 +50,12 @@ abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
             holder.viewBinding.root.setOnClickListener {
                 mItemClick?.invoke(dataBean!!, position)
             }
-            onUpdate(holder, position, dataBean!!)
+            holder.viewBinding.onUpdate(position, dataBean!!)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()
         }
     }
 
-    abstract fun onUpdate(holder: YcViewHolder<VB>, position: Int, data: Data)
+    abstract fun VB.onUpdate(position: Int, data: Data)
 }

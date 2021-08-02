@@ -1,9 +1,11 @@
 package com.yc.jetpacklib.release
 
+import androidx.viewbinding.ViewBinding
+
 /**
  *
  */
-interface YcISpecialState {
+interface YcISpecialState<VB : ViewBinding> {
     /**
      * 设置类型
      *
@@ -17,7 +19,14 @@ interface YcISpecialState {
     fun show()
 
     /**
+     * 显示
+     */
+    fun show(specialState: Int)
+
+    /**
      * 恢复
      */
     fun recovery()
+
+    var mCustomUi: (VB.() -> Unit)?
 }

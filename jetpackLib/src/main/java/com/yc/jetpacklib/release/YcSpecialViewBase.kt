@@ -10,15 +10,17 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
+abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
     /**
      * 原始View（即要被替换的View）
      */
     lateinit var mOriginalView: View
+
     /**
      * 替换View
      */
     protected var mReleaseView: View? = null
+
     /**
      * 是否显示替换View
      */
@@ -33,9 +35,14 @@ abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
     private var mReleaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null
 
     /**
-     * 修改UI布局和绑定事件
+     * 修改UI布局和绑定事件（开放给外部类调用）
      */
-    var mCustomUi: (VB.() -> Unit)? = null
+    override var mCustomUi: (VB.() -> Unit)? = null
+
+    /**
+     * 修改UI布局和绑定事件(开放给子类调用，优先级弱于mCustomUi)
+     */
+    var mCustomUiProtected: (VB.() -> Unit)? = null
 
     /**
      * 后续再设置原始布局View
@@ -68,13 +75,27 @@ abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
      * 显示
      */
     @Synchronized
+    override fun show(specialState: Int) {
+        setSpecialState(specialState)
+        show()
+    }
+
+    /**
+     * 显示
+     */
+    @Synchronized
     override fun show() {
         if (isReleaseViewShow) return
         isReleaseViewShow = true
         createReleaseView()
         mViewBinding.onUpdate(mSpecialState)
+        mCustomUiProtected?.invoke(mViewBinding)
         mCustomUi?.invoke(mViewBinding)
-        YcReleaseLayoutUtils.replace(mOriginalView, mReleaseView)
+        replaceReal()
+    }
+
+    open fun replaceReal() {
+        YcReleaseLayoutUtils.replace(mOriginalView, mReleaseView!!)
     }
 
     /**
@@ -84,6 +105,10 @@ abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
     override fun recovery() {
         if (!isReleaseViewShow) return
         isReleaseViewShow = false
+        recoveryReal()
+    }
+
+    open fun recoveryReal() {
         YcReleaseLayoutUtils.recovery(mOriginalView)
     }
 
@@ -100,5 +125,5 @@ abstract class YcSpecialView<VB : ViewBinding> : YcISpecialState {
     /**
      * 根据状态更新ui
      */
-    protected abstract fun VB.onUpdate(specialState: Int)
+    abstract fun VB.onUpdate(specialState: Int)
 }
