@@ -29,4 +29,6 @@
     <color name="common_bg">#F8F8F8</color>
     <!-- 通用单行字体颜色 -->
     <color name="common_single_tv_color">#252525</color>
+
+    <color name="jetpack_actionbar_text">#252525</color>
 </resources>
