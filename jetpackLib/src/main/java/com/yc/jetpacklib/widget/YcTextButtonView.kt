@@ -12,6 +12,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.IntDef
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.ycGetColorRes
+import com.yc.jetpacklib.extension.ycGetDimensionPixelSize
 import com.yc.jetpacklib.extension.ycToNoEmpty
 import com.yc.jetpacklib.utils.YcResources
 import java.lang.annotation.Retention
@@ -77,9 +78,9 @@ class YcTextButtonView @JvmOverloads constructor(
         }
         mImageView!!.scaleType = ImageView.ScaleType.FIT_CENTER
         mImageView!!.adjustViewBounds = true
-        mImageView!!.setPadding(resources.getDimensionPixelOffset(R.dimen.margin_10dp), 0, 0, 0)
-        val imageSize = resources.getDimensionPixelOffset(R.dimen.every_lib_icon_next_height)
-        mImageView!!.layoutParams = ViewGroup.LayoutParams(imageSize + resources.getDimensionPixelOffset(
+        mImageView!!.setPadding(ycGetDimensionPixelSize(R.dimen.margin_10dp), 0, 0, 0)
+        val imageSize = ycGetDimensionPixelSize(R.dimen.every_lib_icon_next_height)
+        mImageView!!.layoutParams = ViewGroup.LayoutParams(imageSize + ycGetDimensionPixelSize(
                 R.dimen.margin_10dp
             ), imageSize)
         addView(mImageView)

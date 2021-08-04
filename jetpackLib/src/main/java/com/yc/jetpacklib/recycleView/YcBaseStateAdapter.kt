@@ -10,7 +10,7 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-abstract class YcBaseStateAdapter<VB : ViewBinding>(protected val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) :
+abstract class YcBaseStateAdapter<VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
     LoadStateAdapter<YcViewHolder<VB>>() {
     var mViewHolder: YcViewHolder<VB>? = null
     override fun onBindViewHolder(holder: YcViewHolder<VB>, loadState: LoadState) {

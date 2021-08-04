@@ -28,6 +28,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.init.YcJetpack
 import java.io.File
@@ -184,6 +185,17 @@ fun Context.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(this, msg, duration).show()
 }
 
+/**
+ * 等同于getDimension()得到值进行四舍五入
+ */
+fun View.ycGetDimensionPixelSize(resId: Int): Int {
+    return resources.getDimensionPixelSize(resId)
+}
+
+fun View.ycGetDimension(resId: Int): Float {
+    return resources.getDimension(resId)
+}
+
 fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTICAL) {
     this.layoutManager = LinearLayoutManager(context, orientation, false)
 }
@@ -302,7 +314,6 @@ fun ImageView.ycLoadImageRes(@DrawableRes imgRes: Int) {
         .load(imgRes)
         .into(this)
 }
-
 
 
 /**

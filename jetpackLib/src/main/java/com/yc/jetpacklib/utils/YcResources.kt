@@ -36,9 +36,8 @@ object YcResources {
     }
 
     @JvmStatic
-    @ColorInt
     fun getDimensionPixelSize(resId: Int, resources: Resources = YcJetpack.mInstance.getResources()): Int {
-        return resources.getDimensionPixelSize(R.dimen.every_lib_chart_x_axis_text_size)
+        return resources.getDimensionPixelSize(resId)
     }
 
     /**

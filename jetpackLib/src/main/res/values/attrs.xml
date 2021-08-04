@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- 背景资源 -->
     <attr name="ycBg" format="reference|color" />
+    <!-- 图片资源左侧 -->
+    <attr name="ycImgLeftBg" format="reference" />
+    <attr name="ycImgLeftHeight" format="dimension" />
+    <attr name="ycImgLeftWidth" format="dimension" />
+    <!-- 图片资源右侧 -->
+    <attr name="ycImgRightBg" format="reference" />
+    <attr name="ycImgRightHeight" format="dimension" />
+    <attr name="ycImgRightWidth" format="dimension" />
+    <!-- 内间距左侧 -->
+    <attr name="ycPaddingLeft" format="dimension" />
+    <!-- 内间距右侧 -->
+    <attr name="ycPaddingRight" format="dimension" />
+    <!-- 文字颜色 -->
+    <attr name="ycTextColor" format="color" />
+    <!-- 文字内容 -->
+    <attr name="ycText" format="string|reference" />
+    <!-- 文字大小 -->
+    <attr name="ycTextSize" format="dimension" />
+    <declare-styleable name="YcSingleLayout">
+        <attr name="ycBg" />
+        <attr name="ycImgLeftBg" />
+        <attr name="ycImgLeftHeight" />
+        <attr name="ycImgLeftWidth" />
+        <attr name="ycImgRightBg" />
+        <attr name="ycImgRightHeight" />
+        <attr name="ycImgRightWidth" />
+        <attr name="ycPaddingLeft" />
+        <attr name="ycPaddingRight" />
+        <attr name="ycText" />
+        <attr name="ycTextColor" />
+        <attr name="ycTextSize" />
+    </declare-styleable>
     <declare-styleable name="YcEdtImg">
         <attr name="ycBg" />
         <attr name="ycImgRight1Bg" format="reference" />
@@ -15,7 +48,7 @@
             <enum name="invisible" value="1" />
             <enum name="gone" value="2" />
         </attr>
-        <attr name="ycImgLeftBg" format="reference" />
+        <attr name="ycImgLeftBg" />
         <attr name="ycImgLeftVisibility" format="enum">
             <enum name="visible" value="0" />
             <enum name="invisible" value="1" />
@@ -42,10 +75,9 @@
         <attr name="ycBgIsAble" format="boolean" />
         <attr name="ycBg" />
         <attr name="ycBgEnable" format="reference|color" />
-        <attr name="ycTextColor" format="color" />
+        <attr name="ycTextColor" />
         <attr name="ycTextColorEnable" format="color" />
     </declare-styleable>
-
 
 
     <declare-styleable name="YcDefaultTextView">

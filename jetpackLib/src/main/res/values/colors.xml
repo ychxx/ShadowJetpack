@@ -24,4 +24,9 @@
 
     <color name="every_lib_grey_6C7282">#6C7282</color>
     <color name="every_lib_black_333A40">#333A40</color>
+
+    <!-- 通用背景颜色 -->
+    <color name="common_bg">#F8F8F8</color>
+    <!-- 通用单行字体颜色 -->
+    <color name="common_single_tv_color">#252525</color>
 </resources>

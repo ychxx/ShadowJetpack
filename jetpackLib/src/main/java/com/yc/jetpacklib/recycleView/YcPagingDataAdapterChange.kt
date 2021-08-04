@@ -16,7 +16,7 @@ import androidx.viewbinding.ViewBinding
  * 可以单独修改单个item
  */
 abstract class YcPagingDataAdapterChange<Data : Any, VB : ViewBinding>(
-    createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
+    createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     diffCallback: DiffUtil.ItemCallback<Data>
 ) : YcPagingDataAdapterPlus<Data, VB>(createVB, diffCallback) {
 
