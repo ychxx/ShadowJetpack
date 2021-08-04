@@ -9,9 +9,7 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-abstract class YcRecyclerViewAdapterPlus<Data, VB : ViewBinding>(
-    protected val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
-) :
+abstract class YcRecyclerViewAdapterPlus<Data, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
     RecyclerView.Adapter<YcViewHolder<VB>>() {
     var mItemClick: ((item: Data, position: Int) -> Unit)? = null
 
@@ -22,16 +20,20 @@ abstract class YcRecyclerViewAdapterPlus<Data, VB : ViewBinding>(
     }
 
     fun addAllData(data: List<Data>, isClear: Boolean = true) {
-        mData.clear()
+        if (isClear)
+            mData.clear()
         mData.addAll(data)
+        notifyDataSetChanged()
     }
 
-    fun addData(data: Data) {
+    fun addData(data: Data, isRefresh: Boolean = false) {
         mData.add(data)
+        if (isRefresh)
+            notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
+        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
 

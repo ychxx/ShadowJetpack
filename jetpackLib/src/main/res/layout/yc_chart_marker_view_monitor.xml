@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:padding="4dp">
 
-    <com.hcc.plugindust.sindi.YcDINTextView
+    <com.yc.jetpacklib.widget.YcDINTextView
         android:id="@+id/chartMakerThresholdTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:textColor="@color/every_lib_chart_value_text_color"
         android:textSize="11sp" />
 
-    <com.hcc.plugindust.sindi.YcDINTextView
+    <com.yc.jetpacklib.widget.YcDINTextView
         android:id="@+id/chartMakerContentTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

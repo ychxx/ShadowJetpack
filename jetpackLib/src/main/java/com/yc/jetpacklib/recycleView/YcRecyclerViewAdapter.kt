@@ -9,9 +9,7 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
-    protected val createVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null,
-) :
+abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
     RecyclerView.Adapter<YcViewHolder<VB>>() {
 
     private var mData: MutableList<Data> = mutableListOf()
@@ -21,12 +19,16 @@ abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(
     }
 
     fun addAllData(data: List<Data>, isClear: Boolean = true) {
-        mData.clear()
+        if (isClear)
+            mData.clear()
         mData.addAll(data)
+        notifyDataSetChanged()
     }
 
-    fun addData(data: Data) {
+    fun addData(data: Data, isRefresh: Boolean = false) {
         mData.add(data)
+        if (isRefresh)
+            notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {

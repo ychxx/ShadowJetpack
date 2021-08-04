@@ -1,4 +1,4 @@
-package com.hcc.plugindust.sindi
+package com.yc.jetpacklib.widget.chart
 
 import android.content.Context
 import android.graphics.Color

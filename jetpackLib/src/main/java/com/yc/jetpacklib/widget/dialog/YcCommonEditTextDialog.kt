@@ -16,12 +16,6 @@ import androidx.lifecycle.LifecycleOwner
 import com.yc.jetpacklib.R
 
 
-/**
- * SimpleDes:
- * Creator: Sindi
- * Date: 2021-07-08
- * UseDes:
- */
 
 /**
  * 通用的对话框

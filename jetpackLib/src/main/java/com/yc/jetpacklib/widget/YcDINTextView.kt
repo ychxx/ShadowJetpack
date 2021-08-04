@@ -1,4 +1,4 @@
-package com.hcc.plugindust.sindi
+package com.yc.jetpacklib.widget
 
 import android.content.Context
 import android.os.Build.VERSION_CODES
