@@ -32,7 +32,7 @@ abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(protected val creat
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
+        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
     private var mItemClick: ((item: Data, position: Int) -> Unit)? = null
