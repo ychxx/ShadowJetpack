@@ -11,10 +11,21 @@ import java.util.concurrent.atomic.AtomicReference
  * Date: 2021/2/20 15:05
  * UseDes:轮询器（外部设置执行条件）
  */
-
 class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
+    companion object {
+        fun init(owner: LifecycleOwner, periodTime: Long = 2000L, block: () -> Unit) = lazy {
+            return@lazy YcLoop(owner).apply {
+                mPeriodTime = periodTime
+                mBlock = {
+                    block()
+                }
+            }
+        }
+    }
+
     /**
      * 等待执行
+     * @return true 时不等待，false 时继续等待
      */
     private var mWaitHandle: AtomicReference<Boolean> = AtomicReference(false)
 

@@ -27,8 +27,7 @@ open class YcLoopBase(val owner: LifecycleOwner) {
     /**
      * 执行条件
      */
-    protected val _mPost = MutableLiveData<Any?>()
-    protected val mPost: LiveData<Any?> = _mPost
+    protected val mPost: MutableLiveData<Any?> = MutableLiveData<Any?>()
 
     /**
      * 句柄
@@ -51,12 +50,12 @@ open class YcLoopBase(val owner: LifecycleOwner) {
     var mBlock: (() -> Unit)? = null
 
 
-    fun start(isWait: Boolean = false) {
+   open fun start(isWait: Boolean = false) {
         mJop?.cancel()
         mJop = owner.lifecycleScope.launch {
             if (isWait)
                 delay(mPeriodTime)
-            _mPost.postValue(null)
+            mPost.postValue(null)
         }
     }
 
