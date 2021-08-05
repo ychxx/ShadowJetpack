@@ -13,13 +13,17 @@ import java.util.concurrent.atomic.AtomicReference
  * UseDes:轮询器（主动调用外部执行条件）
  */
 
-open class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
+class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
     /**
      * 自定义执行条件
      */
     var mWaitHandleCustom: (() -> Boolean)? = null
 
     init {
+        reset()
+    }
+
+    override fun reset() {
         mPost.observe(owner, Observer {
             mJopHandle?.cancel()
             mJopHandle = owner.lifecycleScope.launch {

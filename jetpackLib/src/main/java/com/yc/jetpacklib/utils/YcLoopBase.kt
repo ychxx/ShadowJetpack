@@ -24,6 +24,9 @@ open class YcLoopBase(val owner: LifecycleOwner) {
         }
     }
 
+    /**
+     * 执行条件
+     */
     protected val _mPost = MutableLiveData<Any?>()
     protected val mPost: LiveData<Any?> = _mPost
 
@@ -42,6 +45,9 @@ open class YcLoopBase(val owner: LifecycleOwner) {
      */
     var mPeriodTime: Long = 2000L
 
+    /**
+     * 回调
+     */
     var mBlock: (() -> Unit)? = null
 
 
@@ -54,12 +60,25 @@ open class YcLoopBase(val owner: LifecycleOwner) {
         }
     }
 
+    /**
+     * 主动关闭（onDestroy一般会自动调用该方法）
+     */
+    fun finish() {
+        mJop?.cancel()
+        mJopHandle?.cancel()
+    }
+
+    /**
+     * 一般不需要主动调用，除非主动调用了finish()
+     */
+    open fun reset() {
+
+    }
 
     init {
         owner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
-                mJop?.cancel()
-                mJopHandle?.cancel()
+                finish()
             }
         })
     }

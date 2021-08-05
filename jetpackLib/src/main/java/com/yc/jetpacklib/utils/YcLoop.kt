@@ -12,23 +12,14 @@ import java.util.concurrent.atomic.AtomicReference
  * UseDes:轮询器（外部设置执行条件）
  */
 
-open class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
+class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
     /**
      * 等待执行
      */
     private var mWaitHandle: AtomicReference<Boolean> = AtomicReference(false)
 
     init {
-        mPost.observe(owner, Observer {
-            mJopHandle?.cancel()
-            mJopHandle = owner.lifecycleScope.launch {
-                while (mWaitHandle.get()) {
-                    delay(100)
-                }
-                mBlock?.invoke()
-                start(true)
-            }
-        })
+        reset()
     }
 
     fun stop() {
@@ -41,5 +32,18 @@ open class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
 
     fun stopOrRecovery(isStop: Boolean) {
         mWaitHandle.set(isStop)
+    }
+
+    override fun reset() {
+        mPost.observe(owner, Observer {
+            mJopHandle?.cancel()
+            mJopHandle = owner.lifecycleScope.launch {
+                while (mWaitHandle.get()) {
+                    delay(100)
+                }
+                mBlock?.invoke()
+                start(true)
+            }
+        })
     }
 }
