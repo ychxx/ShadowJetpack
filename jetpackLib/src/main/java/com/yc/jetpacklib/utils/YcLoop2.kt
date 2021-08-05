@@ -1,6 +1,7 @@
 package com.yc.jetpacklib.utils
 
 import androidx.lifecycle.*
+import com.yc.jetpacklib.extension.ycIsTrue
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -17,14 +18,15 @@ open class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
      * 自定义执行条件
      */
     var mWaitHandleCustom: (() -> Boolean)? = null
+
     init {
         mPost.observe(owner, Observer {
             mJopHandle?.cancel()
             mJopHandle = owner.lifecycleScope.launch {
-                while (mWaitHandleCustom!!.invoke()) {
+                while (mWaitHandleCustom?.invoke().ycIsTrue()) {
                     delay(100)
                 }
-                mBlock?.let { it() }
+                mBlock?.invoke()
                 start(true)
             }
         })

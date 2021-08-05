@@ -13,6 +13,11 @@ import java.util.concurrent.atomic.AtomicReference
  */
 
 open class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
+    /**
+     * 等待执行
+     */
+    private var mWaitHandle: AtomicReference<Boolean> = AtomicReference(false)
+
     init {
         mPost.observe(owner, Observer {
             mJopHandle?.cancel()
@@ -20,16 +25,11 @@ open class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
                 while (mWaitHandle.get()) {
                     delay(100)
                 }
-                mBlock?.let { it() }
+                mBlock?.invoke()
                 start(true)
             }
         })
     }
-
-    /**
-     * 等待执行
-     */
-    private var mWaitHandle: AtomicReference<Boolean> = AtomicReference(false)
 
     fun stop() {
         mWaitHandle.set(true)

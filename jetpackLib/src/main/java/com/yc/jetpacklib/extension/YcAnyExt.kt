@@ -242,6 +242,20 @@ fun Double?.ycFormatAndToString(format: String = YcAnyExt.mCommonDoubleFormat): 
 })
 
 /**
+ * 非空且为true
+ */
+fun Boolean?.ycIsTrue(): Boolean {
+    return this != null && this
+}
+
+/**
+ *  非空且为是false
+ */
+fun Boolean?.ycIsFalse(): Boolean {
+    return this != null && !this
+}
+
+/**
  * 集合判断是否为空集合
  */
 fun <T> List<T>?.ycIsNotEmpty(): Boolean {
