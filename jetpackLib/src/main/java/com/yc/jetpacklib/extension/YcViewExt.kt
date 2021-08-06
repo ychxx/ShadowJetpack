@@ -6,11 +6,10 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
+import android.view.MotionEvent
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
+import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -108,6 +107,49 @@ fun Fragment.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     }
     requireContext().showToast(msg, duration)
 }
+
+fun Activity.touchOutsideHideSoftInput(event: MotionEvent) {
+    if (event.action == MotionEvent.ACTION_DOWN) {
+        val view = currentFocus
+        if (isShouldHideSoftInput(view, event)) {
+            hideSoftInput()
+        }
+    }
+}
+
+
+//判断是否要隐藏键盘(如果点击的是输入框就不要隐藏)
+private fun isShouldHideSoftInput(view: View?, event: MotionEvent): Boolean {
+    if (view is EditText) {
+        val  leftTop= intArrayOf(0,0)
+        view.getLocationInWindow(leftTop)
+        val left = leftTop[0]
+        val top = leftTop[1]
+        val bottom = top + view.height
+        val right = left + view.width
+        return !(event.x > left && event.x < right
+                && event.y > top && event.y < bottom)
+
+
+    }
+    return true
+}
+
+fun View.hideSoftInput() {
+    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+        .hideSoftInputFromWindow(windowToken, 0)
+}
+
+fun Activity.hideSoftInput() {
+    val view = window.peekDecorView() ?: return
+    view.hideSoftInput()
+}
+
+fun Fragment.hideSoftInput() {
+    view?.hideSoftInput()
+}
+
+
 
 @ColorInt
 fun Fragment.ycGetColorRes(resId: Int): Int {
@@ -207,6 +249,11 @@ fun TextView.ycSetTextColorRes(@ColorRes textColorRes: Int) {
 fun Button.ycSetTextColorRes(@ColorRes textColorRes: Int) {
     this.setTextColor(context.resources.getColor(textColorRes))
 }
+
+fun ImageView.ycSetColorFilter(@ColorRes colorRes: Int) {
+    this.setColorFilter(context.resources.getColor(colorRes))
+}
+
 
 inline fun SwipeRefreshLayout.refreshUtil(crossinline getData: (() -> Unit)) {
     setOnRefreshListener {

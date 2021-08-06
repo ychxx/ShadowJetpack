@@ -1,12 +1,10 @@
 package com.yc.jetpacklib.utils
 
 import androidx.lifecycle.*
-import com.yc.jetpacklib.extension.ycIsFalse
 import com.yc.jetpacklib.extension.ycIsTrue
-import kotlinx.coroutines.Job
+import com.yc.jetpacklib.utils.YcLoopBase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicReference
 
 /**
  * Creator: yc
@@ -15,22 +13,12 @@ import java.util.concurrent.atomic.AtomicReference
  */
 
 class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
-    companion object {
-        fun init(owner: LifecycleOwner, periodTime: Long = 2000L, block: () -> Unit) = lazy {
-            return@lazy YcLoop2(owner).apply {
-                mPeriodTime = periodTime
-                mBlock = {
-                    block()
-                }
-            }
-        }
-    }
-
     /**
-     * 等待执行
-     * @return true 时不等待，false 时继续等待
+     * 是否等待执行条件
+     * mIsWait = true, 卡住
+     * mIsWait = false
      */
-    var mWaitHandle: (() -> Boolean)? = null
+    var mIsWait: (() -> Boolean)? = null
 
     init {
         reset()
@@ -40,7 +28,7 @@ class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
         mPost.observe(owner, Observer {
             mJopHandle?.cancel()
             mJopHandle = owner.lifecycleScope.launch {
-                while (mWaitHandle?.invoke().ycIsFalse()) {
+                while (mIsWait?.invoke().ycIsTrue()) {
                     delay(100)
                 }
                 mBlock?.invoke()
