@@ -40,12 +40,13 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
      * 线的圆角
      */
     private var mUnderlineRound: Float = 0f
-    private val mPaint: Paint
 
     /**
      * 是否选中
      */
     private var mIsSelected: Boolean = false
+
+    private val mPaint: Paint
 
     init {
         // 硬件加速不支持，图层混合。
@@ -89,11 +90,13 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
         canvas?.apply {
-            val startX = paddingLeft + (width - paddingLeft - paddingRight - mTextLength) / 2f
-            val startY = height - paddingBottom - mUnderlineWidth
-            val endX = startX + mTextLength
-            val endY = startY + mUnderlineWidth
-            drawRoundRect(startX, startY.toFloat(), endX, endY.toFloat(), mUnderlineRound, mUnderlineRound, mPaint)
+            if (mIsSelected) {
+                val startX = paddingLeft + (width - paddingLeft - paddingRight - mTextLength) / 2f
+                val startY = height - paddingBottom - mUnderlineWidth
+                val endX = startX + mTextLength
+                val endY = startY + mUnderlineWidth
+                drawRoundRect(startX, startY.toFloat(), endX, endY.toFloat(), mUnderlineRound, mUnderlineRound, mPaint)
+            }
         }
     }
 }
