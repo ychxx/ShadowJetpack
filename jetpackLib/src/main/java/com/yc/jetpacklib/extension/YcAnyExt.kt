@@ -1,7 +1,5 @@
 package com.yc.jetpacklib.extension
 
-import android.text.InputFilter
-import android.text.Spanned
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -9,7 +7,6 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import java.math.RoundingMode
 import java.text.DecimalFormat
 import java.util.*
-import java.util.regex.Pattern
 
 /**
  * 用于类型转换

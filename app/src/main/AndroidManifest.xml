@@ -21,7 +21,7 @@
         <activity android:name=".TestSpecialReleaseActivity"/>
         <activity android:name=".TestSpecialReleaseActivity2"/>
         <activity android:name=".TestRefreshActivity"/>
-
+        <activity android:name=".TestWidgetActivity"/>
     </application>
 
 </manifest>
