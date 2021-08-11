@@ -26,6 +26,15 @@
     <attr name="ycSelectColor" format="color" />
     <!-- 未选中颜色 -->
     <attr name="ycUnSelectColor" format="color" />
+    <declare-styleable name="YcRingView">
+        <attr name="ycBg" />
+        <attr name="ycRingColor1" format="color" />
+        <attr name="ycRingColor2" format="color" />
+        <attr name="ycRadiusInner" format="dimension" />
+        <attr name="ycRadiusOuter" format="dimension" />
+        <attr name="ycProgress" format="float" />
+    </declare-styleable>
+
     <declare-styleable name="YcUnderlineTextView">
         <attr name="ycSelectColor" />
         <attr name="ycUnSelectColor" />

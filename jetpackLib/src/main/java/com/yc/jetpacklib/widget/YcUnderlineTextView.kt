@@ -18,33 +18,33 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
      * 线的颜色(选中)
      */
     @ColorInt
-    private var mSelectColor = 0
+    private var mSelectColor: Int
 
     /**
      * 线的颜色(未选中)
      */
     @ColorInt
-    private var mUnSelectColor = 0
+    private var mUnSelectColor: Int
 
     /**
      * 文字的长度
      */
-    private var mTextLength = 0f
+    private var mTextLength: Float = 0f
 
     /**
      * 线的宽度
      */
-    private var mUnderlineWidth: Int = 0
+    private var mUnderlineWidth: Int
 
     /**
      * 线的圆角
      */
-    private var mUnderlineRound: Float = 0f
+    private var mUnderlineRound: Float
 
     /**
      * 是否选中
      */
-    private var mIsSelected: Boolean = false
+    private var mIsSelected: Boolean
 
     private val mPaint: Paint
 
@@ -53,14 +53,13 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
         setLayerType(LAYER_TYPE_SOFTWARE, null)
         mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
         mPaint.style = Paint.Style.FILL
-
+        paint.strokeCap = Paint.Cap.ROUND//半圆形
         val a = context.obtainStyledAttributes(attrs, R.styleable.YcUnderlineTextView)
         mSelectColor = a.getColor(R.styleable.YcUnderlineTextView_ycSelectColor, ycGetColorRes(R.color.every_lib_blue))
         mUnSelectColor = a.getColor(R.styleable.YcUnderlineTextView_ycUnSelectColor, ycGetColorRes(R.color.white))
         mUnderlineWidth = a.getDimensionPixelSize(R.styleable.YcUnderlineTextView_ycBgUnderlineWidth, 4)
         mUnderlineRound = a.getDimensionPixelSize(R.styleable.YcUnderlineTextView_ycBgUnderlineRound, 6).toFloat()
-        mIsSelected = a.getBoolean(R.styleable.YcUnderlineTextView_ycIsSelected, false)
-
+        mIsSelected = a.getBoolean(R.styleable.YcUnderlineTextView_ycIsSelected, true)
         if (mIsSelected) {
             mPaint.color = mSelectColor
             setTextColor(mSelectColor)
@@ -68,13 +67,17 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
             mPaint.color = mUnSelectColor
             setTextColor(mUnSelectColor)
         }
-        mTextLength = paint.measureText(text.toString())
+        setLineLength()
         a.recycle()
     }
 
     override fun setText(text: CharSequence?, type: BufferType?) {
         super.setText(text, type)
-        mTextLength = paint.measureText(text.toString())
+        setLineLength()
+    }
+
+    fun setLineLength() {
+        mTextLength = paint.measureText(text.toString()) * 0.95f
     }
 
     /**
