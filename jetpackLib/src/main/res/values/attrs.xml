@@ -98,6 +98,7 @@
         <attr name="TextButtonViewText" format="string" />
         <attr name="TextButtonViewSingleLine" format="boolean" />
         <attr name="TextButtonViewNextImage" format="reference|color" />
+        <attr name="TextButtonViewImagePadding" format="dimension" />
     </declare-styleable>
 
 

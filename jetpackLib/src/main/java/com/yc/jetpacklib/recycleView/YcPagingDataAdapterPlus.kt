@@ -28,7 +28,7 @@ abstract class YcPagingDataAdapterPlus<Data : Any, VB : ViewBinding>(
     abstract fun VB.onUpdate(position: Int, data: Data)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
         mContext = parent.context
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
+        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: YcViewHolder<VB>, position: Int) {
