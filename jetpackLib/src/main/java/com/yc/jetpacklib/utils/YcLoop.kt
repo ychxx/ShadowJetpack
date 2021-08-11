@@ -1,7 +1,6 @@
 package com.yc.jetpacklib.utils
 
 import androidx.lifecycle.*
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.util.concurrent.atomic.AtomicReference
@@ -24,32 +23,32 @@ class YcLoop(owner: LifecycleOwner) : YcLoopBase(owner) {
     }
 
     /**
-     * 等待执行
-     * @return true 时不等待，false 时继续等待
+     * 是否延迟
+     * @return true 延迟，false 不延迟，立刻执行
      */
-    private var mWaitHandle: AtomicReference<Boolean> = AtomicReference(false)
+    private var mIsDelay: AtomicReference<Boolean> = AtomicReference(false)
 
     init {
         reset()
     }
 
     fun stop() {
-        mWaitHandle.set(true)
+        mIsDelay.set(true)
     }
 
     fun recovery() {
-        mWaitHandle.set(false)
+        mIsDelay.set(false)
     }
 
     fun stopOrRecovery(isStop: Boolean) {
-        mWaitHandle.set(isStop)
+        mIsDelay.set(isStop)
     }
 
     override fun reset() {
         mPost.observe(owner, Observer {
             mJopHandle?.cancel()
             mJopHandle = owner.lifecycleScope.launch {
-                while (mWaitHandle.get()) {
+                while (mIsDelay.get()) {
                     delay(100)
                 }
                 mBlock?.invoke()

@@ -20,6 +20,20 @@
     <attr name="ycText" format="string|reference" />
     <!-- 文字大小 -->
     <attr name="ycTextSize" format="dimension" />
+    <!-- 是否选中（用于状态切换） -->
+    <attr name="ycIsSelected" format="boolean" />
+    <!-- 选中颜色 -->
+    <attr name="ycSelectColor" format="color" />
+    <!-- 未选中颜色 -->
+    <attr name="ycUnSelectColor" format="color" />
+    <declare-styleable name="YcUnderlineTextView">
+        <attr name="ycSelectColor" />
+        <attr name="ycUnSelectColor" />
+        <attr name="ycBgUnderlineWidth" format="dimension" />
+        <attr name="ycBgUnderlineRound" format="dimension" />
+        <attr name="ycIsSelected" />
+    </declare-styleable>
+
     <declare-styleable name="YcSingleLayout">
         <attr name="ycBg" />
         <attr name="ycImgLeftBg" />

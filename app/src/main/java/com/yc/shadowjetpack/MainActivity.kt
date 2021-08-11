@@ -30,6 +30,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                         3 -> {
                             startActivity(Intent(this@MainActivity, TestRefreshActivity::class.java))
                         }
+                        4 -> {
+                            startActivity(Intent(this@MainActivity, TestWidgetActivity::class.java))
+                        }
                     }
                 }
             }
@@ -43,5 +46,6 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试替换布局", 1))
         mAdapter.addData(Item("测试替换布局2", 2))
         mAdapter.addData(Item("测试刷新", 3))
+        mAdapter.addData(Item("测试自定义View", 4))
     }
 }

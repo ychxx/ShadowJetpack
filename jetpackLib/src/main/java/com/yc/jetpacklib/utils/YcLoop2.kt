@@ -11,14 +11,22 @@ import kotlinx.coroutines.launch
  * Date: 2021/2/20 15:05
  * UseDes:轮询器（主动调用外部执行条件）
  */
-
 class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
+    companion object {
+        fun init(owner: LifecycleOwner, periodTime: Long = 2000L, block: () -> Unit) = lazy {
+            return@lazy YcLoop2(owner).apply {
+                mPeriodTime = periodTime
+                mBlock = {
+                    block()
+                }
+            }
+        }
+    }
+
     /**
-     * 是否等待执行条件
-     * mIsWait = true, 卡住
-     * mIsWait = false
+     * 是否延迟（true 延迟，false 不延迟，立刻执行）
      */
-    var mIsWait: (() -> Boolean)? = null
+    var mIsDelay: (() -> Boolean)? = null
 
     init {
         reset()
@@ -28,7 +36,7 @@ class YcLoop2(owner: LifecycleOwner) : YcLoopBase(owner) {
         mPost.observe(owner, Observer {
             mJopHandle?.cancel()
             mJopHandle = owner.lifecycleScope.launch {
-                while (mIsWait?.invoke().ycIsTrue()) {
+                while (mIsDelay?.invoke().ycIsTrue()) {
                     delay(100)
                 }
                 mBlock?.invoke()

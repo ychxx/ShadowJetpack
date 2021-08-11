@@ -30,6 +30,7 @@ import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.init.YcJetpack
+import com.yc.jetpacklib.utils.YcSoftInputUtil
 import java.io.File
 
 /**
@@ -108,48 +109,33 @@ fun Fragment.showToast(msg: String, duration: Int = Toast.LENGTH_SHORT) {
     requireContext().showToast(msg, duration)
 }
 
+/**
+ * 点击非EditText位置，隐藏输入法
+ */
 fun Activity.touchOutsideHideSoftInput(event: MotionEvent) {
-    if (event.action == MotionEvent.ACTION_DOWN) {
-        val view = currentFocus
-        if (isShouldHideSoftInput(view, event)) {
-            hideSoftInput()
-        }
-    }
+    YcSoftInputUtil.clickNoEditHideSoftInput(currentFocus, event)
 }
 
-
-//判断是否要隐藏键盘(如果点击的是输入框就不要隐藏)
-private fun isShouldHideSoftInput(view: View?, event: MotionEvent): Boolean {
-    if (view is EditText) {
-        val  leftTop= intArrayOf(0,0)
-        view.getLocationInWindow(leftTop)
-        val left = leftTop[0]
-        val top = leftTop[1]
-        val bottom = top + view.height
-        val right = left + view.width
-        return !(event.x > left && event.x < right
-                && event.y > top && event.y < bottom)
-
-
-    }
-    return true
-}
-
+/**
+ * 隐藏输入法
+ */
 fun View.hideSoftInput() {
-    (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
-        .hideSoftInputFromWindow(windowToken, 0)
+    YcSoftInputUtil.hideSoftInput(context, windowToken)
 }
 
+/**
+ * 隐藏输入法
+ */
 fun Activity.hideSoftInput() {
-    val view = window.peekDecorView() ?: return
-    view.hideSoftInput()
+    window.peekDecorView()?.hideSoftInput()
 }
 
+/**
+ * 隐藏输入法
+ */
 fun Fragment.hideSoftInput() {
     view?.hideSoftInput()
 }
-
-
 
 @ColorInt
 fun Fragment.ycGetColorRes(resId: Int): Int {
