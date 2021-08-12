@@ -10,10 +10,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="dasdasdasd" />
+        android:text="dasdasdasd"
+        app:ycBgUnderlineWidth="2dp" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="10dp" />
+    <com.yc.jetpacklib.widget.YcRingView
+        android:id="@+id/ring"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="50/100"
+        app:ycProgress="0.5"
+        app:ycRadiusInner="37.5dp"
+        app:ycRadiusOuter="60dp" />
+
+    <com.yc.jetpacklib.widget.YcRingView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="0/100"
+        app:ycProgress="0"
+        app:ycRadiusInner="37.5dp"
+        app:ycRadiusOuter="60dp" />
+
+    <com.yc.jetpacklib.widget.YcRingView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="100/100"
+        app:ycProgress="1"
+        app:ycRadiusInner="37.5dp"
+        app:ycRadiusOuter="60dp" />
+
+    <com.yc.jetpacklib.widget.YcRingView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:text="9000/10000"
+        app:ycProgress="0.9"
+        app:ycRadiusInner="37.5dp"
+        app:ycRadiusOuter="60dp" />
 </LinearLayout>
