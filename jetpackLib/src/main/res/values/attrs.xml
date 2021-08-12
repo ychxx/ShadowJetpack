@@ -139,4 +139,10 @@
         <attr name="dtvDrawableBottomWidth" format="dimension" />
         <attr name="dtvDrawableBottomHeight" format="dimension" />
     </declare-styleable>
+
+
+    <declare-styleable name="YcEditTextNum">
+        <attr name="maxLength" format="integer" />
+        <attr name="hint" format="string" />
+    </declare-styleable>
 </resources>

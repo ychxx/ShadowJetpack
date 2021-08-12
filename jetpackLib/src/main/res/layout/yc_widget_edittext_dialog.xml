@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_marginStart="51dp"
     android:layout_marginEnd="49dp"
-    android:background="@drawable/yc_shape_white_round"
+    android:background="@drawable/yc_shape_round5_white"
     android:minHeight="173dp"
     tools:ignore="HardcodedText">
 
@@ -19,7 +19,7 @@
         android:layout_marginEnd="23dp"
         android:layout_marginBottom="22dp"
         android:lineSpacingExtra="4dp"
-        android:text=""
+        android:text="asdas"
         android:textColor="#333A40"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"

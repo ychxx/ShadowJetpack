@@ -12,7 +12,7 @@ import androidx.appcompat.widget.AppCompatEditText
  */
 class YcEditTextChangeView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null) : AppCompatEditText(context, attrs) {
     private var mBeforeData: String? = null
-    private var mTextChanged: TextChanged? = null
+    var textChanged: ((String) -> Unit?)? = null
 
     init {
         if (text != null) {
@@ -22,8 +22,8 @@ class YcEditTextChangeView @JvmOverloads constructor(context: Context, attrs: At
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                if (mTextChanged != null && TextUtils.isEmpty(mBeforeData) != TextUtils.isEmpty(s.toString())) {
-                    mTextChanged!!.call(s.toString())
+                if (TextUtils.isEmpty(mBeforeData) != TextUtils.isEmpty(s.toString())) {
+                    textChanged?.invoke(s.toString())
                 }
                 mBeforeData = s.toString()
             }
@@ -42,11 +42,11 @@ class YcEditTextChangeView @JvmOverloads constructor(context: Context, attrs: At
 
     val isEmpty: Boolean get() = TextUtils.isEmpty(text.toString())
 
-    fun setTextChanged(textChanged: TextChanged?) {
-        mTextChanged = textChanged
-    }
-
-    interface TextChanged {
-        fun call(data: String?)
+    fun getData(): String {
+        return if (text == null) {
+            ""
+        } else {
+            text.toString()
+        }
     }
 }

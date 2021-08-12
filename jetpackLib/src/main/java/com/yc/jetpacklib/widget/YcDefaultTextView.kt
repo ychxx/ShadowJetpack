@@ -30,7 +30,7 @@ class YcDefaultTextView @JvmOverloads constructor(context: Context, attrs: Attri
         if (TextUtils.isEmpty(defaultText)) {
             defaultText = ""
         }
-        textDefaultColor = a.getColor(R.styleable.YcDefaultTextView_textDefaultColor, ycGetColorRes(R.color.every_lib_grey_6C7282))
+        textDefaultColor = a.getColor(R.styleable.YcDefaultTextView_textDefaultColor, ycGetColorRes(R.color.every_lib_edt_text_hide))
         mTextColor = a.getColor(R.styleable.YcDefaultTextView_DefaultTvTextColor, ycGetColorRes(R.color.every_lib_black_333A40))
         mTextMaxLength = a.getInt(R.styleable.YcDefaultTextView_textMaxLength, Int.MAX_VALUE - 1)
         a.recycle()

@@ -31,4 +31,16 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/every_lib_line</item>
     </style>
+
+    <!-- 底部的dialog弹出的动画样式-->
+    <style name="YcBottomDialogWindowAnim" parent="android:Animation">
+        <item name="android:windowEnterAnimation">@anim/yc_popup_bottom_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/yc_popup_bottom_exit_anim</item>
+    </style>
+
+    <style name="LineHorizontalStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#F8F8F8</item>
+    </style>
 </resources>

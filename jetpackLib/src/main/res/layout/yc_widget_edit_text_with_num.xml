@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/yc_shape_round5_white"
+    tools:ignore="HardcodedText">
+
+    <EditText
+        android:id="@+id/widgetEditTextEdt"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:gravity="start|top"
+        android:maxLength="200"
+        android:minHeight="120dp"
+        android:paddingLeft="8dp"
+        android:paddingTop="10dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="40dp"
+        android:text=""
+        tools:text="jdsajdjjklasdjfadasdfdskdsajdjjklasdjfadasdfdskdsajdjjklasdjfadasdfdskdsajdjjklasdjfadasdfdskdsajdjjklasdjfadasdfdsklja"
+        android:textColor="@color/every_lib_edt_text"
+        android:textColorHint="@color/every_lib_edt_text_hide"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/widgetEditTextLimitTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="/200"
+        android:textColor="@color/every_lib_edt_text_hide"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/widgetEditTextEdt"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/widgetEditTextNumTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0"
+        android:textColor="@color/every_lib_edt_text_hide"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/widgetEditTextLimitTv"
+        app:layout_constraintEnd_toStartOf="@+id/widgetEditTextLimitTv"
+        app:layout_constraintTop_toTopOf="@+id/widgetEditTextLimitTv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    tools:ignore="HardcodedText">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yc_shape_round6_white"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnFirst"
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            android:text="拍照"
+            android:textColor="#2782FF"
+            android:textSize="19sp" />
+
+        <View style="@style/LineHorizontalStyle" />
+
+        <Button
+            android:id="@+id/btnSecond"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            android:text="从相册中选择"
+            android:textColor="#2782FF"
+            android:textSize="19sp" />
+
+        <View
+            android:id="@+id/viewThird"
+            style="@style/LineHorizontalStyle"
+            android:layout_width="match_parent"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnThird"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="@null"
+            android:text="拍照"
+            android:textColor="#2782FF"
+            android:textSize="19sp"
+            android:visibility="gone" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="7dp"
+        android:background="@drawable/yc_shape_round6_white"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:backgroundTint="@color/white"
+            android:text="取消"
+            android:textColor="#2782FF"
+            android:textSize="19sp" />
+    </LinearLayout>
+</LinearLayout>
