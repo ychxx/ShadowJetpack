@@ -54,7 +54,7 @@ class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcS
         private const val REQUEST_PERMISSION_CAMERA = 1000
         private const val REQUEST_PERMISSION_PHOTO = 1001
 
-        fun newInstance(activity: Activity, scanAreaBg: Int, launcher: ActivityResultLauncher<Intent>) {
+        fun newInstance(activity: Activity, launcher: ActivityResultLauncher<Intent>, scanAreaBg: Int? = R.drawable.yc_scan_code_frame_bg) {
             val intent = Intent(activity, YcScanQrcodeActivity::class.java)
             intent.putExtra(SCAN_AREA_BG, scanAreaBg)
             launcher.launch(intent)
@@ -62,14 +62,14 @@ class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcS
     }
 
 
-   /* override fun initImmersionBar() {
-        ImmersionBar.with(this)
-            .statusBarColor(R.color.transparent)
-            .statusBarDarkFont(false)
-            .hideBar(BarHide.FLAG_SHOW_BAR)
-            .fitsSystemWindows(false)
-            .init()
-    }*/
+    /* override fun initImmersionBar() {
+         ImmersionBar.with(this)
+             .statusBarColor(R.color.transparent)
+             .statusBarDarkFont(false)
+             .hideBar(BarHide.FLAG_SHOW_BAR)
+             .fitsSystemWindows(false)
+             .init()
+     }*/
 
     override fun YcScanQrcodeActivityBinding.initView() {
         ivScanArea.setBackgroundResource(intent.getIntExtra(SCAN_AREA_BG, R.drawable.yc_scan_code_frame_bg))
