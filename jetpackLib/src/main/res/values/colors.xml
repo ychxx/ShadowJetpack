@@ -31,4 +31,5 @@
     <color name="common_single_tv_color">#252525</color>
 
     <color name="jetpack_actionbar_text">#252525</color>
+    <color name="black_scan_bg">#FF1C1C1C</color>
 </resources>
