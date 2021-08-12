@@ -3,6 +3,7 @@
     <dimen name="jetpack_activity_margin">20dp</dimen>
     <dimen name="margin_10dp">10dp</dimen>
     <dimen name="margin_8dp">8dp</dimen>
+    <dimen name="padding_4dp">4dp</dimen>
 
     <dimen name="every_lib_chart_x_axis_text_size">8sp</dimen>
 
