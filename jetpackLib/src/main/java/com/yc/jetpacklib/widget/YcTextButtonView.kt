@@ -56,7 +56,7 @@ class YcTextButtonView @JvmOverloads constructor(
         val textSize = a.getDimension(R.styleable.YcTextButtonView_TextButtonViewTextSize, 18f)
         isSingleLine = a.getBoolean(R.styleable.YcTextButtonView_TextButtonViewSingleLine, false)
         val imageViewResource = a.getResourceId(R.styleable.YcTextButtonView_TextButtonViewNextImage, -1)
-        val imagePadding = a.getResourceId(R.styleable.YcTextButtonView_TextButtonViewImagePadding, 10)
+        val imagePadding = a.getResourceId(R.styleable.YcTextButtonView_TextButtonViewImagePadding, R.dimen.margin_10dp)
         a.recycle()
         mTextView = YcDefaultTextView(getContext())
         mTextView.setTextDefaultColor(defaultColor)
@@ -81,7 +81,8 @@ class YcTextButtonView @JvmOverloads constructor(
         mImageView!!.adjustViewBounds = true
         mImageView!!.setPadding(ycGetDimensionPixelSize(imagePadding), 0, 0, 0)
         val imageSize = ycGetDimensionPixelSize(R.dimen.every_lib_icon_next_height)
-        mImageView!!.layoutParams = ViewGroup.LayoutParams(imageSize + ycGetDimensionPixelSize(imagePadding), imageSize
+        mImageView!!.layoutParams = ViewGroup.LayoutParams(
+            imageSize + ycGetDimensionPixelSize(imagePadding), imageSize
         )
         addView(mImageView)
         setBackgroundResource(R.color.transparent)
