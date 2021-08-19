@@ -1,12 +1,11 @@
 package com.yc.shadowjetpack
 
 import android.content.Intent
-import android.os.Bundle
-import androidx.compose.ui.platform.setContent
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapter
 import com.yc.jetpacklib.recycleView.YcViewHolder
+import com.yc.shadowjetpack.chart.TestChartLineActivity
 import com.yc.shadowjetpack.databinding.ActivityMainBinding
 import com.yc.shadowjetpack.databinding.TestItemBinding
 
@@ -33,6 +32,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                         4 -> {
                             startActivity(Intent(this@MainActivity, TestWidgetActivity::class.java))
                         }
+                        5 -> {
+                            startActivity(Intent(this@MainActivity, TestChartLineActivity::class.java))
+                        }
                     }
                 }
             }
@@ -47,5 +49,6 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试替换布局2", 2))
         mAdapter.addData(Item("测试刷新", 3))
         mAdapter.addData(Item("测试自定义View", 4))
+        mAdapter.addData(Item("测试折线图", 5))
     }
 }

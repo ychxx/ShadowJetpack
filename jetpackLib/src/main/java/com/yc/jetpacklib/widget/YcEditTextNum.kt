@@ -7,6 +7,7 @@ import android.text.InputFilter
 import android.text.InputFilter.LengthFilter
 import android.text.TextWatcher
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
@@ -37,7 +38,7 @@ class YcEditTextNum @JvmOverloads constructor(context: Context, attrs: Attribute
         val maxLength = a.getInt(R.styleable.YcEditTextNum_maxLength, 200)
         val hint = a.getString(R.styleable.YcEditTextNum_hint)
         a.recycle()
-        val view: View = YcReleaseLayoutUtilsNew.createView(context, R.layout.yc_widget_edit_text_with_num)
+        val view: View = LayoutInflater.from(context).inflate(R.layout.yc_widget_edit_text_with_num, null, false)
         mLimitTv = view.findViewById(R.id.widgetEditTextLimitTv)
         mEditText = view.findViewById(R.id.widgetEditTextEdt)
         mNumTv = view.findViewById(R.id.widgetEditTextNumTv)

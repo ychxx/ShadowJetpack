@@ -30,7 +30,7 @@ import java.util.List;
 /**
  *
  */
-public class BarRenderer extends BarChartRenderer {
+public class YcChartBarRenderer extends BarChartRenderer {
 
     protected BarDataProvider mChart;
 
@@ -44,11 +44,11 @@ public class BarRenderer extends BarChartRenderer {
     protected Paint mShadowPaint;
     protected Paint mBarBorderPaint;
 
-    public BarRenderer(BarChart chart) {
+    public YcChartBarRenderer(BarChart chart) {
         this(chart, chart.getAnimator(), chart.getViewPortHandler());
     }
 
-    public BarRenderer(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
+    public YcChartBarRenderer(BarDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(chart, animator, viewPortHandler);
         this.mChart = chart;
 

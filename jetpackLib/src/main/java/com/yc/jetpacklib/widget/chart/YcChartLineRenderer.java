@@ -1,6 +1,5 @@
 package com.yc.jetpacklib.widget.chart;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -28,9 +27,6 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
-import com.yc.jetpacklib.R;
-import com.yc.jetpacklib.init.YcJetpack;
-import com.yc.jetpacklib.utils.YcResources;
 
 
 import java.lang.ref.WeakReference;
@@ -38,10 +34,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ChartLineRenderer extends LineRadarRenderer {
-
+public class YcChartLineRenderer extends LineRadarRenderer {
     protected LineDataProvider mChart;
-    private Context mContext;
     private double MIN_NUM = 0;
     /**
      * paint for the inner circle of the value indicators
@@ -68,17 +62,16 @@ public class ChartLineRenderer extends LineRadarRenderer {
     protected Path cubicPath = new Path();
     protected Path cubicFillPath = new Path();
 
-    public ChartLineRenderer(LineChart lineChart, Context context) {
-        this(lineChart, lineChart.getAnimator(), lineChart.getViewPortHandler(), context);
-    }
-
-    public ChartLineRenderer(LineDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler, Context context) {
+    public YcChartLineRenderer(LineDataProvider chart, ChartAnimator animator, ViewPortHandler viewPortHandler) {
         super(animator, viewPortHandler);
         mChart = chart;
-        mContext = context;
         mCirclePaintInner = new Paint(Paint.ANTI_ALIAS_FLAG);
         mCirclePaintInner.setStyle(Paint.Style.FILL);
         mCirclePaintInner.setColor(Color.WHITE);
+    }
+
+    public YcChartLineRenderer(LineChart lineChart) {
+        this(lineChart, lineChart.getAnimator(), lineChart.getViewPortHandler());
     }
 
     @Override
@@ -166,7 +159,6 @@ public class ChartLineRenderer extends LineRadarRenderer {
                     dottedValues.add(dataSet.getEntryForIndex(i));
                     dottedLineDataSets.add(new LineDataSet(dottedValues, ""));
                     dottedValues = new ArrayList<>();
-
                 }
                 solidValues.add(dataSet.getEntryForIndex(i));
             } else {
@@ -463,8 +455,8 @@ public class ChartLineRenderer extends LineRadarRenderer {
                     continue;
 
                 // get the color that is set for this line-segment
-//                mRenderPaint.setColor(dataSet.getColor(j));
-                mRenderPaint.setColor(YcResources.getColorRes(R.color.every_lib_chart_threshold_line_color, YcJetpack.getMInstance().getResources()));
+                mRenderPaint.setColor(dataSet.getColor(j));
+//                mRenderPaint.setColor(YcResources.getColorRes(R.color.every_lib_chart_threshold_line_color, YcJetpack.getMInstance().getResources()));
                 canvas.drawLines(mLineBuffer, 0, pointsPerEntryPair * 2, mRenderPaint);
             }
 
@@ -665,7 +657,6 @@ public class ChartLineRenderer extends LineRadarRenderer {
                     }
 
                     if (entry.getIcon() != null && dataSet.isDrawIconsEnabled()) {
-
                         Drawable icon = entry.getIcon();
 
                         Utils.drawImage(
@@ -697,13 +688,15 @@ public class ChartLineRenderer extends LineRadarRenderer {
     /**
      * cache for the circle bitmaps of all datasets
      */
-    private HashMap<IDataSet, DataSetImageCache> mImageCaches = new HashMap<>();
-
+    protected HashMap<IDataSet, YcDataSetImageCache> mImageCaches = new HashMap<>();
     /**
      * buffer for drawing the circles
      */
     private float[] mCirclesBuffer = new float[2];
 
+    /**
+     * 绘制顶点
+     */
     protected void drawCircles(Canvas c) {
 
         mRenderPaint.setStyle(Paint.Style.FILL);
@@ -734,12 +727,12 @@ public class ChartLineRenderer extends LineRadarRenderer {
             boolean drawTransparentCircleHole = drawCircleHole &&
                     dataSet.getCircleHoleColor() == ColorTemplate.COLOR_NONE;
 
-            DataSetImageCache imageCache;
+            YcDataSetImageCache imageCache;
 
             if (mImageCaches.containsKey(dataSet)) {
                 imageCache = mImageCaches.get(dataSet);
             } else {
-                imageCache = new DataSetImageCache();
+                imageCache = new YcDataSetImageCache();
                 mImageCaches.put(dataSet, imageCache);
             }
 
@@ -775,7 +768,14 @@ public class ChartLineRenderer extends LineRadarRenderer {
                 Bitmap circleBitmap = imageCache.getBitmap(j);
 
                 if (circleBitmap != null) {
-                    c.drawBitmap(circleBitmap, mCirclesBuffer[0] - circleRadius, mCirclesBuffer[1] - circleRadius, null);
+                    //部分不显示顶点
+                    if (e instanceof YcEntry) {
+                        if (e.getData() != null && (Boolean) (e.getData())) {
+                            c.drawBitmap(circleBitmap, mCirclesBuffer[0] - circleRadius, mCirclesBuffer[1] - circleRadius, null);
+                        }
+                    } else {
+                        c.drawBitmap(circleBitmap, mCirclesBuffer[0] - circleRadius, mCirclesBuffer[1] - circleRadius, null);
+                    }
                 }
             }
         }
@@ -847,7 +847,7 @@ public class ChartLineRenderer extends LineRadarRenderer {
         }
     }
 
-    private class DataSetImageCache {
+    private class YcDataSetImageCache {
 
         private Path mCirclePathBuffer = new Path();
 

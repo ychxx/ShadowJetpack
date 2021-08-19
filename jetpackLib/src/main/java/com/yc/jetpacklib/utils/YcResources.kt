@@ -39,6 +39,11 @@ object YcResources {
     fun getDimensionPixelSize(resId: Int, resources: Resources = YcJetpack.mInstance.getResources()): Int {
         return resources.getDimensionPixelSize(resId)
     }
+    @JvmStatic
+    fun getDimension(resId: Int, resources: Resources = YcJetpack.mInstance.getResources()): Float {
+        return resources.getDimension(resId)
+    }
+
 
     /**
      * 获取Drawable
