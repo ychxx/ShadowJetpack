@@ -17,6 +17,7 @@ object YcTime {
     const val FORMAT_TIME_YEAR = "yyyy"
     const val FORMAT_TIME_MONTH = "yyyy-MM"
     const val FORMAT_TIME_SECOND = "yyyy-MM-dd HH:mm:ss"
+    const val FORMAT_TIME_MONTH_DAY = "MM-dd"
     const val FORMAT_TIME_SECOND_WEEK = "yyyy-MM-dd E HH:mm:ss" //E代表星期，会根据时区显示中文或英文
 
     @JvmStatic

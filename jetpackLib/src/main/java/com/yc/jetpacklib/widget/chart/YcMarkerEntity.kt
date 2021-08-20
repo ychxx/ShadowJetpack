@@ -6,7 +6,10 @@ package com.yc.jetpacklib.widget.chart
  * UseDes:
  */
 data class YcMarkerEntity(
-    val bgResId: Int,
+    /**
+     * 为空时，左侧View不显示
+     */
+    val bgResId: Int?,
     val text: String,
     val textColorResId: Int
 )

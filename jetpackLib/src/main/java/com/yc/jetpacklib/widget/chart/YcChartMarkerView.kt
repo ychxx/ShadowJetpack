@@ -22,7 +22,12 @@ open class YcChartMarkerView(chart: Chart<*>) : YcChartBaseMarkerView<YcMarkerEn
 
     init {
         mAdapter.mOnUpdate = {
-            vChartMarkerItem.setBackgroundResource(it.bgResId)
+            if (it.bgResId == null) {
+                vChartMarkerItem.visibility = GONE
+            } else {
+                vChartMarkerItem.visibility = visibility
+                vChartMarkerItem.setBackgroundResource(it.bgResId)
+            }
             tvChartMakerItem.text = it.text
             tvChartMakerItem.ycSetTextColorRes(it.textColorResId)
         }
