@@ -3,13 +3,16 @@ package com.yc.jetpacklib.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
+import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
-import android.view.Gravity
+import android.view.View
 import androidx.annotation.ColorInt
-import androidx.appcompat.widget.AppCompatTextView
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.ycGetColorRes
+import com.yc.jetpacklib.extension.ycIsEmpty
+import com.yc.jetpacklib.extension.ycIsNotEmpty
+import com.yc.jetpacklib.extension.ycToNoEmpty
 import kotlin.math.PI
 import kotlin.math.atan2
 
@@ -22,7 +25,7 @@ const val CORRECT_ANGLE = -90
  *  圆角环形
  */
 class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
-    AppCompatTextView(context, attrs, defStyleAttr) {
+    View(context, attrs, defStyleAttr) {
     @ColorInt
     private var mBgColor: Int
 
@@ -53,23 +56,49 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
      */
     private var mProgress: Float
 
-    private val mPaint: Paint
+    private val mPaintRing: Paint
+    private val mPaintText: Paint
+    private var mText: String
+    private var mText2: String
+    private var mTextSize: Float
+
+    /**
+     * 文字颜色
+     */
+    @ColorInt
+    private var mTextColor: Int
+
+    /**
+     * 文字颜色2
+     */
+    @ColorInt
+    private var mTextColor2: Int
 
     init {
         // 硬件加速不支持，图层混合。
         setLayerType(LAYER_TYPE_SOFTWARE, null)
-        mPaint = Paint(Paint.ANTI_ALIAS_FLAG)
-        mPaint.style = Paint.Style.STROKE
-        mPaint.isAntiAlias = true
-        mPaint.strokeCap = Paint.Cap.ROUND//半圆形
+
         val a = context.obtainStyledAttributes(attrs, R.styleable.YcRingView)
         mBgColor = a.getColor(R.styleable.YcRingView_ycBg, ycGetColorRes(R.color.transparent))
         mRingColor1 = a.getColor(R.styleable.YcRingView_ycRingColor1, ycGetColorRes(R.color.jetpack_ring_1))
         mRingColor2 = a.getColor(R.styleable.YcRingView_ycRingColor2, ycGetColorRes(R.color.jetpack_ring_2))
         mRadiusInner = a.getDimensionPixelSize(R.styleable.YcRingView_ycRadiusInner, 30)
         mRadiusOuter = a.getDimensionPixelSize(R.styleable.YcRingView_ycRadiusOuter, 60)
-        mProgress = a.getFloat(R.styleable.YcRingView_ycProgress, 0f)
-        gravity = Gravity.CENTER
+        mProgress = a.getFloat(R.styleable.YcRingView_ycProgress, 0.5f)
+        mPaintRing = Paint(Paint.ANTI_ALIAS_FLAG)
+        mPaintRing.style = Paint.Style.STROKE
+        mPaintRing.isAntiAlias = true
+        mPaintRing.strokeCap = Paint.Cap.ROUND//半圆形
+
+        mText = a.getString(R.styleable.YcRingView_ycText).ycToNoEmpty("50")
+        mText2 = a.getString(R.styleable.YcRingView_ycText2).ycToNoEmpty("100")
+        mTextSize = a.getDimension(R.styleable.YcRingView_ycTextSize, 16f)
+        mTextColor = a.getColor(R.styleable.YcRingView_ycTextColor, ycGetColorRes(R.color.jetpack_ring_1))
+        mTextColor2 = a.getColor(R.styleable.YcRingView_ycTextColor2, ycGetColorRes(R.color.jetpack_ring_2))
+        mPaintText = Paint(Paint.ANTI_ALIAS_FLAG)
+        mPaintText.style = Paint.Style.FILL
+        mPaintText.isAntiAlias = true
+        mPaintText.textSize = mTextSize
         a.recycle()
     }
 
@@ -94,27 +123,44 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
                 centerX + mRadiusInner + ringWidthHalf,
                 centerY + mRadiusInner + ringWidthHalf
             )
-            mPaint.strokeWidth = ringWidth
+            mPaintRing.strokeWidth = ringWidth
             when {
                 mProgress >= 1 -> {
-                    mPaint.color = mRingColor2
-                    drawArc(rectF, 360f, 360f, false, mPaint)
+                    mPaintRing.color = mRingColor2
+                    drawArc(rectF, 360f, 360f, false, mPaintRing)
                 }
                 mProgress <= 0 -> {
-                    mPaint.color = mRingColor1
-                    drawArc(rectF, 360f, 360f, false, mPaint)
+                    mPaintRing.color = mRingColor1
+                    drawArc(rectF, 360f, 360f, false, mPaintRing)
                 }
                 else -> {
                     //mPaint.strokeCap = Paint.Cap.ROUND 是在原有线的结尾和开头再加一个半圆，所以需要减去多余
                     val out = (atan2(ringWidthHalf.toDouble(), (ringWidthHalf + mRadiusInner).toDouble()) * 180f / PI).toFloat()
                     //画环形1
-                    mPaint.color = mRingColor1
-                    drawArc(rectF, 360f, 360f, false, mPaint)
+                    mPaintRing.color = mRingColor1
+                    drawArc(rectF, 360f, 360f, false, mPaintRing)
                     //画环形2
-                    mPaint.color = mRingColor2
-                    drawArc(rectF, (1 - mProgress) * 360 + CORRECT_ANGLE + out, mProgress * 360 - out * 2, false, mPaint)
+                    mPaintRing.color = mRingColor2
+                    drawArc(rectF, (1 - mProgress) * 360 + CORRECT_ANGLE + out, mProgress * 360 - out * 2, false, mPaintRing)
                 }
             }
+            if (mText.ycIsNotEmpty() && mText2.ycIsNotEmpty()) {
+                val textRectSum = Rect()
+                val textSum = mText + mText2
+                mPaintText.getTextBounds(textSum, 0, textSum.length, textRectSum)
+                val textWidthSum = textRectSum.width()
+                val textHeightSum = textRectSum.height()
+                val startX = (width - textWidthSum) / 2f
+                val startY = (height + textHeightSum) / 2f
+                mPaintText.color = mTextColor
+                drawText(mText, startX, startY, mPaintText)
+                if (mText2.ycIsNotEmpty()) {
+                    mPaintText.color = mTextColor2
+                    val textWidth = mPaintText.measureText(mText)
+                    drawText(mText2, startX + textWidth, startY, mPaintText)
+                }
+            }
+
 //            val tempPaint = Paint()
 //            tempPaint.strokeWidth = 5f
 //            tempPaint.style = Paint.Style.STROKE
@@ -125,4 +171,9 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         super.draw(canvas)
     }
 
+    fun setText(textFront: String, textAfter: String) {
+        mText = textFront
+        mText2 = textAfter
+        invalidate()
+    }
 }

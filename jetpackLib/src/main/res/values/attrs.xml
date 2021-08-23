@@ -16,8 +16,10 @@
     <attr name="ycPaddingRight" format="dimension" />
     <!-- 文字颜色 -->
     <attr name="ycTextColor" format="color" />
+    <attr name="ycTextColor2" format="color" />
     <!-- 文字内容 -->
     <attr name="ycText" format="string|reference" />
+    <attr name="ycText2" format="string|reference" />
     <!-- 文字大小 -->
     <attr name="ycTextSize" format="dimension" />
     <!-- 是否选中（用于状态切换） -->
@@ -33,6 +35,11 @@
         <attr name="ycRadiusInner" format="dimension" />
         <attr name="ycRadiusOuter" format="dimension" />
         <attr name="ycProgress" format="float" />
+        <attr name="ycText"/>
+        <attr name="ycText2"/>
+        <attr name="ycTextColor" />
+        <attr name="ycTextColor2" />
+        <attr name="ycTextSize" />
     </declare-styleable>
 
     <declare-styleable name="YcUnderlineTextView">

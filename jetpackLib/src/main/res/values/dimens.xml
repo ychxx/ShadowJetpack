@@ -5,13 +5,11 @@
     <dimen name="margin_8dp">8dp</dimen>
     <dimen name="padding_4dp">4dp</dimen>
 
-    <dimen name="every_lib_chart_x_axis_text_size">8sp</dimen>
-
     <dimen name="every_lib_icon_next_height">10dp</dimen>
 
     <!-- 图表x、y轴字体大小 -->
     <dimen name="yc_chart_axis_text_size">8sp</dimen>
-    <!--状态栏高度，已实际代码获取为准-->
+    <!--状态栏高度，以实际代码获取为准-->
     <dimen name="jetpack_status_bar_height_default">28dp</dimen>
     <!--左侧小图标大小-->
     <dimen name="jetpack_img_left">21dp</dimen>
