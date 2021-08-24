@@ -35,8 +35,8 @@
         <attr name="ycRadiusInner" format="dimension" />
         <attr name="ycRadiusOuter" format="dimension" />
         <attr name="ycProgress" format="float" />
-        <attr name="ycText"/>
-        <attr name="ycText2"/>
+        <attr name="ycText" />
+        <attr name="ycText2" />
         <attr name="ycTextColor" />
         <attr name="ycTextColor2" />
         <attr name="ycTextSize" />

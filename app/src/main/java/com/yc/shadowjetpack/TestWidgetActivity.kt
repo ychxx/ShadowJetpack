@@ -19,6 +19,6 @@ class TestWidgetActivity : YcBaseActivityPlus<TestWidgetBinding>(TestWidgetBindi
 
     override fun TestWidgetBinding.initView() {
 //        loop.start(true)
-        this.ring.setText("123","/600")
+        this.ring.setText("1234","/6070")
     }
 }

@@ -1,16 +1,14 @@
 package com.yc.jetpacklib.widget
 
 import android.content.Context
-import android.graphics.Canvas
-import android.graphics.Paint
-import android.graphics.Rect
-import android.graphics.RectF
+import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import androidx.annotation.ColorInt
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.graphics.TypefaceCompat
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.ycGetColorRes
-import com.yc.jetpacklib.extension.ycIsEmpty
 import com.yc.jetpacklib.extension.ycIsNotEmpty
 import com.yc.jetpacklib.extension.ycToNoEmpty
 import kotlin.math.PI
@@ -99,7 +97,16 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mPaintText.style = Paint.Style.FILL
         mPaintText.isAntiAlias = true
         mPaintText.textSize = mTextSize
+        mPaintText.typeface = ResourcesCompat.getFont(context, R.font.dinmittelschriftstd)
         a.recycle()
+    }
+
+    fun setTypeface(tf: Typeface) {
+        if (mPaintText.typeface !== tf) {
+            mPaintText.typeface = tf
+            requestLayout()
+            invalidate()
+        }
     }
 
     /**

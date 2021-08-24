@@ -28,12 +28,12 @@
         android:layout_height="120dp"
         app:ycProgress="0"
         app:ycRadiusInner="37.5dp"
+        app:ycRadiusOuter="60dp"
         app:ycText="100"
-        app:ycTextSize="14sp"
         app:ycText2="/200"
         app:ycTextColor="@color/yellow"
         app:ycTextColor2="@color/red"
-        app:ycRadiusOuter="60dp" />
+        app:ycTextSize="14sp" />
 
     <!--    <com.yc.jetpacklib.widget.YcRingView-->
     <!--        android:layout_width="120dp"-->
