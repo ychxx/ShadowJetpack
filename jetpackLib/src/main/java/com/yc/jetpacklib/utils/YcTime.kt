@@ -1,5 +1,4 @@
 package com.yc.jetpacklib.utils
-
 import android.text.TextUtils
 import android.util.Log
 import java.text.DateFormat
@@ -18,6 +17,8 @@ object YcTime {
     const val FORMAT_TIME_MONTH = "yyyy-MM"
     const val FORMAT_TIME_SECOND = "yyyy-MM-dd HH:mm:ss"
     const val FORMAT_TIME_SECOND_WEEK = "yyyy-MM-dd E HH:mm:ss" //E代表星期，会根据时区显示中文或英文
+    const val FORMAT_TIME_HOUR_MINUTE = "HH:mm"//只显示时分
+
 
     @JvmStatic
     fun getSimpleDateFormat(formatTime: String = FORMAT_TIME) = SimpleDateFormat(formatTime, Locale.getDefault())
@@ -45,11 +46,28 @@ object YcTime {
         }
     }
 
+
     @JvmStatic
     fun dateToLong(date: Date): Long {
         val str = dateToString(date)
         val date = stringToDate(str)
         return date?.time!!
+    }
+
+
+    /**
+     * 将Date ——>星期E
+     *
+     * @param date 时间
+     * @return
+     */
+    @JvmStatic
+    fun dateToOnlyWeekStr(date: Date?): String {
+        return if (date == null) {
+            ""
+        } else {
+            String.format("%tA", date)
+        }
     }
 
 
