@@ -1,5 +1,6 @@
 package com.yc.jetpacklib.extension
 
+import com.yc.jetpacklib.utils.YcTime
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.RequestBody
@@ -105,6 +106,52 @@ fun String?.ycToDoubleAndFormatToString(block: (Double) -> Double, format: Strin
         return@ycTryReturnData null
     } else {
         return block(this.toDouble()).ycFormatAndToString(format)
+    }
+}, error = {
+    return@ycTryReturnData null
+})
+
+/**
+ * String的时间格式转换
+ */
+fun String?.ycToTime(
+    defaultData: String = YcAnyExt.mCommonDefaultString,
+    formatTimeInput: String = YcTime.FORMAT_TIME,
+    formatTimeOut: String = YcTime.FORMAT_TIME_MONTH_DAY
+): String {
+    return if (this != null) {
+        YcTime.stringToString(this, formatTimeInput, formatTimeOut)
+    } else {
+        defaultData
+    }
+}
+
+/**
+ * 转成Float类型，格式错误返回空
+ */
+fun String?.ycToFloat(): Float? = ycTryReturnData(block = {
+    return@ycTryReturnData this?.toFloat()
+}, error = {
+    return@ycTryReturnData null
+})
+
+/**
+ * 转成非空的Float类型，格式错误返回空
+ */
+fun String?.ycToFloatNoEmpty(defaultData: Float = YcAnyExt.mCommonDefaultFloat): Float = ycTryReturnData(block = {
+    return@ycTryReturnData this?.toFloat() ?: defaultData
+}, error = {
+    return@ycTryReturnData defaultData
+})
+
+/**
+ * 先转成Float类型，执行block()，再格式化，最后转为String
+ */
+fun String?.ycToFloatAndFormatToString(block: (Float) -> Float, format: String = YcAnyExt.mCommonDoubleFormat): String? = ycTryReturnData(block = {
+    if (this == null) {
+        return@ycTryReturnData null
+    } else {
+        return block(this.toFloat()).ycFormatAndToString(format)
     }
 }, error = {
     return@ycTryReturnData null

@@ -11,15 +11,5 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="-" />
-
-    <com.yc.jetpacklib.widget.YcTextButtonView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:TextButtonViewDefaultText="请选择"
-        app:TextButtonViewDefaultTextColor="@color/black"
-        app:TextButtonViewImagePadding="@dimen/margin_10dp"
-        app:TextButtonViewText="请选择"
-        app:TextButtonViewTextColor="@color/black"
-        app:TextButtonViewTextSize="15sp" />
-
+    
 </LinearLayout>

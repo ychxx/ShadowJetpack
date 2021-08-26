@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Resources
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.view.MotionEvent
 import android.view.View
@@ -17,6 +18,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -152,6 +154,14 @@ fun Context.ycGetColorRes(resId: Int): Int {
     return resources.getColor(resId)
 }
 
+fun View.ycGetFont(resId: Int): Typeface? {
+    return ResourcesCompat.getFont(context, resId)
+}
+
+fun Context.ycGetFont(resId: Int): Typeface? {
+    return ResourcesCompat.getFont(this, resId)
+}
+
 @ColorInt
 fun View.ycGetColorRes(resId: Int): Int {
     return resources.getColor(resId)
@@ -220,9 +230,18 @@ fun View.ycGetDimensionPixelSize(resId: Int): Int {
     return resources.getDimensionPixelSize(resId)
 }
 
+fun Context.ycGetDimensionPixelSize(resId: Int): Int {
+    return resources.getDimensionPixelSize(resId)
+}
+
 fun View.ycGetDimension(resId: Int): Float {
     return resources.getDimension(resId)
 }
+
+fun Context.ycGetDimension(resId: Int): Float {
+    return resources.getDimension(resId)
+}
+
 
 fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTICAL) {
     this.layoutManager = LinearLayoutManager(context, orientation, false)

@@ -10,19 +10,20 @@
     <color name="every_lib_edt_text_hide">#6C7282</color>
     <color name="every_lib_line">#F8F8F8</color>
 
+    <color name="every_lib_grey_6C7282">#6C7282</color>
+    <color name="every_lib_black_333A40">#333A40</color>
 
     <!--图标chart-->
-    <color name="every_lib_chart_high_light_color">#1266F4</color>
-    <color name="every_lib_chart_x_y_text_color">#7A7E8A</color>
-    <color name="every_lib_chart_y_grid_color">#CCCCCC</color>
-    <color name="every_lib_chart_threshold_line_color">#F5555D</color>
-    <color name="every_lib_chart_value_text_color">#1266F4</color>
-    <color name="every_lib_chart_value_circle_color">#F8A73E</color>
-    <color name="every_lib_chart_bar_color1">#2CBB70</color>
-    <color name="every_lib_chart_bar_color2">#FFB72C</color>
-
-
-    <color name="every_lib_black_333A40">#333A40</color>
+    <!-- 图表折线图 顶点颜色 -->
+    <color name="jetpack_chart_draw_circle_color">#F8A73E</color>
+    <!-- 图表折线图 限制线颜色 -->
+    <color name="jetpack_chart_limit_line_color">#F5555D</color>
+    <!-- 图表 辅助线颜色 -->
+    <color name="jetpack_chart_grid_color">#CCCCCC</color>
+    <!-- 图表 x轴y轴上文字的颜色 -->
+    <color name="jetpack_chart_x_y_text_color">#7A7E8A</color>
+    <!-- 图表 指引线的颜色 -->
+    <color name="jetpack_chart_high_light_color">#1266F4</color>
 
     <!-- 通用背景颜色 -->
     <color name="common_bg">#F8F8F8</color>
@@ -33,4 +34,5 @@
     <color name="jetpack_ring_1">#DBDFFF</color>
     <color name="jetpack_ring_2">#1CBC67</color>
     <color name="jetpack_black_scan_bg">#FF1C1C1C</color>
+
 </resources>

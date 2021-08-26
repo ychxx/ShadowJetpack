@@ -13,36 +13,39 @@
         android:text="dasdasdasd"
         app:ycBgUnderlineWidth="2dp" />
 
+    <!--    <com.yc.jetpacklib.widget.YcRingView-->
+    <!--        android:id="@+id/ring"-->
+    <!--        android:layout_width="120dp"-->
+    <!--        android:layout_height="120dp"-->
+    <!--        android:text="50/100"-->
+    <!--        app:ycProgress="0.5"-->
+    <!--        app:ycRadiusInner="37.5dp"-->
+    <!--        app:ycRadiusOuter="60dp" />-->
+
     <com.yc.jetpacklib.widget.YcRingView
         android:id="@+id/ring"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:text="50/100"
-        app:ycProgress="0.5"
-        app:ycRadiusInner="37.5dp"
-        app:ycRadiusOuter="60dp" />
-
-    <com.yc.jetpacklib.widget.YcRingView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:text="0/100"
         app:ycProgress="0"
         app:ycRadiusInner="37.5dp"
-        app:ycRadiusOuter="60dp" />
+        app:ycRadiusOuter="60dp"
+        app:ycText="100"
+        app:ycText2="/200"
+        app:ycTextColor="@color/yellow"
+        app:ycTextColor2="@color/red"
+        app:ycTextSize="14sp" />
 
-    <com.yc.jetpacklib.widget.YcRingView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:text="100/100"
-        app:ycProgress="1"
-        app:ycRadiusInner="37.5dp"
-        app:ycRadiusOuter="60dp" />
+    <!--    <com.yc.jetpacklib.widget.YcRingView-->
+    <!--        android:layout_width="120dp"-->
+    <!--        android:layout_height="120dp"-->
+    <!--        app:ycProgress="1"-->
+    <!--        app:ycRadiusInner="37.5dp"-->
+    <!--        app:ycRadiusOuter="60dp" />-->
 
-    <com.yc.jetpacklib.widget.YcRingView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:text="9000/10000"
-        app:ycProgress="0.9"
-        app:ycRadiusInner="37.5dp"
-        app:ycRadiusOuter="60dp" />
+    <!--    <com.yc.jetpacklib.widget.YcRingView-->
+    <!--        android:layout_width="120dp"-->
+    <!--        android:layout_height="120dp"-->
+    <!--        app:ycProgress="0.9"-->
+    <!--        app:ycRadiusInner="37.5dp"-->
+    <!--        app:ycRadiusOuter="60dp" />-->
 </LinearLayout>
