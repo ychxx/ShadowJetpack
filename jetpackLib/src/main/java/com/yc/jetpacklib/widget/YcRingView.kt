@@ -15,15 +15,17 @@ import kotlin.math.PI
 import kotlin.math.atan2
 
 /**
- * 由于画环形的函数0度是在时钟的3点位置，所以要加一个-90度，让它从12点位置为开始
- */
-const val CORRECT_ANGLE = -90
-
-/**
  *  圆角环形
  */
 class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) :
     View(context, attrs, defStyleAttr) {
+    companion object {
+        /**
+         * 由于画环形的函数0度是在时钟的3点位置，所以要加一个-90度，让它从12点位置为开始
+         */
+        const val CORRECT_ANGLE = -90
+    }
+
     @ColorInt
     private var mBgColor: Int
 
@@ -90,7 +92,7 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
 
         mText = a.getString(R.styleable.YcRingView_ycText).ycToNoEmpty("50")
         mText2 = a.getString(R.styleable.YcRingView_ycText2).ycToNoEmpty("100")
-        mTextSize = a.getDimension(R.styleable.YcRingView_ycTextSize, 16f)
+        mTextSize = a.getDimension(R.styleable.YcRingView_ycTextSize, 22f)
         mTextColor = a.getColor(R.styleable.YcRingView_ycTextColor, ycGetColorRes(R.color.jetpack_ring_1))
         mTextColor2 = a.getColor(R.styleable.YcRingView_ycTextColor2, ycGetColorRes(R.color.jetpack_ring_2))
         mPaintText = Paint(Paint.ANTI_ALIAS_FLAG)

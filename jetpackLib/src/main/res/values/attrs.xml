@@ -15,8 +15,8 @@
     <!-- 内间距右侧 -->
     <attr name="ycPaddingRight" format="dimension" />
     <!-- 文字颜色 -->
-    <attr name="ycTextColor" format="color" />
-    <attr name="ycTextColor2" format="color" />
+    <attr name="ycTextColor" format="reference|color" />
+    <attr name="ycTextColor2" format="reference|color" />
     <!-- 文字内容 -->
     <attr name="ycText" format="string|reference" />
     <attr name="ycText2" format="string|reference" />
@@ -25,13 +25,17 @@
     <!-- 是否选中（用于状态切换） -->
     <attr name="ycIsSelected" format="boolean" />
     <!-- 选中颜色 -->
-    <attr name="ycSelectColor" format="color" />
+    <attr name="ycSelectColor" format="reference|color" />
     <!-- 未选中颜色 -->
-    <attr name="ycUnSelectColor" format="color" />
+    <attr name="ycUnSelectColor" format="reference|color" />
+    <!-- 选中字体大小 -->
+    <attr name="ycSelectTextSize" format="dimension" />
+    <!-- 未选中字体大小 -->
+    <attr name="ycUnSelectTextSize" format="dimension" />
     <declare-styleable name="YcRingView">
         <attr name="ycBg" />
-        <attr name="ycRingColor1" format="color" />
-        <attr name="ycRingColor2" format="color" />
+        <attr name="ycRingColor1" format="reference|color" />
+        <attr name="ycRingColor2" format="reference|color" />
         <attr name="ycRadiusInner" format="dimension" />
         <attr name="ycRadiusOuter" format="dimension" />
         <attr name="ycProgress" format="float" />
@@ -48,6 +52,8 @@
         <attr name="ycBgUnderlineWidth" format="dimension" />
         <attr name="ycBgUnderlineRound" format="dimension" />
         <attr name="ycIsSelected" />
+        <attr name="ycSelectTextSize" />
+        <attr name="ycUnSelectTextSize" />
     </declare-styleable>
 
     <declare-styleable name="YcSingleLayout">
@@ -86,9 +92,9 @@
         </attr>
         <attr name="ycEdtTextSize" format="dimension" />
         <attr name="ycEdtHint" format="string" />
-        <attr name="ycEdtHintColor" format="color" />
+        <attr name="ycEdtHintColor" format="reference|color" />
         <attr name="ycEdtText" format="string" />
-        <attr name="ycEdtTextColor" format="color" />
+        <attr name="ycEdtTextColor" format="reference|color" />
         <attr name="ycEdtMaxEms" format="string" />
         <attr name="ycEdtDigits" format="string" />
         <attr name="ycEdtSingleLine" format="boolean" />
@@ -106,24 +112,24 @@
         <attr name="ycBg" />
         <attr name="ycBgEnable" format="reference|color" />
         <attr name="ycTextColor" />
-        <attr name="ycTextColorEnable" format="color" />
+        <attr name="ycTextColorEnable" format="reference|color" />
     </declare-styleable>
 
 
     <declare-styleable name="YcDefaultTextView">
         <attr name="defaultText" format="string" />
-        <attr name="textDefaultColor" format="color" />
-        <attr name="DefaultTvTextColor" format="color" />
+        <attr name="textDefaultColor" format="reference|color" />
+        <attr name="DefaultTvTextColor" format="reference|color" />
         <attr name="textMaxLength" format="integer" />
     </declare-styleable>
 
 
     <declare-styleable name="YcTextButtonView">
         <attr name="TextButtonViewDefaultText" format="string" />
-        <attr name="TextButtonViewDefaultTextColor" format="color" />
+        <attr name="TextButtonViewDefaultTextColor" format="reference|color" />
         <attr name="TextButtonViewTextMaxLength" format="integer" />
-        <attr name="TextButtonViewTextColor" format="color" />
-        <attr name="TextButtonViewTextColor2" format="color" />
+        <attr name="TextButtonViewTextColor" format="reference|color" />
+        <attr name="TextButtonViewTextColor2" format="reference|color" />
         <attr name="TextButtonViewTextSize" format="dimension" />
         <attr name="TextButtonViewText" format="string" />
         <attr name="TextButtonViewSingleLine" format="boolean" />

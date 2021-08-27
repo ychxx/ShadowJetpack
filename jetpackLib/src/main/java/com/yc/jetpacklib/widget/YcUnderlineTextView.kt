@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.util.TypedValue
 import androidx.annotation.ColorInt
 import androidx.appcompat.widget.AppCompatTextView
 import com.yc.jetpacklib.R
@@ -25,6 +26,16 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
      */
     @ColorInt
     private var mUnSelectColor: Int
+
+    /**
+     * 字体大小(选中)
+     */
+    private var mSelectTextSize: Float
+
+    /**
+     * 字体大小(未选中)
+     */
+    private var mUnSelectTextSize: Float
 
     /**
      * 文字的长度
@@ -59,24 +70,20 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
         mUnSelectColor = a.getColor(R.styleable.YcUnderlineTextView_ycUnSelectColor, ycGetColorRes(R.color.white))
         mUnderlineWidth = a.getDimensionPixelSize(R.styleable.YcUnderlineTextView_ycBgUnderlineWidth, 4)
         mUnderlineRound = a.getDimensionPixelSize(R.styleable.YcUnderlineTextView_ycBgUnderlineRound, 6).toFloat()
+        mSelectTextSize = a.getDimension(R.styleable.YcUnderlineTextView_ycSelectTextSize, 22f)
+        mUnSelectTextSize = a.getDimension(R.styleable.YcUnderlineTextView_ycUnSelectTextSize, 22f)
         mIsSelected = a.getBoolean(R.styleable.YcUnderlineTextView_ycIsSelected, true)
-        if (mIsSelected) {
-            mPaint.color = mSelectColor
-            setTextColor(mSelectColor)
-        } else {
-            mPaint.color = mUnSelectColor
-            setTextColor(mUnSelectColor)
-        }
-        setLineLength()
+        computeLineLength()
+        refreshState()
         a.recycle()
     }
 
     override fun setText(text: CharSequence?, type: BufferType?) {
         super.setText(text, type)
-        setLineLength()
+        computeLineLength()
     }
 
-    fun setLineLength() {
+    private fun computeLineLength() {
         mTextLength = paint.measureText(text.toString()) * 0.95f
     }
 
@@ -86,7 +93,20 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
     fun setSelectState(isSelected: Boolean) {
         if (mIsSelected != isSelected) {
             mIsSelected = isSelected
+            refreshState()
             this.invalidate()
+        }
+    }
+
+    private fun refreshState() {
+        if (mIsSelected) {
+            mPaint.color = mSelectColor
+            setTextColor(mSelectColor)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, mSelectTextSize)
+        } else {
+            mPaint.color = mUnSelectColor
+            setTextColor(mUnSelectColor)
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, mUnSelectTextSize)
         }
     }
 

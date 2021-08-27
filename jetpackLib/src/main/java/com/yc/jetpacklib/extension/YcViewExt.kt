@@ -4,18 +4,18 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.res.Resources
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.ColorInt
 import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -28,10 +28,8 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
-import com.google.android.material.snackbar.BaseTransientBottomBar
-import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
-import com.yc.jetpacklib.init.YcJetpack
+import com.yc.jetpacklib.utils.YcColorUtil
 import com.yc.jetpacklib.utils.YcSoftInputUtil
 import java.io.File
 
@@ -242,9 +240,12 @@ fun Context.ycGetDimension(resId: Int): Float {
     return resources.getDimension(resId)
 }
 
+fun TextView.ycSetTextSizeRes(@DimenRes idRes: Int) {
+    setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(idRes))
+}
 
-fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTICAL) {
-    this.layoutManager = LinearLayoutManager(context, orientation, false)
+fun TextView.ycSetTextSize(textSize: Float) {
+    setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
 }
 
 fun TextView.ycSetTextColorRes(@ColorRes textColorRes: Int) {
@@ -255,10 +256,25 @@ fun Button.ycSetTextColorRes(@ColorRes textColorRes: Int) {
     this.setTextColor(context.resources.getColor(textColorRes))
 }
 
+fun View.ycBgRgb(red: Int, green: Int, blue: Int) {
+    setBackgroundColor(YcColorUtil.rgb(red, green, blue))
+}
+
+fun TextView.ycTextColorRgb(red: Int, green: Int, blue: Int) {
+    setTextColor(YcColorUtil.rgb(red, green, blue))
+}
+
+fun View.ycBgArgb(alpha: Int, red: Int, green: Int, blue: Int) {
+    setBackgroundColor(YcColorUtil.argb(alpha, red, green, blue))
+}
+
 fun ImageView.ycSetColorFilter(@ColorRes colorRes: Int) {
     this.setColorFilter(context.resources.getColor(colorRes))
 }
 
+fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTICAL) {
+    this.layoutManager = LinearLayoutManager(context, orientation, false)
+}
 
 inline fun SwipeRefreshLayout.refreshUtil(crossinline getData: (() -> Unit)) {
     setOnRefreshListener {
