@@ -90,8 +90,8 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         mPaintRing.isAntiAlias = true
         mPaintRing.strokeCap = Paint.Cap.ROUND//半圆形
 
-        mText = a.getString(R.styleable.YcRingView_ycText).ycToNoEmpty("50")
-        mText2 = a.getString(R.styleable.YcRingView_ycText2).ycToNoEmpty("100")
+        mText = a.getString(R.styleable.YcRingView_ycText).ycToNoEmpty("")
+        mText2 = a.getString(R.styleable.YcRingView_ycText2).ycToNoEmpty("")
         mTextSize = a.getDimension(R.styleable.YcRingView_ycTextSize, 22f)
         mTextColor = a.getColor(R.styleable.YcRingView_ycTextColor, ycGetColorRes(R.color.jetpack_ring_1))
         mTextColor2 = a.getColor(R.styleable.YcRingView_ycTextColor2, ycGetColorRes(R.color.jetpack_ring_2))
