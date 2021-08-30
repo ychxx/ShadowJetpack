@@ -27,6 +27,7 @@ class TestChartLineActivity : YcBaseActivityPlus<TestLineChartBinding>(TestLineC
             }
         }
         lcTest.ycChartInitDefault()
+        lcTest.rendererLeftYAxis = YcChartAxisYUnitRenderer(lcTest,"(m)")
         bcTest.ycChartBarInitDefault()
     }
 
