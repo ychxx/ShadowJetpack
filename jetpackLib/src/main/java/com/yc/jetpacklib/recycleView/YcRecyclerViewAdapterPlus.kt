@@ -65,7 +65,7 @@ open class YcRecyclerViewAdapterPlus<Data, VB : ViewBinding>(protected val creat
         return if (position < 0 || position >= mData.size) null else mData[position]
     }
 
-    fun VB.onUpdate(position: Int, data: Data) {
+    open fun VB.onUpdate(position: Int, data: Data) {
 
     }
 }

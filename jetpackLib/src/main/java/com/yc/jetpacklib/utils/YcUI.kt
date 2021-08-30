@@ -19,6 +19,11 @@ object YcUI {
         return (resources.displayMetrics.density * dp + 0.5f).toInt()
     }
 
+    @JvmStatic
+    fun dip2pxFloat(dp: Float, resources: Resources = YcJetpack.mInstance.getResources()): Float {
+        return resources.displayMetrics.density * dp + 0.5f
+    }
+
     /**
      * 将px值转换为dp值
      */
