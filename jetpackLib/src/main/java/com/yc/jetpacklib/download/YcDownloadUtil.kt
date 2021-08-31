@@ -4,18 +4,31 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.net.Uri
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.data.constant.YcConstants
 import com.yc.jetpacklib.extension.ycIsEmpty
 import com.yc.jetpacklib.extension.ycLogDSimple
 import com.yc.jetpacklib.extension.ycLogE
 import com.yc.jetpacklib.file.YcFileUtils
 import com.yc.jetpacklib.file.YcFileUtils.createFile
+import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.utils.YcResources
 import org.xutils.common.Callback
 import org.xutils.http.RequestParams
 import org.xutils.x
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 object YcDownloadUtil {
+
+    @JvmStatic
+    fun getApkSavePath(context: Context) =
+        YcConstants.internalPath() + YcJetpack.mInstance.mApplication.getString(R.string.app_name) + "_" + SimpleDateFormat(
+            "yyyy-MM-dd",
+            Locale.getDefault()
+        ).format(Calendar.getInstance().time) + ".apk"
+
+
     @JvmStatic
     fun urlToEncode(url: String?): String {
         return Uri.encode(url, ":._-$,;~()/+-=*?&") //转码防止中文下载地址导致无法下载
