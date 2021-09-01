@@ -30,9 +30,11 @@ class YcInterceptorError : YcInterceptor {
                 var msg = ""
                 if (jsonObject.has("message")) {
                     msg = jsonObject.optString("message")
+                } else if (jsonObject.has("msg")) {
+                    msg = jsonObject.optString("msg")
                 }
                 if (TextUtils.isEmpty(msg)) {
-                    msg = "接口异常!code:$code message:$msg";
+                    msg = "接口异常!code:$code message:$msg"
                 }
                 if (YcJetpack.mInstance.mNetSuccessCode != null && code != YcJetpack.mInstance.mNetSuccessCode) {
                     throw YcIoException(msg, code)

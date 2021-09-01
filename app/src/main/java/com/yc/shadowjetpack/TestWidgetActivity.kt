@@ -1,6 +1,7 @@
 package com.yc.shadowjetpack
 
 import com.yc.jetpacklib.base.YcBaseActivityPlus
+import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.utils.YcLoop
 import com.yc.shadowjetpack.databinding.TestWidgetBinding
 
@@ -20,5 +21,8 @@ class TestWidgetActivity : YcBaseActivityPlus<TestWidgetBinding>(TestWidgetBindi
     override fun TestWidgetBinding.initView() {
 //        loop.start(true)
         this.ring.setText("1234","/6070")
+        GlideApp.with(this@TestWidgetActivity)
+            .asDrawable()
+            .into(ivTestWidget)
     }
 }
