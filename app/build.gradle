@@ -47,13 +47,6 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    /**-- Lifecycle components 生命周期管理--**/
-    api "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
-    api "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
-
     implementation "androidx.activity:activity-ktx:$activity_version"
     implementation "androidx.fragment:fragment:$fragment_version"
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
@@ -63,17 +56,12 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
 
     /**--paging3 分页库--**/
-    implementation "androidx.paging:paging-runtime:$paging_version"
-    // alternatively - without Android dependencies for tests
-    implementation "androidx.paging:paging-common:$paging_version"
-    // 可选RxJava2支持
-    implementation "androidx.paging:paging-rxjava2:$paging_version"
-    // 可选RxJava3支持
-//    implementation "androidx.paging:paging-rxjava3:$paging_version"
-    // optional - Guava ListenableFuture support
-    implementation "androidx.paging:paging-guava:$paging_version"
-    // Jetpack Compose Integration
-    implementation "androidx.paging:paging-compose:$paging_compose_version"
+//    implementation "androidx.paging:paging-runtime:$paging_version"
+//    implementation "androidx.paging:paging-common:$paging_version"// alternatively - without Android dependencies for tests
+//    implementation "androidx.paging:paging-rxjava2:$paging_version"// 可选RxJava2支持
+//    // implementation "androidx.paging:paging-rxjava3:$paging_version"// 可选RxJava3支持
+//    implementation "androidx.paging:paging-guava:$paging_version"// optional - Guava ListenableFuture support
+//    implementation "androidx.paging:paging-compose:1.0.0-alpha04"// Jetpack Compose Integration
 
     /**-- 加载更多和刷新 --**/
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
@@ -81,5 +69,7 @@ dependencies {
 
     /**--刷新--**/
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+
+
 
 }
