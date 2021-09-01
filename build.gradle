@@ -5,7 +5,7 @@ buildscript {
         lifecycle_version = "2.2.0"
         activity_version = "1.2.0"
         fragment_version = "1.3.5"
-        kotlinx_coroutines_version ="1.4.1"
+        kotlinx_coroutines_version = "1.4.1"
         paging_version = "3.0.0-alpha11"
         paging_compose_version = "1.0.0-alpha04"
         datastore_version = "1.0.0-beta02"
@@ -13,16 +13,17 @@ buildscript {
         retrofit2_version = "2.9.0"
         okHttpLogging_version = "4.9.0"
         logger_version = "2.2.0"
-        mp_android_chart_version= "v3.1.0"
+        mp_android_chart_version = "v3.1.0"
         gson_version = "2.8.5"
         xutils_version = "3.5.0"
         room_version = "2.2.5"
+        immersionbar_version = "3.0.0"
     }
     repositories {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        maven { url 'https://developer.huawei.com/repo/'}//华为扫描二维码
+        maven { url 'https://developer.huawei.com/repo/' }//华为扫描二维码
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.2"
@@ -40,7 +41,7 @@ allprojects {
         mavenCentral()
         maven { url 'https://jitpack.io' }
         jcenter() // Warning: this repository is going to shut down soon
-        maven { url 'https://developer.huawei.com/repo/'}//华为扫描二维码
+        maven { url 'https://developer.huawei.com/repo/' }//华为扫描二维码
     }
 }
 
