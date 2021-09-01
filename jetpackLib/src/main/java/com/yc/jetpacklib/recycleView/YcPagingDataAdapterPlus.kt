@@ -21,6 +21,32 @@ abstract class YcPagingDataAdapterPlus<Data : Any, VB : ViewBinding>(
     protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     diffCallback: DiffUtil.ItemCallback<Data>
 ) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback) {
+    companion object {
+        fun <Data : Any, VB : ViewBinding> ycLazyInit(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            diffCallback: DiffUtil.ItemCallback<Data>,
+            block: VB.(data: Data) -> Unit
+        ): Lazy<YcPagingDataAdapterPlus<Data, VB>> = lazy {
+            return@lazy object : YcPagingDataAdapterPlus<Data, VB>(createVB, diffCallback) {
+                override fun VB.onUpdate(position: Int, data: Data) {
+                    block.invoke(this, data)
+                }
+            }
+        }
+
+        fun <Data : Any, VB : ViewBinding> ycLazyInitPosition(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            diffCallback: DiffUtil.ItemCallback<Data>,
+            block: VB.(position: Int) -> Unit
+        ): Lazy<YcPagingDataAdapterPlus<Data, VB>> = lazy {
+            return@lazy object : YcPagingDataAdapterPlus<Data, VB>(createVB, diffCallback) {
+                override fun VB.onUpdate(position: Int, data: Data) {
+                    block.invoke(this, position)
+                }
+            }
+        }
+    }
+
     var mItemClick: ((Data, Int) -> Unit)? = null
 
     protected lateinit var mContext: Context
