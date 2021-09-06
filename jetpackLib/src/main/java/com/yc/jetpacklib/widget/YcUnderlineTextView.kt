@@ -67,7 +67,7 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
         paint.strokeCap = Paint.Cap.ROUND//半圆形
         val a = context.obtainStyledAttributes(attrs, R.styleable.YcUnderlineTextView)
         mSelectColor = a.getColor(R.styleable.YcUnderlineTextView_ycSelectColor, ycGetColorRes(R.color.every_lib_blue))
-        mUnSelectColor = a.getColor(R.styleable.YcUnderlineTextView_ycUnSelectColor, ycGetColorRes(R.color.white))
+        mUnSelectColor = a.getColor(R.styleable.YcUnderlineTextView_ycUnSelectColor, ycGetColorRes(R.color.black))
         mUnderlineWidth = a.getDimensionPixelSize(R.styleable.YcUnderlineTextView_ycBgUnderlineWidth, 4)
         mUnderlineRound = a.getDimensionPixelSize(R.styleable.YcUnderlineTextView_ycBgUnderlineRound, 6).toFloat()
         mSelectTextSize = a.getDimension(R.styleable.YcUnderlineTextView_ycSelectTextSize, 22f)

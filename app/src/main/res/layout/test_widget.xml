@@ -48,4 +48,9 @@
     <!--        app:ycProgress="0.9"-->
     <!--        app:ycRadiusInner="37.5dp"-->
     <!--        app:ycRadiusOuter="60dp" />-->
+    <ImageView
+        android:id="@+id/ivTestWidget"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:src="@color/yellow" />
 </LinearLayout>

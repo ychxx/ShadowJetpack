@@ -3,14 +3,39 @@ package com.yc.jetpacklib.recycleView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.yc.jetpacklib.utils.YcLoop
 
 /**
  *
  */
 open class YcRecyclerViewAdapterPlus<Data, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
     RecyclerView.Adapter<YcViewHolder<VB>>() {
+    companion object {
+        fun <Data, VB : ViewBinding> ycLazyInit(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            block: VB.(data: Data) -> Unit
+        ): Lazy<YcRecyclerViewAdapterPlus<Data, VB>> = lazy {
+            return@lazy object : YcRecyclerViewAdapterPlus<Data, VB>(createVB) {
+                override fun VB.onUpdate(position: Int, data: Data) {
+                    block.invoke(this, data)
+                }
+            }
+        }
+
+        fun <Data, VB : ViewBinding> ycLazyInitPosition(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            block: VB.(position: Int) -> Unit
+        ): Lazy<YcRecyclerViewAdapterPlus<Data, VB>> = lazy {
+            return@lazy object : YcRecyclerViewAdapterPlus<Data, VB>(createVB) {
+                override fun VB.onUpdate(position: Int, data: Data) {
+                    block.invoke(this, position)
+                }
+            }
+        }
+    }
 
     private var mData: MutableList<Data> = mutableListOf()
     private var mItemClick: ((item: Data, position: Int) -> Unit)? = null
