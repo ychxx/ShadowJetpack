@@ -44,6 +44,7 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.2.0'
     api 'androidx.constraintlayout:constraintlayout:2.0.2'
     api 'com.google.android.material:material:1.2.1'
+    api 'androidx.legacy:legacy-support-v4:1.0.0'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -122,4 +123,9 @@ dependencies {
     api "com.gyf.immersionbar:immersionbar:$immersionbar_version"
     api "com.gyf.immersionbar:immersionbar-components:$immersionbar_version"
     api "com.gyf.immersionbar:immersionbar-ktx:$immersionbar_version"
+
+    /**-- 仿iOS的选择器 --**/
+    api 'com.contrarywind:Android-PickerView:4.1.9'
+    /**--PictureSelector多图片选择器--**/
+    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
 }

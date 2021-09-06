@@ -28,7 +28,6 @@ import com.yc.jetpacklib.widget.chart.*
  */
 fun LineChart.ycChartInitDefault() {
     ycChartBaseInit()
-    ycChartBaseInit()
     xAxis.labelCount = 7
     xAxis.valueFormatter = YcChartFiniteLength()
     setXAxisRenderer(YcChartAxisXExtraLastRenderer(this))
