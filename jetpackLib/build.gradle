@@ -124,4 +124,6 @@ dependencies {
     api 'com.contrarywind:Android-PickerView:4.1.9'
     /**--PictureSelector多图片选择器--**/
     api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+    /**华为扫描二维码 **/
+    implementation "com.huawei.hms:scanplus:$scanplus_version"
 }
