@@ -5,7 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DiffUtil
-import com.hc.jatpacklib.data.entity.YcDataSourceEntity
+import com.yc.jetpacklib.data.entity.YcDataSourceEntity
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.base.YcBaseViewModel
 import com.yc.jetpacklib.exception.YcException
