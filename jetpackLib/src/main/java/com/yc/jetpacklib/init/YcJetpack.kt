@@ -11,6 +11,7 @@ import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.YcLogExt
 import com.yc.jetpacklib.refresh.YcFooterAdapter
 import com.yc.jetpacklib.refresh.YcRefreshHeaderView
+import com.yc.jetpacklib.widget.pickerview.YcPickerColor
 import okhttp3.Interceptor
 import org.xutils.x
 
@@ -86,4 +87,16 @@ class YcJetpack private constructor() {
     }
 
     fun getResources(): Resources = mApplication.resources
+
+    var mPickerColor = YcPickerColor(
+        R.color.common_bg, R.color.common_bg, R.color.every_lib_blue, R.color.transparent, R.color.every_lib_black_333A40
+    )
+
+    fun setPickerColorInt(
+        submitColor: Int = R.color.every_lib_blue, cancelColor: Int = R.color.transparent,
+        textColorCenter: Int = R.color.every_lib_black_333A40, dividerColor: Int = R.color.common_bg,
+        titleBgColor: Int = R.color.common_bg
+    ) {
+        this.mPickerColor = YcPickerColor(dividerColor, titleBgColor, submitColor, cancelColor, textColorCenter)
+    }
 }

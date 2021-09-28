@@ -44,7 +44,7 @@ dependencies {
     api 'androidx.appcompat:appcompat:1.2.0'
     api 'androidx.constraintlayout:constraintlayout:2.0.2'
     api 'com.google.android.material:material:1.2.1'
-    api 'androidx.legacy:legacy-support-v4:1.0.0'//v4包
+   // api 'androidx.legacy:legacy-support-v4:1.0.0'//v4包
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
