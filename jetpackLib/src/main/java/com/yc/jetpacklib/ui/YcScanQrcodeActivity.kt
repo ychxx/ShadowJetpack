@@ -1,6 +1,5 @@
 package com.yc.jetpacklib.ui
 
-
 import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
@@ -15,6 +14,8 @@ import android.text.TextUtils
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
+import com.gyf.immersionbar.BarHide
+import com.gyf.immersionbar.ImmersionBar
 
 import com.huawei.hms.hmsscankit.RemoteView
 import com.huawei.hms.hmsscankit.ScanUtil
@@ -34,9 +35,7 @@ import java.io.IOException
  * Date: 2021-07-29
  * UseDes:
  */
-class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcScanQrcodeActivityBinding::inflate) {
-
-
+open class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcScanQrcodeActivityBinding::inflate) {
     private lateinit var resultLauncher: ActivityResultLauncher<Intent>
     private var remoteView: RemoteView? = null
     var mScreenWidth = 0
@@ -46,7 +45,6 @@ class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcS
     private val dialog by lazy {
         YcCommonDialog(this, this)
     }
-
 
     companion object {
         const val SCAN_RESULT = "scanResult"//扫描得结果
@@ -61,15 +59,14 @@ class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcS
         }
     }
 
-
-    /* override fun initImmersionBar() {
-         ImmersionBar.with(this)
-             .statusBarColor(R.color.transparent)
-             .statusBarDarkFont(false)
-             .hideBar(BarHide.FLAG_SHOW_BAR)
-             .fitsSystemWindows(false)
-             .init()
-     }*/
+//    override fun initImmersionBar() {
+//        ImmersionBar.with(this)
+//            .statusBarColor(R.color.transparent)
+//            .statusBarDarkFont(false)
+//            .hideBar(BarHide.FLAG_SHOW_BAR)
+//            .fitsSystemWindows(false)
+//            .init()
+//    }
 
     override fun YcScanQrcodeActivityBinding.initView() {
         ivScanArea.setBackgroundResource(intent.getIntExtra(SCAN_AREA_BG, R.drawable.yc_scan_code_frame_bg))
@@ -161,7 +158,6 @@ class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcS
         }
     }
 
-
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (grantResults.isNotEmpty() && requestCode == REQUEST_PERMISSION_CAMERA) {
@@ -206,6 +202,4 @@ class YcScanQrcodeActivity : YcBaseActivityPlus<YcScanQrcodeActivityBinding>(YcS
         super.onDestroy()
         remoteView?.onDestroy()
     }
-
-
 }

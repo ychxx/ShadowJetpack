@@ -3,8 +3,8 @@ package com.yc.jetpacklib.recycleView
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.hc.jatpacklib.data.entity.YcDataSourceEntity
 import com.yc.jetpacklib.base.YcBaseDataSource
+import com.yc.jetpacklib.data.entity.YcDataSourceEntity
 import kotlinx.coroutines.flow.Flow
 
 /**

@@ -1,4 +1,4 @@
-package com.hc.jatpacklib.data.entity
+package com.yc.jetpacklib.data.entity
 
 /**
  *

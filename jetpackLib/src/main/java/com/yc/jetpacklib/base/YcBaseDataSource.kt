@@ -2,7 +2,8 @@ package com.yc.jetpacklib.base
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.hc.jatpacklib.data.entity.YcDataSourceEntity
+import com.yc.jetpacklib.data.entity.YcDataSourceEntity
+
 /**
  *
  */
