@@ -1,6 +1,9 @@
 package com.yc.jetpacklib.download
 
+import android.content.Context
 import androidx.annotation.StringDef
+import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.yc.jetpacklib.widget.pickerview.timePickerStyle
 
 /**
  * 下载状态
@@ -24,3 +27,4 @@ object DownLoadState {
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     internal annotation class State
 }
+

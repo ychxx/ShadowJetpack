@@ -1,30 +1,68 @@
+@file:Suppress("DUPLICATE_LABEL_IN_WHEN")
+
 package com.yc.jetpacklib.widget.pickerview
 
-
-import android.app.Dialog
-import android.content.Context
-import android.graphics.Color
-import android.view.Gravity
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import androidx.core.content.ContextCompat.getColor
+import android.app.Activity
+import android.view.View
+import androidx.annotation.StringDef
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
+import com.bigkoo.pickerview.configure.PickerOptions
+import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bigkoo.pickerview.view.TimePickerView
-
-import com.yc.jetpacklib.R
+import com.yc.jetpacklib.extension.hideSoftInput
+import java.util.*
 
 /**
  * SimpleDes:
  * Creator: Sindi
- * Date: 2021-03-09
- * UseDes:滚轮选择器
+ * Date: 2021-09-29
+ * UseDes:滚轮选择器工具
  */
 
-/*
-fun showPickerView(context: Context): OptionsPickerBuilder {
+object YcTimePickerType {
 
-    return this
+    const val YearMonthDate = "YearMonthDate"  //只显示年月日
+    const val YearMonth = "YearMouth" //只显示年月
+    const val HourMinute = "HourMinute" //只显示时分
+    const val Dafult = "Dafult" //默认
+
+    @StringDef(Dafult, YearMonthDate, YearMonth, HourMinute)
+    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+    internal annotation class Type
+
+
+    /*默认条件选择器*/
+    fun showPickerWithCondition(activity: Activity, titleText: String, pickerList: List<String>, selectCallBack: ((Int, Int, Int, View?) -> Unit)? = null) {
+        val pv: OptionsPickerView<String> = OptionsPickerBuilder(activity) { options1: Int, options2: Int, options3: Int, v: View? ->
+            selectCallBack?.invoke(options1, options2, options3, v)
+        }.pickerDefaultStyle(activity).build()
+        pv.setTitleText(titleText)
+        pv.setPicker(pickerList) //二级选择器
+        activity.hideSoftInput()
+        pv.show()
+    }
+
+
+    /*时间选择器*/
+    fun showTimePicker(activity: Activity, @Type type: String, selectedDefaultValue: Calendar?, selectCallBack: ((Date, View?) -> Unit)? = null) {
+        val pvTime = TimePickerBuilder(activity) { date, v ->
+            selectCallBack?.invoke(date, v)
+        }.apply {
+            when (type) {
+                YearMonthDate -> setType(booleanArrayOf(true, true, true, false, false, false))//只显示年月日
+                YearMonth -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
+                HourMinute -> setType(booleanArrayOf(false, false, false, true, true, false))//只显示时分
+                else -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
+            }
+        }.timePickerStyle(activity).build()
+        pvTime.setTimePickerDialogStyle()
+        pvTime.setDate(selectedDefaultValue)
+        pvTime.show()
+    }
+
 }
-*/
+
+
+
 

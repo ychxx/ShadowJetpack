@@ -93,9 +93,8 @@ class YcJetpack private constructor() {
     )
 
     fun setPickerColorInt(
-        submitColor: Int = R.color.every_lib_blue, cancelColor: Int = R.color.transparent,
-        textColorCenter: Int = R.color.every_lib_black_333A40, dividerColor: Int = R.color.common_bg,
-        titleBgColor: Int = R.color.common_bg
+        submitColor: Int = R.color.every_lib_blue, textColorCenter: Int = R.color.every_lib_black_333A40,
+        cancelColor: Int = R.color.transparent, dividerColor: Int = R.color.common_bg, titleBgColor: Int = R.color.common_bg
     ) {
         this.mPickerColor = YcPickerColor(dividerColor, titleBgColor, submitColor, cancelColor, textColorCenter)
     }
