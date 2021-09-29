@@ -13,5 +13,11 @@
         android:layout_height="wrap_content"
         android:text="单项条件选择器" />
 
+    <Button
+        android:id="@+id/btnTimePickerView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="时间选择器" />
+
 
 </LinearLayout>

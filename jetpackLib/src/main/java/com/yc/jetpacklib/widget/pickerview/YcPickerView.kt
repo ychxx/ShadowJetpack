@@ -20,7 +20,7 @@ import java.util.*
  * UseDes:滚轮选择器工具
  */
 
-object YcTimePickerType {
+object YcPickerView {
 
     const val YearMonthDate = "YearMonthDate"  //只显示年月日
     const val YearMonth = "YearMouth" //只显示年月
@@ -33,7 +33,12 @@ object YcTimePickerType {
 
 
     /*默认条件选择器*/
-    fun showPickerWithCondition(activity: Activity, titleText: String, pickerList: List<String>, selectCallBack: ((Int, Int, Int, View?) -> Unit)? = null) {
+    fun showDefaultPickerWithCondition(
+        activity: Activity,
+        titleText: String?,
+        pickerList: List<String>,
+        selectCallBack: ((Int, Int, Int, View?) -> Unit)? = null
+    ) {
         val pv: OptionsPickerView<String> = OptionsPickerBuilder(activity) { options1: Int, options2: Int, options3: Int, v: View? ->
             selectCallBack?.invoke(options1, options2, options3, v)
         }.pickerDefaultStyle(activity).build()
@@ -45,7 +50,13 @@ object YcTimePickerType {
 
 
     /*时间选择器*/
-    fun showTimePicker(activity: Activity, @Type type: String, selectedDefaultValue: Calendar?, selectCallBack: ((Date, View?) -> Unit)? = null) {
+    fun showTimePicker(
+        activity: Activity,
+        @Type type: String,
+        titleText: String? = null,
+        selectedDefaultValue: Calendar? = null,
+        selectCallBack: ((Date, View?) -> Unit)? = null
+    ) {
         val pvTime = TimePickerBuilder(activity) { date, v ->
             selectCallBack?.invoke(date, v)
         }.apply {
@@ -57,7 +68,8 @@ object YcTimePickerType {
             }
         }.timePickerStyle(activity).build()
         pvTime.setTimePickerDialogStyle()
-        pvTime.setDate(selectedDefaultValue)
+        pvTime.setTitleText(titleText)
+        if (selectedDefaultValue != null) pvTime.setDate(selectedDefaultValue)
         pvTime.show()
     }
 

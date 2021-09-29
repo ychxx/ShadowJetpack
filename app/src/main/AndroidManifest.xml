@@ -23,6 +23,7 @@
         <activity android:name=".TestRefreshActivity"/>
         <activity android:name=".TestWidgetActivity"/>
         <activity android:name=".chart.TestChartLineActivity"/>
+        <activity android:name=".TestPickerViewActivity"/>
 
     </application>
 
