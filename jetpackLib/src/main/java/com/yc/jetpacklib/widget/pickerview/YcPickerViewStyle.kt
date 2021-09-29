@@ -22,6 +22,7 @@ import com.yc.jetpacklib.init.YcJetpack
  * UseDes:滚轮选择器
  */
 
+
 fun OptionsPickerBuilder.pickerDefaultStyle(context: Context): OptionsPickerBuilder {
     setContentTextSize(20) //设置滚轮文字大小
     setDividerColor(getColor(context, YcJetpack.mInstance.mPickerColor.dividerColor)) //设置分割线的颜色
@@ -39,26 +40,6 @@ fun OptionsPickerBuilder.pickerDefaultStyle(context: Context): OptionsPickerBuil
 }
 
 
-/*时间选择器样式——只显示 时分*/
-fun TimePickerBuilder.timePickerStyleWithHourMinute(context: Context): TimePickerBuilder {
-    setType(booleanArrayOf(false, false, false, true, true, false))
-    timePickerStyle(context)
-    return this
-}
-
-/*时间选择器样式——只显示 年月日*/
-fun TimePickerBuilder.timePickerStyleWithOnlyDate(context: Context): TimePickerBuilder {
-    setType(booleanArrayOf(true, true, true, false, false, false))
-    timePickerStyle(context)
-    return this
-}
-
-/*时间选择器样式——只显示 年月*/
-fun TimePickerBuilder.timePickerStyleWithYearMouth(context: Context): TimePickerBuilder {
-    setType(booleanArrayOf(true, true, false, false, false, false))
-    timePickerStyle(context)
-    return this
-}
 
 
 fun TimePickerBuilder.timePickerStyle(context: Context): TimePickerBuilder {
@@ -67,7 +48,7 @@ fun TimePickerBuilder.timePickerStyle(context: Context): TimePickerBuilder {
     setLineSpacingMultiplier(2.0f)
     isAlphaGradient(true)
     setBgColor(Color.WHITE)
-    setCancelColor(getColor(context, R.color.transparent))
+    setCancelColor(getColor(context,  YcJetpack.mInstance.mPickerColor.cancelColor))
     setSubmitColor(getColor(context, YcJetpack.mInstance.mPickerColor.submitColor))
     return this
 }

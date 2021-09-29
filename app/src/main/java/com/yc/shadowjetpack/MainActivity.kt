@@ -32,6 +32,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 5 -> {
                     startActivity(Intent(this@MainActivity, TestChartLineActivity::class.java))
                 }
+                6-> {
+                    startActivity(Intent(this@MainActivity, TestPickerViewActivity::class.java))
+                }
             }
         }
     }
@@ -52,5 +55,6 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试刷新", 3))
         mAdapter.addData(Item("测试自定义View", 4))
         mAdapter.addData(Item("测试折线图", 5))
+        mAdapter.addData(Item("测试Pickerview选择器", 6))
     }
 }
