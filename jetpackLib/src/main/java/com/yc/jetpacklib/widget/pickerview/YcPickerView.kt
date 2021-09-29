@@ -1,6 +1,7 @@
 @file:Suppress("DUPLICATE_LABEL_IN_WHEN")
 
 package com.yc.jetpacklib.widget.pickerview
+
 import android.app.Activity
 import android.view.View
 import androidx.annotation.StringDef
@@ -55,7 +56,7 @@ object YcPickerView {
         selectCallBack: ((Date, View?) -> Unit)? = null
     ) {
         if (pvTime == null) {
-            val pvTime = TimePickerBuilder(activity) { date, v ->
+            pvTime = TimePickerBuilder(activity) { date, v ->
                 selectCallBack?.invoke(date, v)
             }.apply {
                 when (type) {
