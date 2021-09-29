@@ -34,10 +34,8 @@ object YcPickerView {
 
     /*默认条件选择器*/
     fun showDefaultPickerWithCondition(
-        activity: Activity,
-        titleText: String?,
-        pickerList: List<String>,
-        selectCallBack: ((Int, Int, Int, View?) -> Unit)? = null
+        activity: Activity, titleText: String?,
+        pickerList: List<String>, selectCallBack: ((Int, Int, Int, View?) -> Unit)? = null
     ) {
         val pv: OptionsPickerView<String> = OptionsPickerBuilder(activity) { options1: Int, options2: Int, options3: Int, v: View? ->
             selectCallBack?.invoke(options1, options2, options3, v)
@@ -51,11 +49,8 @@ object YcPickerView {
 
     /*时间选择器*/
     fun showTimePicker(
-        activity: Activity,
-        @Type type: String,
-        titleText: String? = null,
-        selectedDefaultValue: Calendar? = null,
-        selectCallBack: ((Date, View?) -> Unit)? = null
+        activity: Activity, @Type type: String, titleText: String? = null,
+        selectedDefaultValue: Calendar? = null, selectCallBack: ((Date, View?) -> Unit)? = null
     ) {
         val pvTime = TimePickerBuilder(activity) { date, v ->
             selectCallBack?.invoke(date, v)
@@ -70,6 +65,7 @@ object YcPickerView {
         pvTime.setTimePickerDialogStyle()
         pvTime.setTitleText(titleText)
         if (selectedDefaultValue != null) pvTime.setDate(selectedDefaultValue)
+        activity.hideSoftInput()
         pvTime.show()
     }
 
