@@ -59,7 +59,7 @@ object YcPickerView {
                 YearMonthDate -> setType(booleanArrayOf(true, true, true, false, false, false))//只显示年月日
                 YearMonth -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
                 HourMinute -> setType(booleanArrayOf(false, false, false, true, true, false))//只显示时分
-                else -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
+                else -> setType(booleanArrayOf(true, true, true, true, true, true))//只显示年月
             }
         }.timePickerStyle(activity).build()
         pvTime.setTimePickerDialogStyle()
