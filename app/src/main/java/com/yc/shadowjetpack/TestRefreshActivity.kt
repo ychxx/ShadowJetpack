@@ -1,9 +1,12 @@
 package com.yc.shadowjetpack
 
+import android.annotation.SuppressLint
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import androidx.recyclerview.widget.DiffUtil
 import com.yc.jetpacklib.data.entity.YcDataSourceEntity
 import com.yc.jetpacklib.base.YcBaseActivityPlus
@@ -11,11 +14,8 @@ import com.yc.jetpacklib.base.YcBaseViewModel
 import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.recycleView.YcPager
-import com.yc.jetpacklib.recycleView.YcPagingDataAdapterPlus
-import com.yc.jetpacklib.refresh.YcRefreshBaseUtil
+import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
 import com.yc.jetpacklib.refresh.YcRefreshSpecialViewUtil
-import com.yc.jetpacklib.release.YcSpecialViewCommon
-import com.yc.jetpacklib.release.YcSpecialViewSmart
 import com.yc.shadowjetpack.databinding.TestItemBinding
 import com.yc.shadowjetpack.databinding.TestRefreshActivityBinding
 import kotlinx.coroutines.delay
@@ -27,6 +27,7 @@ import kotlinx.parcelize.Parcelize
  * Date: 2021/7/16 14:27
  * UseDes:
  */
+@SuppressLint("SetTextI18n")
 class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestRefreshActivityBinding::inflate) {
     @Parcelize
     data class ItemData(val name: String) : Parcelable {
@@ -62,24 +63,32 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
                 }
                 ycLogESimple("网络请求成功")
                 YcDataSourceEntity(dataList, 4)
-            }.collect {
+            }.cachedIn(viewModelScope).collect {
                 _mGetData.postValue(it)
             }
-
         }
     }
 
     private val mViewModel: VM by ycViewModels()
-    private val mAdapter = object : YcPagingDataAdapterPlus<ItemData, TestItemBinding>(TestItemBinding::inflate, ItemData.diffCallback) {
-        override fun TestItemBinding.onUpdate(position: Int, data: ItemData) {
-            btnTestItem.text = data.name
+    private val mAdapter by YcPagingDataAdapterChange.ycLazyInit(TestItemBinding::inflate, ItemData.diffCallback) {
+        mItemClick = { data: ItemData, position: Int ->
+
+        }
+        mOnUpdate = { data: ItemData, position: Int ->
+            btnTestItem.text = "${data.name}- $position"
         }
     }
-    private lateinit var mSpecialView: YcSpecialViewSmart
-    private lateinit var mRefreshUtil: YcRefreshBaseUtil
+
+    //    private val mAdapter2 = object : YcPagingDataAdapterChange<ItemData, TestItemBinding>(TestItemBinding::inflate, ItemData.diffCallback) {
+//        override fun TestItemBinding.onUpdate(position: Int, data: ItemData) {
+//
+//        }
+//    }
+
+    private lateinit var mRefreshUtil: YcRefreshSpecialViewUtil<ItemData>
     override fun TestRefreshActivityBinding.initView() {
-        mSpecialView = YcSpecialViewSmart(rvTestRefresh, flRefresh)
-        mRefreshUtil = YcRefreshSpecialViewUtil(this@TestRefreshActivity).build(mAdapter, slTestRefresh, rvTestRefresh, mSpecialView) {
+
+        mRefreshUtil = YcRefreshSpecialViewUtil<ItemData>(this@TestRefreshActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
             mRefreshCall = {
                 mViewModel.getDataPagingData()
             }
@@ -103,10 +112,10 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
 //            }
         }
         btnTestRefreshSpecialShow.setOnClickListener {
-            mSpecialView.show(YcException("测试异常",400))
+            mRefreshUtil.mSpecialViewSimple.show(YcException("测试异常", 400))
         }
         btnTestRefreshSpecialHide.setOnClickListener {
-            mSpecialView.recovery()
+            mRefreshUtil.mSpecialViewSimple.recovery()
         }
         btnTestRefreshFail.setOnClickListener {
             mViewModel.mIsError = true
@@ -115,19 +124,13 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
             mViewModel.mIsError = false
         }
         btnTestRefreshEmpty.setOnClickListener {
-            mRefreshUtil.mDataSourceChange = {
-                false
-            }
-            mAdapter.ycSubmitData(PagingData.empty())
+            mRefreshUtil.acClearPagingData()
         }
         btnTestRefreshDataSours.setOnClickListener {
-            mRefreshUtil.mDataSourceChange = {
-                true
-            }
             mRefreshUtil.startRefresh()
         }
         mViewModel.mGetData.observe {
-            mAdapter.ycSubmitData(it)
+            mRefreshUtil.acSetPagingData(it)
         }
     }
 }

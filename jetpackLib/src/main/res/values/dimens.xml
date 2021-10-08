@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="jetpack_activity_margin">20dp</dimen>
-    <dimen name="margin_10dp">10dp</dimen>
-    <dimen name="margin_8dp">8dp</dimen>
-    <dimen name="padding_4dp">4dp</dimen>
 
     <dimen name="every_lib_icon_next_height">10dp</dimen>
 

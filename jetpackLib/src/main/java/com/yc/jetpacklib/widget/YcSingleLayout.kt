@@ -13,6 +13,7 @@ import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.ycGetColorRes
 import com.yc.jetpacklib.extension.ycGetDimension
 import com.yc.jetpacklib.extension.ycGetDimensionPixelSize
+import com.yc.jetpacklib.utils.ycDp
 
 /**
  * Creator: yc
@@ -53,7 +54,7 @@ class YcSingleLayout @JvmOverloads constructor(context: Context, attrs: Attribut
         mTextView.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize)
         mTextView.setTextColor(textColor)
         mTextView.text = text
-        mTextView.setPadding(ycGetDimensionPixelSize(R.dimen.margin_8dp), 0, ycGetDimensionPixelSize(R.dimen.margin_8dp), 0)
+        mTextView.setPadding(8.ycDp(), 0, 8.ycDp(), 0)
         mTextView.gravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
         val params = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
         params.weight = 1.0f //在此处设置weight

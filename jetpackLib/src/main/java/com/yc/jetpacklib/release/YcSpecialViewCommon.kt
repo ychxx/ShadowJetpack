@@ -16,7 +16,7 @@ class YcSpecialViewCommon : YcSpecialViewBase<YcSpecialReleaseBinding> {
 
     override fun YcSpecialReleaseBinding.onUpdate(specialState: Int) {
         mBuild.apply {
-            onBulidUpdate(specialState)
+            onBuildUpdate(specialState)
         }
     }
 

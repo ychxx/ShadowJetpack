@@ -1,12 +1,18 @@
 package com.yc.jetpacklib.recycleView
 
+import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.launch
 
 /**
  * Creator: yc
@@ -18,16 +24,31 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
     protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     diffCallback: DiffUtil.ItemCallback<Data>
 ) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback) {
-    private var mItemClick: ((Data, Int) -> Unit)? = null
+    companion object {
+        fun <Data : Any, VB : ViewBinding> ycLazyInit(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            diffCallback: DiffUtil.ItemCallback<Data>
+        ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
+            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {}
+        }
+
+        fun <Data : Any, VB : ViewBinding> ycLazyInitPosition(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            diffCallback: DiffUtil.ItemCallback<Data>
+        ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
+            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {}
+        }
+    }
+
+    var mItemClick: ((data: Data, position: Int) -> Unit)? = null
 
     protected lateinit var mContext: Context
-    fun setItemClick(block: (Data, Int) -> Unit) {
-        mItemClick = block
-    }
+    var mOnUpdate: (VB.(data: Data, position: Int) -> Unit)? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
         mContext = parent.context
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false))
+        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
     }
 
     override fun onBindViewHolder(holder: YcViewHolder<VB>, position: Int) {
@@ -36,12 +57,18 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
             holder.viewBinding.root.setOnClickListener {
                 mItemClick?.invoke(dataBean!!, position)
             }
-            onUpdate(holder, position, dataBean!!)
+            mOnUpdate?.invoke(holder.viewBinding, dataBean!!, position)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()
         }
     }
 
-    abstract fun onUpdate(holder: YcViewHolder<VB>, position: Int, data: Data)
+    open fun ycSubmitData(lifecycleOwner: LifecycleOwner, pagingData: PagingData<Data>) {
+        submitData(lifecycleOwner.lifecycle, pagingData)
+    }
+
+    open suspend fun ycSubmitData(pagingData: PagingData<Data>) {
+        submitData(pagingData)
+    }
 }

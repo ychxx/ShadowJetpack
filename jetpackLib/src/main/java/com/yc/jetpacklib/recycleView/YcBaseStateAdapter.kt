@@ -18,7 +18,7 @@ abstract class YcBaseStateAdapter<VB : ViewBinding>(protected val createVB: (Lay
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, loadState: LoadState): YcViewHolder<VB> {
-        return YcViewHolder(createVB!!.invoke(LayoutInflater.from(parent.context), parent, false)).apply {
+        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false)).apply {
             mViewHolder = this
         }
     }

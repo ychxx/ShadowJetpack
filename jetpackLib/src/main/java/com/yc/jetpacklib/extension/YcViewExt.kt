@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
@@ -276,13 +275,6 @@ fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTIC
     this.layoutManager = LinearLayoutManager(context, orientation, false)
 }
 
-inline fun SwipeRefreshLayout.refreshUtil(crossinline getData: (() -> Unit)) {
-    setOnRefreshListener {
-        isRefreshing = true
-        getData.invoke()
-    }
-}
-
 /**
  * 加载网络图片
  */
@@ -352,14 +344,12 @@ fun ImageView.ycLoadImagePathCircle(imageFilePath: String, roundingRadius: Int) 
  */
 fun ImageView.ycLoadImageFile(imageFile: File) {
     GlideApp.with(context)
-        .asBitmap()
         .load(imageFile)
         .into(this)
 }
 
 fun ImageView.ycLoadImageFileCircle(imageFile: File) {
     GlideApp.with(context)
-        .asBitmap()
         .load(imageFile)
         .circleCrop()
         .into(this)
@@ -367,9 +357,8 @@ fun ImageView.ycLoadImageFileCircle(imageFile: File) {
 
 fun ImageView.ycLoadImageFileCircle(imageFile: File, roundingRadius: Int) {
     GlideApp.with(context)
-        .asBitmap()
         .load(imageFile)
-        .circleCrop()
+        .transform(CenterCrop(), RoundedCorners(roundingRadius))
         .into(this)
 }
 
@@ -378,7 +367,6 @@ fun ImageView.ycLoadImageFileCircle(imageFile: File, roundingRadius: Int) {
  */
 fun ImageView.ycLoadImageRes(@DrawableRes imgRes: Int) {
     GlideApp.with(context)
-        .asBitmap()
         .load(imgRes)
         .into(this)
 }
@@ -389,7 +377,6 @@ fun ImageView.ycLoadImageRes(@DrawableRes imgRes: Int) {
  */
 fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int) {
     GlideApp.with(context)
-        .asBitmap()
         .load(imgRes)
         .circleCrop()
         .into(this)
@@ -401,7 +388,6 @@ fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int) {
  */
 fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int, roundingRadius: Int) {
     GlideApp.with(context)
-        .asBitmap()
         .load(imgRes)
         .transform(CenterCrop(), RoundedCorners(roundingRadius))
         .into(this)

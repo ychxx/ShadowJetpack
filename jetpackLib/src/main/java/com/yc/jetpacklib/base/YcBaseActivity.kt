@@ -1,13 +1,10 @@
 package com.yc.jetpacklib.base
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.activity.ComponentActivity
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.MainThread
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
@@ -18,8 +15,9 @@ import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
-import com.yc.jetpacklib.extension.ycCreateResultLauncher
 import com.yc.jetpacklib.manager.YcActivityManager
+import com.yc.jetpacklib.recycleView.YcPagingDataAdapter
+import com.yc.jetpacklib.refresh.YcRefreshBaseUtil
 import com.yc.jetpacklib.utils.YcViewModelLazy
 import com.yc.jetpacklib.widget.dialog.YcLoadingDialog
 import kotlinx.coroutines.launch
@@ -90,7 +88,19 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
         this.observe(this@YcBaseActivity, observer)
     }
 
-    protected fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.ycSubmitData(pagingData: PagingData<T>) {
+    protected fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.acSubmitData(pagingData: PagingData<T>) {
         this.submitData(this@YcBaseActivity.lifecycle, pagingData)
+    }
+
+    protected fun <Data : Any, VB : ViewBinding> YcPagingDataAdapter<Data, VB>.acSubmitData(pagingData: PagingData<Data>) {
+        this.ycSubmitData(this@YcBaseActivity, pagingData)
+    }
+
+    protected fun <Data : Any> YcRefreshBaseUtil<Data>.acSetPagingData(pagingData: PagingData<Data>) {
+        this.setPagingData(this@YcBaseActivity, pagingData)
+    }
+
+    protected fun <Data : Any> YcRefreshBaseUtil<Data>.acClearPagingData() {
+        this.clearPagingData(this@YcBaseActivity)
     }
 }

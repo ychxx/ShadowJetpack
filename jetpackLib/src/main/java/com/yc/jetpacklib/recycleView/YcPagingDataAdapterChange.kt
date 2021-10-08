@@ -4,10 +4,13 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.annotation.IntRange
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.paging.filter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
+import kotlinx.coroutines.launch
 
 /**
  * Creator: yc
@@ -18,16 +21,16 @@ import androidx.viewbinding.ViewBinding
 abstract class YcPagingDataAdapterChange<Data : Any, VB : ViewBinding>(
     createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     diffCallback: DiffUtil.ItemCallback<Data>
-) : YcPagingDataAdapterPlus<Data, VB>(createVB, diffCallback) {
+) : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
     companion object {
         fun <Data : Any, VB : ViewBinding> ycLazyInit(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             diffCallback: DiffUtil.ItemCallback<Data>,
-            block: VB.(data: Data) -> Unit
+            block: YcPagingDataAdapterChange<Data, VB>.() -> Unit
         ): Lazy<YcPagingDataAdapterChange<Data, VB>> = lazy {
             return@lazy object : YcPagingDataAdapterChange<Data, VB>(createVB, diffCallback) {
-                override fun VB.onUpdate(position: Int, data: Data) {
-                    block.invoke(this, data)
+                init {
+                    block.invoke(this)
                 }
             }
         }
@@ -35,24 +38,25 @@ abstract class YcPagingDataAdapterChange<Data : Any, VB : ViewBinding>(
         fun <Data : Any, VB : ViewBinding> ycLazyInitPosition(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             diffCallback: DiffUtil.ItemCallback<Data>,
-            block: VB.(position: Int) -> Unit
+            block: YcPagingDataAdapterChange<Data, VB>.() -> Unit
         ): Lazy<YcPagingDataAdapterChange<Data, VB>> = lazy {
             return@lazy object : YcPagingDataAdapterChange<Data, VB>(createVB, diffCallback) {
-                override fun VB.onUpdate(position: Int, data: Data) {
-                    block.invoke(this, position)
+                init {
+                    block.invoke(this)
                 }
             }
         }
     }
 
-    suspend fun ycSubmitData(pagingData: PagingData<Data>) {
+    protected lateinit var mPagingData: PagingData<Data>
+    override fun ycSubmitData(lifecycleOwner: LifecycleOwner, pagingData: PagingData<Data>) {
         mPagingData = pagingData
-        submitData(pagingData)
+        submitData(lifecycleOwner.lifecycle, pagingData)
     }
 
-    fun ycSubmitData(lifecycle: Lifecycle, pagingData: PagingData<Data>) {
+    override suspend fun ycSubmitData(pagingData: PagingData<Data>) {
         mPagingData = pagingData
-        submitData(lifecycle, pagingData)
+        submitData(pagingData)
     }
 
     /**

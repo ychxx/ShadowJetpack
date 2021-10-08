@@ -24,7 +24,7 @@ open class YcSpecialViewBuild {
     var mTitleRightTv: String? = null
     var mTitleRightIv: Int? = null
     var mSpecialClickListener: ((View) -> Unit)? = null
-    fun YcSpecialReleaseBinding.onBulidUpdate(specialState: Int) {
+    fun YcSpecialReleaseBinding.onBuildUpdate(specialState: Int) {
         when (specialState) {
             YcSpecialState.DATA_EMPTY -> {
                 releaseContentTv.text = "暂无内容"

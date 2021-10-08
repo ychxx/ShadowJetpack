@@ -3,28 +3,31 @@ package com.yc.jetpacklib.refresh
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.extension.toYcException
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
-import com.yc.jetpacklib.recycleView.doSuccess
-import com.yc.jetpacklib.release.YcSpecialState
-import com.yc.jetpacklib.release.YcSpecialViewCommon
 
 /**
  * Creator: yc
  * Date: 2021/7/27 15:48
  * UseDes: 刷新帮助类
  */
-open class YcRefreshBaseUtil(mLifecycleOwner: LifecycleOwner) {
-    lateinit var mPagingDataAdapter: PagingDataAdapter<*, *>
+open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
+    lateinit var mPagingDataAdapter: PagingDataAdapter<T, *>
     lateinit var mSmartRefreshLayout: SmartRefreshLayout
     lateinit var mRecyclerView: RecyclerView
+
+    /**
+     * 数据源
+     */
+    protected var mPagingData: PagingData<T>? = null
 
     /**
      * 当前是否正在刷新
@@ -56,10 +59,6 @@ open class YcRefreshBaseUtil(mLifecycleOwner: LifecycleOwner) {
         }
     }
 
-    /**
-     * 用于判断数据源是否需要改变，如果没有改变则不需设置（例如搜索列表的关键字改变）
-     */
-    var mDataSourceChange: (() -> Boolean)? = null
 
     /**
      * 是否是第一次刷新
@@ -85,22 +84,23 @@ open class YcRefreshBaseUtil(mLifecycleOwner: LifecycleOwner) {
     }
 
     open fun build(
-        adapter: PagingDataAdapter<*, *>,
+        adapter: PagingDataAdapter<T, *>,
         smartRefreshLayout: SmartRefreshLayout,
         recyclerView: RecyclerView,
         isAutoRefresh: Boolean = true,
-        call: YcRefreshBaseUtil.() -> Unit
-    ): YcRefreshBaseUtil {
+        apply: YcRefreshBaseUtil<T>.() -> Unit
+    ): YcRefreshBaseUtil<T> {
         mPagingDataAdapter = adapter
         mSmartRefreshLayout = smartRefreshLayout
         mRecyclerView = recyclerView
-        return build(isAutoRefresh, call)
+        return build(isAutoRefresh, apply)
     }
 
-    open fun build(isAutoRefresh: Boolean = true, call: YcRefreshBaseUtil.() -> Unit): YcRefreshBaseUtil {
-        call.invoke(this)
+    open fun build(isAutoRefresh: Boolean = true, apply: (YcRefreshBaseUtil<T>.() -> Unit)? = null): YcRefreshBaseUtil<T> {
+        apply?.invoke(this)
         mSmartRefreshLayout.setOnRefreshListener {
-            if (mIsFirst || mDataSourceChange?.invoke() == true) {
+            //用于判断是否需要改变数据源，如果没有改变则不需设置（例如搜索列表的关键字改变）
+            if (mIsFirst || mPagingData == null) {
                 mIsFirst = false
                 mRefreshCall?.invoke()
             } else {
@@ -123,6 +123,9 @@ open class YcRefreshBaseUtil(mLifecycleOwner: LifecycleOwner) {
         return this
     }
 
+    /**
+     * 刷新
+     */
     private fun onRefresh(loadState: LoadState, noMoreData: Boolean) {
         when (loadState) {
             is LoadState.Loading -> {
@@ -149,6 +152,9 @@ open class YcRefreshBaseUtil(mLifecycleOwner: LifecycleOwner) {
         }
     }
 
+    /**
+     * 加载更多
+     */
     private fun onLoadMore(loadState: LoadState, noMoreData: Boolean) {
         when (loadState) {
             is LoadState.Loading -> {
@@ -179,9 +185,37 @@ open class YcRefreshBaseUtil(mLifecycleOwner: LifecycleOwner) {
     }
 
     /**
-     * 手动刷新
+     * 主动刷新
+     * @param isDataSourceChange Boolean    数据源是否改变
      */
-    fun startRefresh() {
+    fun startRefresh(isDataSourceChange: Boolean = false) {
+        if (isDataSourceChange) {
+            mPagingData = null
+        }
         mSmartRefreshLayout.autoRefresh()
+    }
+
+    /**
+     * 清空数据
+     */
+    fun clearPagingData(lifecycleOwner: LifecycleOwner) {
+        mPagingData = null
+        mPagingDataAdapter.submitData(lifecycleOwner.lifecycle, PagingData.empty())
+    }
+
+    /**
+     * 设置数据源
+     */
+    fun setPagingData(lifecycleOwner: LifecycleOwner, pagingData: PagingData<T>) {
+        mPagingData = pagingData
+        mPagingDataAdapter.submitData(lifecycleOwner.lifecycle, pagingData)
+    }
+
+    /**
+     * 设置数据源
+     */
+    suspend fun setPagingData(pagingData: PagingData<T>) {
+        mPagingData = pagingData
+        mPagingDataAdapter.submitData(pagingData)
     }
 }

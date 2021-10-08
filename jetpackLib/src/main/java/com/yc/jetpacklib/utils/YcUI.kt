@@ -10,6 +10,18 @@ import com.yc.jetpacklib.init.YcJetpack
 /**
  *
  */
+fun Int.ycDp(resources: Resources = YcJetpack.mInstance.getResources()): Int {
+    return (this * resources.displayMetrics.density + 0.5).toInt()
+}
+
+fun Float.ycDp(resources: Resources = YcJetpack.mInstance.getResources()): Float {
+    return this * resources.displayMetrics.density + 0.5f
+}
+
+fun Double.ycDp(resources: Resources = YcJetpack.mInstance.getResources()): Double {
+    return (this * resources.displayMetrics.density + 0.5)
+}
+
 object YcUI {
     /**
      * 将dp值转换为px值
@@ -23,6 +35,7 @@ object YcUI {
     fun dip2pxFloat(dp: Float, resources: Resources = YcJetpack.mInstance.getResources()): Float {
         return resources.displayMetrics.density * dp + 0.5f
     }
+
 
     /**
      * 将px值转换为dp值

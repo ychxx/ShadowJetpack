@@ -4,9 +4,7 @@ import android.app.Application
 import android.content.res.Resources
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.yc.jetpacklib.BuildConfig
+import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.YcLogExt
 import com.yc.jetpacklib.refresh.YcFooterAdapter
@@ -14,6 +12,7 @@ import com.yc.jetpacklib.refresh.YcRefreshHeaderView
 import com.yc.jetpacklib.widget.pickerview.YcPickerColor
 import okhttp3.Interceptor
 import org.xutils.x
+import java.io.File
 
 /**
  * Creator: yc
@@ -24,6 +23,13 @@ import org.xutils.x
 class YcJetpack private constructor() {
     companion object {
         const val OTHER_BASE_URL = "other_base_url"
+
+        init {
+            //设置全局的Header构建器
+            SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ -> YcRefreshHeaderView(context) }
+            //设置全局的Footer构建器
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> YcFooterAdapter(context) }
+        }
 
         @JvmStatic
         val mInstance = YcJetpack2Holder.holder
@@ -44,7 +50,6 @@ class YcJetpack private constructor() {
      */
     var mImgIdResLoading: Int = R.drawable.yc_img_loading
 
-
     /**
      * 请求成功返回的code
      */
@@ -54,29 +59,25 @@ class YcJetpack private constructor() {
      * retrofit的过滤器
      */
     val mInterceptor: MutableList<Interceptor> = mutableListOf()
+
+    /**
+     * 接口地址
+     */
     var mDefaultBaseUrl = ""
+
+    /**
+     * 默认保存文件夹路径
+     */
+    lateinit var mDefaultSaveDirPath: String
+
     lateinit var mApplication: Application
 
-    fun init(app: Application) {
-        SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ -> YcRefreshHeaderView(context) }
-        //设置全局的Footer构建器
-        SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> YcFooterAdapter(context) }
+    fun init(app: Application, defaultSaveDirPath: String = app.filesDir.path + File.separator) {
         mApplication = app
+        mDefaultSaveDirPath = defaultSaveDirPath
         //Logger初始化
         Logger.addLogAdapter(AndroidLogAdapter())
         x.Ext.init(mApplication)
-        x.Ext.setDebug(BuildConfig.DEBUG)
-    }
-
-    fun setBaseUrl(baseUrl: String = "") {
-        mDefaultBaseUrl = baseUrl
-    }
-
-    /**
-     * 添加过滤器
-     */
-    fun addInterceptor(interceptor: Interceptor) {
-        mInterceptor.add(interceptor)
     }
 
     /**
@@ -84,6 +85,7 @@ class YcJetpack private constructor() {
      */
     fun setLog(isShow: Boolean) {
         YcLogExt.mIsShowLogger = isShow
+        x.Ext.setDebug(isShow)
     }
 
     fun getResources(): Resources = mApplication.resources

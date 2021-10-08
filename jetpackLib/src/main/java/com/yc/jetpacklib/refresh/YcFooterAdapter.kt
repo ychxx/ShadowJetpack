@@ -1,7 +1,7 @@
 package com.yc.jetpacklib.refresh
 
 import android.content.Context
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
+import com.scwang.smart.refresh.footer.ClassicsFooter
 
 /**
  *

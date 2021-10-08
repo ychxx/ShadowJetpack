@@ -42,29 +42,23 @@
         android:layout_height="wrap_content"
         android:text="隐藏特殊布局" />
 
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
         android:id="@+id/slTestRefresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <FrameLayout
+            android:id="@+id/flRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <FrameLayout
-                android:id="@+id/flRefresh"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvTestRefresh"
+
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvTestRefresh"
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-            </FrameLayout>
+                android:layout_height="match_parent" />
         </FrameLayout>
-
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
 </LinearLayout>

@@ -94,6 +94,9 @@ abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
         replaceReal()
     }
 
+    /**
+     * 替换
+     */
     open fun replaceReal() {
         YcReleaseLayoutUtils.replace(mOriginalView, mReleaseView!!)
     }

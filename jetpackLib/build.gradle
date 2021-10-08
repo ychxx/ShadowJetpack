@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'com.huawei.agconnect'/*二维码 华为*/
 }
 
 
@@ -38,12 +39,11 @@ android {
 }
 
 dependencies {
-    api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    api 'androidx.core:core-ktx:1.3.1'
-    api 'androidx.appcompat:appcompat:1.2.0'
-    api 'androidx.constraintlayout:constraintlayout:2.0.2'
-    api 'com.google.android.material:material:1.2.1'
-//    api 'androidx.legacy:legacy-support-v4:1.0.0'//v4包
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'com.google.android.material:material:1.2.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
@@ -51,7 +51,7 @@ dependencies {
 
     /**--kotlin 的扩展--**/
     api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinx_coroutines_version"
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_coroutines_version"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinx_android_version"
 
     /**--retrofit  网络请求--**/
     api "com.squareup.retrofit2:retrofit:$retrofit2_version"
@@ -63,10 +63,10 @@ dependencies {
     api "com.squareup.okhttp3:logging-interceptor:$okHttpLogging_version"
 
     /**--log日志--**/
-    api "com.orhanobut:logger:$logger_version"
+    implementation "com.orhanobut:logger:$logger_version"
 
     /**--图片加载--**/
-    api "com.github.bumptech.glide:glide:$glide_version"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
     kapt "com.github.bumptech.glide:compiler:$glide_version"
 
     /**-- Lifecycle components 生命周期管理--**/
@@ -82,17 +82,19 @@ dependencies {
 
     /**--paging3 分页库--**/
     api "androidx.paging:paging-runtime:$paging_version"
-    api "androidx.paging:paging-common:$paging_version"// alternatively - without Android dependencies for tests
-    api "androidx.paging:paging-rxjava2:$paging_version"// 可选RxJava2支持
+    api "androidx.paging:paging-common:$paging_version"
+// alternatively - without Android dependencies for tests
+//    implementation "androidx.paging:paging-rxjava2:$paging_version"// 可选RxJava2支持
     // implementation "androidx.paging:paging-rxjava3:$paging_version"// 可选RxJava3支持
-    api "androidx.paging:paging-guava:$paging_version"// optional - Guava ListenableFuture support
-    api "androidx.paging:paging-compose:1.0.0-alpha04"// Jetpack Compose Integration
+    implementation "androidx.paging:paging-guava:$paging_version"
+// optional - Guava ListenableFuture support
+    implementation "androidx.paging:paging-compose:1.0.0-alpha04"// Jetpack Compose Integration
 
     /**-- Room components SQLite数据库--**/
     api "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
-    api "androidx.room:room-ktx:$room_version"
-    api "androidx.room:room-rxjava2:$room_version"
+    kapt "androidx.room:room-ktx:$room_version"
+    implementation "androidx.room:room-rxjava2:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
     /**--图表--**/
@@ -106,24 +108,21 @@ dependencies {
     api "com.google.code.gson:gson:$gson_version"
 
     /**--下载--**/
-    api "org.xutils:xutils:$xutils_version"
+    implementation "org.xutils:xutils:$xutils_version"
 
     /**-- 加载更多和刷新 --**/
-    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'  //1.0.5及以前版本的老用户升级需谨慎，API改动过大
-    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行
-
-    /**--刷新--**/
-    api "androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01"
+    api "com.scwang.smart:refresh-layout-kernel:$smart_refresh_version"      //核心必须依赖
+    implementation "com.scwang.smart:refresh-header-material:$smart_refresh_version"    //谷歌刷新头
+    implementation "com.scwang.smart:refresh-footer-classics:$smart_refresh_version"    //经典加载
 
     /**--状态栏--**/
-    api "com.gyf.immersionbar:immersionbar:$immersionbar_version"
-    api "com.gyf.immersionbar:immersionbar-components:$immersionbar_version"
-    api "com.gyf.immersionbar:immersionbar-ktx:$immersionbar_version"
+    implementation "com.gyf.immersionbar:immersionbar:$immersionbar_version"
+    implementation "com.gyf.immersionbar:immersionbar-components:$immersionbar_version"
+    implementation "com.gyf.immersionbar:immersionbar-ktx:$immersionbar_version"
 
     /**-- 仿iOS的选择器 --**/
     api 'com.contrarywind:Android-PickerView:4.1.9'
-    /**--PictureSelector多图片选择器--**/
-    api 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+
     /**华为扫描二维码 **/
     implementation "com.huawei.hms:scanplus:$scanplus_version"
 }
