@@ -70,11 +70,11 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
     }
 
     private val mViewModel: VM by ycViewModels()
-    private val mAdapter by YcPagingDataAdapterChange.ycLazyInit(TestItemBinding::inflate, ItemData.diffCallback) {
-        mItemClick = { data: ItemData, position: Int ->
+    private val mAdapter by YcPagingDataAdapterChange.ycLazyInitApply(TestItemBinding::inflate, ItemData.diffCallback) {
+        mItemClick2 = { data: ItemData, position: Int ->
 
         }
-        mOnUpdate = { data: ItemData, position: Int ->
+        mOnUpdate2 = { position: Int, data: ItemData ->
             btnTestItem.text = "${data.name}- $position"
         }
     }

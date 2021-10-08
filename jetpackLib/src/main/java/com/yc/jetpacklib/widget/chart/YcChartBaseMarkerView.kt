@@ -8,15 +8,15 @@ import com.github.mikephil.charting.utils.MPPointF
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.databinding.YcChartMarkerItemBinding
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
-import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapterPlus
+import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapter
 
 /**
  * 通用图表的标记图层
  */
 @SuppressLint("SetTextI18n", "ViewConstructor")
-open class YcChartBaseMarkerView<T>(chart: Chart<*>) : MarkerView(chart.context, R.layout.yc_chart_marker) {
+open class YcChartBaseMarkerView<T:Any>(chart: Chart<*>) : MarkerView(chart.context, R.layout.yc_chart_marker) {
     private val mRecyclerView: RecyclerView = findViewById(R.id.rvChartMaker)
-    protected val mAdapter by lazy { YcRecyclerViewAdapterPlus<T, YcChartMarkerItemBinding>(YcChartMarkerItemBinding::inflate) }
+    protected val mAdapter by lazy { YcRecyclerViewAdapter<T, YcChartMarkerItemBinding>(YcChartMarkerItemBinding::inflate) }
 
     init {
         chartView = chart

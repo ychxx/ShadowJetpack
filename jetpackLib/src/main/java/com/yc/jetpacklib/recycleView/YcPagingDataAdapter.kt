@@ -1,18 +1,14 @@
 package com.yc.jetpacklib.recycleView
 
-import android.app.Activity
 import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.viewbinding.ViewBinding
-import kotlinx.coroutines.launch
 
 /**
  * Creator: yc
@@ -23,28 +19,50 @@ import kotlinx.coroutines.launch
 abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
     protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     diffCallback: DiffUtil.ItemCallback<Data>
-) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback) {
+) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback), YcIAdapter<Data, VB> {
     companion object {
         fun <Data : Any, VB : ViewBinding> ycLazyInit(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
-            diffCallback: DiffUtil.ItemCallback<Data>
+            diffCallback: DiffUtil.ItemCallback<Data>,
+            updateCall: VB.(data: Data) -> Unit
         ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
-            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {}
+            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
+                init {
+                    mOnUpdate = updateCall
+                }
+            }
+        }
+
+        fun <Data : Any, VB : ViewBinding> ycLazyInitApply(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            diffCallback: DiffUtil.ItemCallback<Data>,
+            apply: (YcPagingDataAdapter<Data, VB>.() -> Unit)? = null
+        ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
+            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
+                init {
+                    apply?.invoke(this)
+                }
+            }
         }
 
         fun <Data : Any, VB : ViewBinding> ycLazyInitPosition(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
-            diffCallback: DiffUtil.ItemCallback<Data>
+            diffCallback: DiffUtil.ItemCallback<Data>,
+            updateCall: VB.(position: Int, data: Data) -> Unit
         ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
-            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {}
+            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
+                init {
+                    mOnUpdate2 = updateCall
+                }
+            }
         }
     }
 
-    var mItemClick: ((data: Data, position: Int) -> Unit)? = null
-
+    override var mItemClick: ((item: Data) -> Unit)? = null
+    override var mItemClick2: ((item: Data, position: Int) -> Unit)? = null
+    override var mOnUpdate: (VB.(data: Data) -> Unit)? = null
+    override var mOnUpdate2: (VB.(position: Int, data: Data) -> Unit)? = null
     protected lateinit var mContext: Context
-    var mOnUpdate: (VB.(data: Data, position: Int) -> Unit)? = null
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
         mContext = parent.context
@@ -55,9 +73,11 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
         try {
             val dataBean = getItem(position)
             holder.viewBinding.root.setOnClickListener {
-                mItemClick?.invoke(dataBean!!, position)
+                mItemClick?.invoke(dataBean!!)
+                mItemClick2?.invoke(dataBean!!, position)
             }
-            mOnUpdate?.invoke(holder.viewBinding, dataBean!!, position)
+            mOnUpdate?.invoke(holder.viewBinding, dataBean!!)
+            mOnUpdate2?.invoke(holder.viewBinding, position, dataBean!!)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()

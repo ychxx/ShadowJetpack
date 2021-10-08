@@ -3,16 +3,82 @@ package com.yc.jetpacklib.recycleView
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
 
 /**
  *
  */
-abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
-    RecyclerView.Adapter<YcViewHolder<VB>>() {
+open class YcRecyclerViewAdapter<Data: Any, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
+    RecyclerView.Adapter<YcViewHolder<VB>>(), YcIAdapter<Data, VB> {
+    companion object {
+        fun <Data: Any, VB : ViewBinding> ycLazyInit(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            updateCall: VB.(data: Data) -> Unit
+        ): Lazy<YcRecyclerViewAdapter<Data, VB>> = lazy {
+            return@lazy object : YcRecyclerViewAdapter<Data, VB>(createVB) {
+                init {
+                    mOnUpdate = updateCall
+                }
+            }
+        }
+        fun <Data: Any, VB : ViewBinding> ycLazyInitApply(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            apply: (YcRecyclerViewAdapter<Data, VB>.() -> Unit)? = null
+        ): Lazy<YcRecyclerViewAdapter<Data, VB>> = lazy {
+            return@lazy object : YcRecyclerViewAdapter<Data, VB>(createVB) {
+                init {
+                    apply?.invoke(this)
+                }
+            }
+        }
+        fun <Data: Any, VB : ViewBinding> ycLazyInitPosition(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            updateCall: VB.(position: Int, data: Data) -> Unit
+        ): Lazy<YcRecyclerViewAdapter<Data, VB>> = lazy {
+            return@lazy object : YcRecyclerViewAdapter<Data, VB>(createVB) {
+                init {
+                    mOnUpdate2 = updateCall
+                }
+            }
+        }
+    }
 
-    private var mData: MutableList<Data> = mutableListOf()
+    protected open var mData: MutableList<Data> = mutableListOf()
+    override var mItemClick: ((item: Data) -> Unit)? = null
+    override var mItemClick2: ((item: Data, position: Int) -> Unit)? = null
+    override var mOnUpdate: (VB.(data: Data) -> Unit)? = null
+    override var mOnUpdate2: (VB.(position: Int, data: Data) -> Unit)? = null
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
+        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
+    }
+
+    open fun getItem(position: Int): Data? {
+        return if (position < 0 || position >= mData.size) null else mData[position]
+    }
+
+
+    override fun getItemCount(): Int {
+        return mData.size
+    }
+
+    override fun onBindViewHolder(holder: YcViewHolder<VB>, position: Int) {
+        try {
+            val dataBean = getItem(position)
+            holder.viewBinding.root.setOnClickListener {
+                mItemClick?.invoke(dataBean!!)
+                mItemClick2?.invoke(dataBean!!, position)
+            }
+            mOnUpdate?.invoke(holder.viewBinding, dataBean!!)
+            mOnUpdate2?.invoke(holder.viewBinding, position, dataBean!!)
+        } catch (e: Exception) {
+            Log.e("ycEvery", "onBindViewHolder爆炸啦")
+            e.printStackTrace()
+        }
+    }
+
     fun clearData() {
         mData.clear()
         notifyDataSetChanged()
@@ -30,37 +96,4 @@ abstract class YcRecyclerViewAdapter<Data, VB : ViewBinding>(protected val creat
         if (isRefresh)
             notifyDataSetChanged()
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
-        return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
-    }
-
-    private var mItemClick: ((item: Data, position: Int) -> Unit)? = null
-    fun setItemClick(block: (item: Data, position: Int) -> Unit) {
-        mItemClick = block
-    }
-
-    open fun getItem(position: Int): Data? {
-        return if (position < 0 || position >= mData.size) null else mData[position]
-    }
-
-
-    override fun getItemCount(): Int {
-        return mData.size
-    }
-
-    override fun onBindViewHolder(holder: YcViewHolder<VB>, position: Int) {
-        try {
-            val dataBean = getItem(position)
-            holder.viewBinding.root.setOnClickListener {
-                mItemClick?.invoke(dataBean!!, position)
-            }
-            onUpdate(holder, position, dataBean!!)
-        } catch (e: Exception) {
-            Log.e("ycEvery", "onBindViewHolder爆炸啦")
-            e.printStackTrace()
-        }
-    }
-
-    abstract fun onUpdate(holder: YcViewHolder<VB>, position: Int, data: Data)
 }

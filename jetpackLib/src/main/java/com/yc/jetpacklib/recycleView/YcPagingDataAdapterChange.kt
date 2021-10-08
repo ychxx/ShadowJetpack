@@ -23,26 +23,36 @@ abstract class YcPagingDataAdapterChange<Data : Any, VB : ViewBinding>(
     diffCallback: DiffUtil.ItemCallback<Data>
 ) : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
     companion object {
-        fun <Data : Any, VB : ViewBinding> ycLazyInit(
+        fun <Data: Any, VB : ViewBinding> ycLazyInit(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             diffCallback: DiffUtil.ItemCallback<Data>,
-            block: YcPagingDataAdapterChange<Data, VB>.() -> Unit
+            updateCall: VB.(data: Data) -> Unit
         ): Lazy<YcPagingDataAdapterChange<Data, VB>> = lazy {
             return@lazy object : YcPagingDataAdapterChange<Data, VB>(createVB, diffCallback) {
                 init {
-                    block.invoke(this)
+                    mOnUpdate = updateCall
                 }
             }
         }
-
-        fun <Data : Any, VB : ViewBinding> ycLazyInitPosition(
+        fun <Data: Any, VB : ViewBinding> ycLazyInitApply(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             diffCallback: DiffUtil.ItemCallback<Data>,
-            block: YcPagingDataAdapterChange<Data, VB>.() -> Unit
+            apply: (YcPagingDataAdapterChange<Data, VB>.() -> Unit)? = null
         ): Lazy<YcPagingDataAdapterChange<Data, VB>> = lazy {
             return@lazy object : YcPagingDataAdapterChange<Data, VB>(createVB, diffCallback) {
                 init {
-                    block.invoke(this)
+                    apply?.invoke(this)
+                }
+            }
+        }
+        fun <Data: Any, VB : ViewBinding> ycLazyInitPosition(
+            createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
+            diffCallback: DiffUtil.ItemCallback<Data>,
+            updateCall: VB.(position: Int, data: Data) -> Unit
+        ): Lazy<YcPagingDataAdapterChange<Data, VB>> = lazy {
+            return@lazy object : YcPagingDataAdapterChange<Data, VB>(createVB, diffCallback) {
+                init {
+                    mOnUpdate2 = updateCall
                 }
             }
         }

@@ -3,14 +3,22 @@ package com.yc.shadowjetpack
 import android.content.Intent
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
-import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapterPlus
+import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapter
 import com.yc.shadowjetpack.chart.TestChartLineActivity
 import com.yc.shadowjetpack.databinding.ActivityMainBinding
 import com.yc.shadowjetpack.databinding.TestItemBinding
 
 data class Item(val content: String, val code: Int)
 class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding::inflate) {
-    private val mAdapter by YcRecyclerViewAdapterPlus.ycLazyInit(TestItemBinding::inflate) { data: Item ->
+    private val mAdapter2 by YcRecyclerViewAdapter.ycLazyInitApply<Item, TestItemBinding>(TestItemBinding::inflate) {
+        mOnUpdate = {
+
+        }
+        mItemClick = {
+
+        }
+    }
+    private val mAdapter by YcRecyclerViewAdapter.ycLazyInit(TestItemBinding::inflate) { data: Item ->
         btnTestItem.text = data.content
         btnTestItem.setOnClickListener {
             when (data.code) {
@@ -32,7 +40,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 5 -> {
                     startActivity(Intent(this@MainActivity, TestChartLineActivity::class.java))
                 }
-                6-> {
+                6 -> {
                     startActivity(Intent(this@MainActivity, TestPickerViewActivity::class.java))
                 }
             }
