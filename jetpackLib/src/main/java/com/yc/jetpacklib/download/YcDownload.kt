@@ -4,6 +4,7 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.net.Uri
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.extension.ycLogDSimple
 import com.yc.jetpacklib.extension.ycLogE
 import com.yc.jetpacklib.file.YcFileUtils
@@ -103,10 +104,15 @@ class YcDownload(val mConfig: YcDownloadConfig) {
         requestParams.saveFilePath = mConfig.saveFilePath // 为RequestParams设置文件下载后的保存路径
         callback = x.http().get(requestParams, object : Callback.ProgressCallback<File?> {
             override fun onSuccess(result: File?) {
-                ycLogE("下载成功：${mConfig.saveFilePath}")
-                mDownloadState = YcDownLoadState.DOWNLOAD_SUCCESS
-                mConfig.progressDialog?.dismiss()
-                mConfig.onSuccess?.invoke(result)
+                if (result == null) {
+                    onError(YcException(400, "文件为空!"), false)
+                } else {
+                    ycLogE("下载成功：${mConfig.saveFilePath}")
+                    mDownloadState = YcDownLoadState.DOWNLOAD_SUCCESS
+                    mConfig.progressDialog?.dismiss()
+                    mConfig.onSuccess?.invoke(result)
+                }
+
             }
 
             override fun onError(ex: Throwable, isOnCallback: Boolean) {

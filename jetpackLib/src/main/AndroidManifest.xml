@@ -15,7 +15,6 @@
         <activity
             android:name=".ui.YcScanQrcodeActivity"
             android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            tools:node="remove" />
+            android:screenOrientation="portrait" />
     </application>
 </manifest>

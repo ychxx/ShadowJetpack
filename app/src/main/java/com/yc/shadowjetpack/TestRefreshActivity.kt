@@ -71,20 +71,27 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
 
     private val mViewModel: VM by ycViewModels()
     private val mAdapter by YcPagingDataAdapterChange.ycLazyInitApply(TestItemBinding::inflate, ItemData.diffCallback) {
+        mItemClick = {
+
+        }
         mItemClick2 = { data: ItemData, position: Int ->
+
+        }
+        mOnUpdate = {
 
         }
         mOnUpdate2 = { position: Int, data: ItemData ->
             btnTestItem.text = "${data.name}- $position"
         }
     }
-
+//    private val mAdapter2 by YcPagingDataAdapterChange.ycLazyInit(TestItemBinding::inflate, ItemData.diffCallback) {
+//        btnTestItem.text = "${data.name}- $position"
+//    }
     //    private val mAdapter2 = object : YcPagingDataAdapterChange<ItemData, TestItemBinding>(TestItemBinding::inflate, ItemData.diffCallback) {
 //        override fun TestItemBinding.onUpdate(position: Int, data: ItemData) {
 //
 //        }
 //    }
-
     private lateinit var mRefreshUtil: YcRefreshSpecialViewUtil<ItemData>
     override fun TestRefreshActivityBinding.initView() {
 
@@ -127,10 +134,12 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
             mRefreshUtil.acClearPagingData()
         }
         btnTestRefreshDataSours.setOnClickListener {
+
             mRefreshUtil.startRefresh()
         }
         mViewModel.mGetData.observe {
             mRefreshUtil.acSetPagingData(it)
         }
     }
+
 }

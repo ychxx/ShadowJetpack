@@ -14,9 +14,6 @@ import android.text.TextUtils
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.result.ActivityResultLauncher
-import com.gyf.immersionbar.BarHide
-import com.gyf.immersionbar.ImmersionBar
-
 import com.huawei.hms.hmsscankit.RemoteView
 import com.huawei.hms.hmsscankit.ScanUtil
 import com.huawei.hms.ml.scan.HmsScan

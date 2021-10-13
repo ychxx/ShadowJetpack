@@ -17,7 +17,7 @@ data class YcDownloadConfig(
      * 文件保存地址
      */
     val saveFilePath: String,
-    var onSuccess: ((result: File?) -> Unit)? = null,
+    var onSuccess: ((result: File) -> Unit)? = null,
     var onFail: ((error: String?) -> Unit)? = null,
     var onLoading: ((total: Long, current: Long) -> Unit)? = null,
     val progressDialog: ProgressDialog? = null,

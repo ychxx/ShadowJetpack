@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnTestServer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建服务" />
+
+    <Button
+        android:id="@+id/btnTestCloseClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="socket踢掉client" />
+
+    <Button
+        android:id="@+id/btnTestConn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="连接" />
+
+    <Button
+        android:id="@+id/btnTestSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="发送数据" />
+
+    <Button
+        android:id="@+id/btnTestClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="断开" />
+
+</LinearLayout>
