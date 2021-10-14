@@ -10,37 +10,33 @@ import androidx.viewbinding.ViewBinding
 /**
  *
  */
-open class YcRecyclerViewAdapter<Data: Any, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
+open class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB) :
     RecyclerView.Adapter<YcViewHolder<VB>>(), YcIAdapter<Data, VB> {
     companion object {
-        fun <Data: Any, VB : ViewBinding> ycLazyInit(
+        fun <Data : Any, VB : ViewBinding> ycLazyInit(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             updateCall: VB.(data: Data) -> Unit
         ): Lazy<YcRecyclerViewAdapter<Data, VB>> = lazy {
-            return@lazy object : YcRecyclerViewAdapter<Data, VB>(createVB) {
-                init {
-                    mOnUpdate = updateCall
-                }
+            YcRecyclerViewAdapter<Data, VB>(createVB).apply {
+                mOnUpdate = updateCall
             }
         }
-        fun <Data: Any, VB : ViewBinding> ycLazyInitApply(
+
+        fun <Data : Any, VB : ViewBinding> ycLazyInitApply(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             apply: (YcRecyclerViewAdapter<Data, VB>.() -> Unit)? = null
         ): Lazy<YcRecyclerViewAdapter<Data, VB>> = lazy {
-            return@lazy object : YcRecyclerViewAdapter<Data, VB>(createVB) {
-                init {
-                    apply?.invoke(this)
-                }
+            YcRecyclerViewAdapter<Data, VB>(createVB).apply {
+                apply?.invoke(this)
             }
         }
-        fun <Data: Any, VB : ViewBinding> ycLazyInitPosition(
+
+        fun <Data : Any, VB : ViewBinding> ycLazyInitPosition(
             createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
             updateCall: VB.(position: Int, data: Data) -> Unit
         ): Lazy<YcRecyclerViewAdapter<Data, VB>> = lazy {
-            return@lazy object : YcRecyclerViewAdapter<Data, VB>(createVB) {
-                init {
-                    mOnUpdate2 = updateCall
-                }
+            YcRecyclerViewAdapter<Data, VB>(createVB).apply {
+                mOnUpdate2 = updateCall
             }
         }
     }

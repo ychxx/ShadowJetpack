@@ -16,7 +16,7 @@ import androidx.viewbinding.ViewBinding
  * UseDes:
  * 封装PagingDataAdapter
  */
-abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
+open class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
     protected val createVB: (LayoutInflater, ViewGroup?, Boolean) -> VB,
     diffCallback: DiffUtil.ItemCallback<Data>
 ) : PagingDataAdapter<Data, YcViewHolder<VB>>(diffCallback), YcIAdapter<Data, VB> {
@@ -26,10 +26,8 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
             diffCallback: DiffUtil.ItemCallback<Data>,
             updateCall: VB.(data: Data) -> Unit
         ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
-            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
-                init {
-                    mOnUpdate = updateCall
-                }
+            YcPagingDataAdapter(createVB, diffCallback).apply {
+                mOnUpdate = updateCall
             }
         }
 
@@ -38,10 +36,8 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
             diffCallback: DiffUtil.ItemCallback<Data>,
             apply: (YcPagingDataAdapter<Data, VB>.() -> Unit)? = null
         ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
-            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
-                init {
-                    apply?.invoke(this)
-                }
+            YcPagingDataAdapter(createVB, diffCallback).apply {
+                apply?.invoke(this)
             }
         }
 
@@ -50,10 +46,8 @@ abstract class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
             diffCallback: DiffUtil.ItemCallback<Data>,
             updateCall: VB.(position: Int, data: Data) -> Unit
         ): Lazy<YcPagingDataAdapter<Data, VB>> = lazy {
-            return@lazy object : YcPagingDataAdapter<Data, VB>(createVB, diffCallback) {
-                init {
-                    mOnUpdate2 = updateCall
-                }
+            YcPagingDataAdapter(createVB, diffCallback).apply {
+                mOnUpdate2 = updateCall
             }
         }
     }

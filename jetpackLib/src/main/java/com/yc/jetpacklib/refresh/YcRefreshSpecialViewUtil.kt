@@ -70,14 +70,13 @@ open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : 
         isAutoRefresh: Boolean = true,
         apply: YcRefreshBaseUtil<T>.() -> Unit
     ): YcRefreshSpecialViewUtil<T> {
-        return this.build(adapter, smartRefreshLayout, recyclerView, YcSpecialViewSmart(recyclerView, containerRecyclerViewFl), isAutoRefresh, apply)
+        return this.build(adapter, smartRefreshLayout, YcSpecialViewSmart(recyclerView, containerRecyclerViewFl), isAutoRefresh, apply)
     }
 
     /**
      *
      * @param adapter PagingDataAdapter<T, *>
      * @param smartRefreshLayout SmartRefreshLayout
-     * @param recyclerView RecyclerView
      * @param specialViewSmart YcSpecialViewSmart   替换布局辅助类
      * @param isAutoRefresh Boolean                 是否进入页面就直接执行一次刷新
      * @param apply                                 当前类上下文
@@ -85,14 +84,12 @@ open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : 
     fun build(
         adapter: PagingDataAdapter<T, *>,
         smartRefreshLayout: SmartRefreshLayout,
-        recyclerView: RecyclerView,
         specialViewSmart: YcSpecialViewSmart,
         isAutoRefresh: Boolean = true,
         apply: YcRefreshBaseUtil<T>.() -> Unit
     ): YcRefreshSpecialViewUtil<T> {
         mPagingDataAdapter = adapter
         mSmartRefreshLayout = smartRefreshLayout
-        mRecyclerView = recyclerView
         mSpecialViewSimple = specialViewSmart
         super.build(isAutoRefresh, apply)
         return this

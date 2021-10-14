@@ -70,15 +70,17 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
      * 错误提示
      */
     var mErrorTip: ((String) -> Unit) = {
-        mRecyclerView.context.showToast(it)
+        mSmartRefreshLayout.context.showToast(it)
     }
 
     init {
         mLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
                 super.onDestroy(owner)
-                mSmartRefreshLayout.finishRefresh()
-                mSmartRefreshLayout.finishLoadMore()
+                if (::mSmartRefreshLayout.isInitialized) {
+                    mSmartRefreshLayout.finishRefresh()
+                    mSmartRefreshLayout.finishLoadMore()
+                }
             }
         })
     }
@@ -86,13 +88,11 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
     open fun build(
         adapter: PagingDataAdapter<T, *>,
         smartRefreshLayout: SmartRefreshLayout,
-        recyclerView: RecyclerView,
         isAutoRefresh: Boolean = true,
         apply: YcRefreshBaseUtil<T>.() -> Unit
     ): YcRefreshBaseUtil<T> {
         mPagingDataAdapter = adapter
         mSmartRefreshLayout = smartRefreshLayout
-        mRecyclerView = recyclerView
         return build(isAutoRefresh, apply)
     }
 
@@ -108,15 +108,17 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
             }
         }
         mSmartRefreshLayout.setOnLoadMoreListener {
-            mPagingDataAdapter.retry()
+            if (mPagingDataAdapter.itemCount <= 0) {
+                mSmartRefreshLayout.finishLoadMoreWithNoMoreData()
+            } else {
+                mPagingDataAdapter.retry()
+            }
         }
         mPagingDataAdapter.addLoadStateListener {
             ycLogESimple("LoadStateListener$it")
             onRefresh(it.refresh, it.source.append.endOfPaginationReached)
             onLoadMore(it.append, it.source.append.endOfPaginationReached)
         }
-        mRecyclerView.ycInitLinearLayoutManage()
-        mRecyclerView.adapter = mPagingDataAdapter
         if (isAutoRefresh) {
             startRefresh()
         }

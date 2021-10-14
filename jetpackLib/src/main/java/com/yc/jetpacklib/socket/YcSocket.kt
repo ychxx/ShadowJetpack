@@ -19,6 +19,7 @@ private const val RECONNECT_MAX_NUM = 3
 
 open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxNum: Int = RECONNECT_MAX_NUM) {
     var mFail: ((error: String, errorCode: @YcSocketState.Error Int) -> Unit)? = null
+    var mConnSuccess: (() -> Unit)? = null
     protected var mSocket: Socket? = null
     protected var mState: AtomicInteger = AtomicInteger(YcSocketState.PREPARE)
     protected var mCreateSocketJob: Job? = null
@@ -51,7 +52,6 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
     protected open val mCoroutineCreateSocket = CoroutineExceptionHandler { context: CoroutineContext, exception: Throwable ->
         mState.set(YcSocketState.ERROR)
         ycLogESimple("socket 创建失败!${exception.stackTraceToString()}")
-        mFail?.invoke("socket 创建失败!", 123)
         mFail?.invoke("socket 创建失败!", YcSocketState.ERROR_CREATE)
     } + Dispatchers.IO
     protected open val mCoroutineReceive = CoroutineExceptionHandler { context: CoroutineContext, exception: Throwable ->
@@ -108,6 +108,7 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
         if (mSocket!!.isConnected) {
             mReconnectNum = 0//连接成功后，重连重置为0
             mState.set(YcSocketState.CONNED)
+            mConnSuccess?.invoke()
             receive()
             ycLogESimple("socket 连接成功-ip:${mIp} 和port:${mPort} ")
         } else {

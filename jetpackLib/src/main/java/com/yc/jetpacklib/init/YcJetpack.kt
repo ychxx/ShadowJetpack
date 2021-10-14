@@ -7,7 +7,7 @@ import com.orhanobut.logger.Logger
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.YcLogExt
-import com.yc.jetpacklib.refresh.YcFooterAdapter
+import com.yc.jetpacklib.refresh.YcRefreshFooterAdapter
 import com.yc.jetpacklib.refresh.YcRefreshHeaderView
 import com.yc.jetpacklib.widget.pickerview.YcPickerColor
 import okhttp3.Interceptor
@@ -28,7 +28,7 @@ class YcJetpack private constructor() {
             //设置全局的Header构建器
             SmartRefreshLayout.setDefaultRefreshHeaderCreator { context, _ -> YcRefreshHeaderView(context) }
             //设置全局的Footer构建器
-            SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> YcFooterAdapter(context) }
+            SmartRefreshLayout.setDefaultRefreshFooterCreator { context, _ -> YcRefreshFooterAdapter(context) }
         }
 
         @JvmStatic

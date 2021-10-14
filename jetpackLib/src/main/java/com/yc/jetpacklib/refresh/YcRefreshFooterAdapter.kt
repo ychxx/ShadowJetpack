@@ -6,6 +6,6 @@ import com.scwang.smart.refresh.footer.ClassicsFooter
 /**
  *
  */
-class YcFooterAdapter(context: Context) : ClassicsFooter(context) {
+class YcRefreshFooterAdapter(context: Context) : ClassicsFooter(context) {
 
 }
