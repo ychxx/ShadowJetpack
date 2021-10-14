@@ -27,6 +27,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
+import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.utils.YcColorUtil
 import com.yc.jetpacklib.utils.YcSoftInputUtil
@@ -296,11 +297,12 @@ fun ImageView.ycLoadImageNetCircle(imageNet: String?) {
 /**
  * 加载圆角图片(自定义弧度)
  */
-fun ImageView.ycLoadImageNetCircle(imageNet: String?, roundingRadius: Int) {
+fun ImageView.ycLoadImageNetCircle(imageNet: String?, roundingRadius: Int, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic) {
     GlideApp.with(context)
         .asBitmap()
         .load(imageNet)
         .transform(CenterCrop(), RoundedCorners(roundingRadius))
+        .placeholder(placeholderImg)
         .into(this)
 }
 
@@ -358,7 +360,7 @@ fun ImageView.ycLoadImageFileCircle(imageFile: File) {
 fun ImageView.ycLoadImageFileCircle(imageFile: File, roundingRadius: Int) {
     GlideApp.with(context)
         .load(imageFile)
-        .transform(CenterCrop(), RoundedCorners(roundingRadius))
+        .transform(CenterCrop(), RoundedCorners(roundingRadius))//px
         .into(this)
 }
 
