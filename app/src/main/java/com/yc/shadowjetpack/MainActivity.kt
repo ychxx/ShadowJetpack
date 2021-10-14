@@ -2,11 +2,14 @@ package com.yc.shadowjetpack
 
 import android.content.Intent
 import com.yc.jetpacklib.base.YcBaseActivityPlus
+import com.yc.jetpacklib.extension.ycCreateResultLauncher
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapter
+import com.yc.jetpacklib.ui.YcScanQrcodeActivity
 import com.yc.shadowjetpack.chart.TestChartLineActivity
 import com.yc.shadowjetpack.databinding.ActivityMainBinding
 import com.yc.shadowjetpack.databinding.TestItemBinding
+import com.yc.shadowjetpack.socket.TestSocketActivity
 
 data class Item(val content: String, val code: Int)
 class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding::inflate) {
@@ -43,8 +46,17 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 6 -> {
                     startActivity(Intent(this@MainActivity, TestPickerViewActivity::class.java))
                 }
+                7 -> {
+                    startActivity(Intent(this@MainActivity, TestSocketActivity::class.java))
+                }
+                8 -> {
+                    YcScanQrcodeActivity.newInstance(this@MainActivity, mLauncher, R.color.jetpack_black_scan_bg)
+                }
             }
         }
+    }
+    val mLauncher = ycCreateResultLauncher {
+
     }
 //    val mAdapter: YcRecyclerViewAdapter<Item, TestItemBinding> by lazy {
 //        object : YcRecyclerViewAdapter<Item, TestItemBinding>(TestItemBinding::inflate) {
@@ -64,5 +76,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试自定义View", 4))
         mAdapter.addData(Item("测试折线图", 5))
         mAdapter.addData(Item("测试Pickerview选择器", 6))
+        mAdapter.addData(Item("测试Socket", 7))
+        mAdapter.addData(Item("测试扫描", 8))
     }
 }
