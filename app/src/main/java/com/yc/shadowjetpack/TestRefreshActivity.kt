@@ -12,6 +12,7 @@ import com.yc.jetpacklib.data.entity.YcDataSourceEntity
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.base.YcBaseViewModel
 import com.yc.jetpacklib.exception.YcException
+import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.recycleView.YcPager
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
@@ -94,7 +95,8 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
 //    }
     private lateinit var mRefreshUtil: YcRefreshSpecialViewUtil<ItemData>
     override fun TestRefreshActivityBinding.initView() {
-
+        rvTestRefresh.adapter = mAdapter
+        rvTestRefresh.ycInitLinearLayoutManage()
         mRefreshUtil = YcRefreshSpecialViewUtil<ItemData>(this@TestRefreshActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
             mRefreshCall = {
                 mViewModel.getDataPagingData()
