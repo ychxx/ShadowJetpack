@@ -24,6 +24,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
@@ -286,18 +287,24 @@ fun ImageView.ycLoadImageNet(imageNet: String?) {
         .into(this)
 }
 
-fun ImageView.ycLoadImageNetCircle(imageNet: String?) {
+
+/**
+ * 加载圆形图片
+ */
+fun ImageView.ycLoadImageNetCircle(imageNet: String?, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic, errorImg: Int = R.drawable.yc_ic_scan_code_pic) {
     GlideApp.with(context)
         .asBitmap()
         .load(imageNet)
-        .circleCrop()
+        .apply(RequestOptions.circleCropTransform())
+        .placeholder(placeholderImg)
+        .error(errorImg)
         .into(this)
 }
 
 /**
  * 加载圆角图片(自定义弧度)
  */
-fun ImageView.ycLoadImageNetCircle(imageNet: String?, roundingRadius: Int, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic) {
+fun ImageView.ycLoadImageNetFillet(imageNet: String?, roundingRadius: Int, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic) {
     GlideApp.with(context)
         .asBitmap()
         .load(imageNet)

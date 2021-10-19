@@ -53,4 +53,14 @@
         android:layout_width="42dp"
         android:layout_height="42dp"
         android:src="@color/yellow" />
+
+    <ImageView
+        android:id="@+id/ivAvater"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_avater_default" />
+
 </LinearLayout>
