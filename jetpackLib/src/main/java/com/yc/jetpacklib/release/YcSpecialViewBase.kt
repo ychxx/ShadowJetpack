@@ -45,13 +45,6 @@ abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
     var mCustomUiProtected: (VB.() -> Unit)? = null
 
     /**
-     * 后续再设置原始布局View
-     */
-    constructor(releaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) {
-
-    }
-
-    /**
      * 只替换部分View
      */
     constructor(originalView: View, releaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) {

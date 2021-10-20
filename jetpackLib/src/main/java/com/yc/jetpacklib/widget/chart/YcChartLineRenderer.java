@@ -36,7 +36,18 @@ import java.util.List;
 
 public class YcChartLineRenderer extends LineRadarRenderer {
     protected LineDataProvider mChart;
-    private double MIN_NUM = 0;
+    private double mYIsEmptyMin = 0;
+
+    public void setYIsEmptyMin(double yIsEmptyMin) {
+        this.mYIsEmptyMin = yIsEmptyMin;
+    }
+
+    private int[] mColorLine = new int[]{Color.parseColor("#FFF8A73D"), Color.parseColor("#fffbb04e"), Color.parseColor("#fff46767"), Color.parseColor("#ffff6d00")};
+
+    public void setColorLine(int[] mColorLine) {
+        this.mColorLine = mColorLine;
+    }
+
     /**
      * paint for the inner circle of the value indicators
      */
@@ -145,7 +156,7 @@ public class YcChartLineRenderer extends LineRadarRenderer {
      * @return true符合   false不符合
      */
     private boolean isNotEmptyEntry(int index, ILineDataSet dataSet) {
-        return dataSet != null && index >= 0 && index < dataSet.getEntryCount() && dataSet.getEntryForIndex(index).getY() >= MIN_NUM;
+        return dataSet != null && index >= 0 && index < dataSet.getEntryCount() && dataSet.getEntryForIndex(index).getY() >= mYIsEmptyMin;
     }
 
     protected void drawHorizontalBezier(ILineDataSet dataSet) {
@@ -202,9 +213,9 @@ public class YcChartLineRenderer extends LineRadarRenderer {
         }
 //        int[] colors = new int[]{Color.parseColor("#ff2782FF"), Color.parseColor("#fff46767"), Color.parseColor("#ffff6d00")};
 
-        int[] colors = new int[]{Color.parseColor("#FFF8A73D"), Color.parseColor("#fffbb04e"), Color.parseColor("#fff46767"), Color.parseColor("#ffff6d00")};
+
 //        float[] positions = new float[]{0.3f, 0.3f, 0.4f};//比例
-        mRenderPaint.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(), colors, null, Shader.TileMode.CLAMP));
+        mRenderPaint.setShader(new LinearGradient(0, 0, 0, mChart.getHeight(), mColorLine, null, Shader.TileMode.CLAMP));
 
         mRenderPaint.setStyle(Paint.Style.STROKE);
 
