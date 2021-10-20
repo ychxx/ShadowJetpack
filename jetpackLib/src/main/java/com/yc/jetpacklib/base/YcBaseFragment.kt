@@ -112,6 +112,6 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
     }
 
     protected fun <T : Any, VH : RecyclerView.ViewHolder> PagingDataAdapter<T, VH>.ycSubmitData(pagingData: PagingData<T>) {
-        this.submitData(this@YcBaseFragment.lifecycle, pagingData)
+        this.submitData(this@YcBaseFragment.viewLifecycleOwner.lifecycle, pagingData)
     }
 }
