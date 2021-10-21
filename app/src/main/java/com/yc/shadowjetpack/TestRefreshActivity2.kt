@@ -35,7 +35,7 @@ class TestRefreshActivity2 : YcBaseActivityPlus<TestRefreshActivityBinding>(Test
         var mIsError = false
         fun getData(pageIndex: Int, pageSize: Int) = ycFlow<YcDataSourceEntity<ItemData>> {
             ycLogESimple("开始网络请求")
-            delay(6000)
+            delay(3000)
             if (mIsError) {
                 ycLogESimple("网络请求出错")
                 throw YcException("测试错误", 404)

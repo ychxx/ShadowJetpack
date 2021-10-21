@@ -70,7 +70,11 @@ open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : 
         isAutoRefresh: Boolean = true,
         apply: YcRefreshBaseUtil<T>.() -> Unit
     ): YcRefreshSpecialViewUtil<T> {
-        return this.build(adapter, smartRefreshLayout, YcSpecialViewSmart(recyclerView, containerRecyclerViewFl), isAutoRefresh, apply)
+        return this.build(adapter, smartRefreshLayout, YcSpecialViewSmart(recyclerView, containerRecyclerViewFl).apply {
+            mSpecialViewSimple.mBuild.mSpecialClickListener = {
+                startRefresh(true)
+            }
+        }, isAutoRefresh, apply)
     }
 
     /**

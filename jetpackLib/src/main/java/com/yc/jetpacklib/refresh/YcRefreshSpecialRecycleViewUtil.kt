@@ -46,6 +46,7 @@ open class YcRefreshSpecialRecycleViewUtil(
     private val mSmartRefreshLayout: SmartRefreshLayout,
     private val mAdapter: RecyclerView.Adapter<*>,
     var mSpecialViewSimple: YcSpecialViewSmart,
+    private val isAutoRefresh: Boolean = true,
     val mPageConfigure: IPageConfigure = PageConfigure()
 ) {
     suspend fun <T> Flow<YcResult<YcDataSourceEntity<T>>>.ycCollect(block: (YcResult<YcDataSourceEntity<T>>) -> Unit) {
@@ -113,7 +114,7 @@ open class YcRefreshSpecialRecycleViewUtil(
         mSmartRefreshLayout.setOnRefreshListener {
             initRefresh()
             mLifecycleOwner.lifecycleScope.launch {
-                mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialRecycleViewUtil, true, mPageConfigure.mPageIndex, mPageConfigure.mPageSum)
+                mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialRecycleViewUtil, true, mPageConfigure.mPageIndex, mPageConfigure.mPageSize)
                 finish()
             }
         }
@@ -124,13 +125,16 @@ open class YcRefreshSpecialRecycleViewUtil(
                     mSmartRefreshLayout.finishLoadMoreWithNoMoreData()
                 } else {
                     mLifecycleOwner.lifecycleScope.launch {
-                        mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialRecycleViewUtil, false, mPageIndex, mPageSum)
+                        mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialRecycleViewUtil, false, mPageIndex, mPageSize)
                         finish()
                     }
                 }
             }
         }
         mSpecialViewSimple.mBuild.mSpecialClickListener = {
+            startRefresh()
+        }
+        if (isAutoRefresh) {
             startRefresh()
         }
     }
