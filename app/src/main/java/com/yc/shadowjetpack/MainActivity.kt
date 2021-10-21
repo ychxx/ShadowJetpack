@@ -37,6 +37,10 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 3 -> {
                     startActivity(Intent(this@MainActivity, TestRefreshActivity::class.java))
                 }
+                9 -> {
+                    startActivity(Intent(this@MainActivity, TestRefreshActivity2::class.java))
+                }
+
                 4 -> {
                     startActivity(Intent(this@MainActivity, TestWidgetActivity::class.java))
                 }
@@ -52,6 +56,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 8 -> {
                     YcScanQrcodeActivity.newInstance(this@MainActivity, mLauncher, R.color.jetpack_black_scan_bg)
                 }
+
             }
         }
     }
@@ -73,6 +78,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试替换布局", 1))
         mAdapter.addData(Item("测试替换布局2", 2))
         mAdapter.addData(Item("测试刷新", 3))
+        mAdapter.addData(Item("测试刷新2", 9))
         mAdapter.addData(Item("测试自定义View", 4))
         mAdapter.addData(Item("测试折线图", 5))
         mAdapter.addData(Item("测试Pickerview选择器", 6))
