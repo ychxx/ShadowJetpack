@@ -32,6 +32,7 @@ import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.utils.YcColorUtil
 import com.yc.jetpacklib.utils.YcSoftInputUtil
+import com.yc.jetpacklib.utils.YcUI
 import java.io.File
 
 /**
@@ -289,7 +290,7 @@ fun ImageView.ycLoadImageNet(imageNet: String?) {
 
 
 /**
- * 加载圆形图片
+ * 加载网络图片（圆形）
  */
 fun ImageView.ycLoadImageNetCircle(imageNet: String?, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic, errorImg: Int = R.drawable.yc_ic_scan_code_pic) {
     GlideApp.with(context)
@@ -298,29 +299,6 @@ fun ImageView.ycLoadImageNetCircle(imageNet: String?, placeholderImg: Int = R.dr
         .apply(RequestOptions.circleCropTransform())
         .placeholder(placeholderImg)
         .error(errorImg)
-        .into(this)
-}
-
-/**
- * 加载圆角图片(自定义弧度)
- */
-fun ImageView.ycLoadImageNetFillet(imageNet: String?, roundingRadius: Int, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic) {
-    GlideApp.with(context)
-        .asBitmap()
-        .load(imageNet)
-        .transform(CenterCrop(), RoundedCorners(roundingRadius))
-        .placeholder(placeholderImg)
-        .into(this)
-}
-
-/**
- * 加载网络图片（用时间来区分地址相同，图片内容不相同情况）
- */
-fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
-    GlideApp.with(context)
-        .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
-        .asBitmap()
-        .load(imgNetUrl)
         .into(this)
 }
 
@@ -335,6 +313,57 @@ fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) 
         .circleCrop()
         .into(this)
 }
+
+/**
+ * 加载圆角图片(自定义弧度dp)
+ * roundingRadius单位是dp
+ * RoundedCorners（px）
+ */
+fun ImageView.ycLoadImageNetFilletDp(
+    imageNet: String?,
+    roundingRadius: Float,
+    placeholderImg: Int = R.drawable.yc_ic_scan_code_pic,
+    errorImg: Int = R.drawable.yc_ic_scan_code_pic
+) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(imageNet)
+        .transform(CenterCrop(), RoundedCorners(YcUI.dpToPx(roundingRadius)))
+        .placeholder(placeholderImg)
+        .error(errorImg)
+        .into(this)
+}
+
+/**
+ * 加载圆角图片(自定义弧度px)
+ * roundingRadius单位是px
+ */
+fun ImageView.ycLoadImageNetFilletPx(
+    imageNet: String?,
+    roundingRadius: Int,
+    placeholderImg: Int = R.drawable.yc_ic_scan_code_pic,
+    errorImg: Int = R.drawable.yc_ic_scan_code_pic
+) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(imageNet)
+        .transform(CenterCrop(), RoundedCorners(roundingRadius))
+        .placeholder(placeholderImg)
+        .error(errorImg)
+        .into(this)
+}
+
+/**
+ * 加载网络图片（用时间来区分地址相同，图片内容不相同情况）
+ */
+fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
+    GlideApp.with(context)
+        .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
+        .asBitmap()
+        .load(imgNetUrl)
+        .into(this)
+}
+
 
 fun ImageView.ycLoadImagePath(imageFilePath: String) {
     this.ycLoadImageFile(File(imageFilePath))
