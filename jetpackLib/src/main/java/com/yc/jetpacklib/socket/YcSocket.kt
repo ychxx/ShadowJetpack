@@ -123,6 +123,8 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
      * 重连
      */
     protected open fun reconnection() {
+        if (mState.get() == YcSocketState.CLOSE)
+            return
         mReconnectNum++
         ycLogESimple("socket 第${mReconnectNum}启动重连!")
         createSocket()
@@ -170,16 +172,17 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
      */
     protected open fun resetSocket() {
         mState.set(YcSocketState.PREPARE)
-        mInputStream?.close()
-        mOutStream?.close()
         mReceiveJob?.cancel()
         mCreateSocketJob?.cancel()
+        mInputStream?.close()
+        mOutStream?.close()
         mSocket?.close()
     }
 
 
     open fun close() {
         resetSocket()
+        mState.set(YcSocketState.CLOSE)
         scope.cancel()
     }
 }
