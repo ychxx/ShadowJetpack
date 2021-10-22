@@ -181,8 +181,8 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
 
 
     open fun close() {
-        resetSocket()
         mState.set(YcSocketState.CLOSE)
+        resetSocket()
         scope.cancel()
     }
 }
