@@ -9,7 +9,7 @@ import com.yc.jetpacklib.exception.YcException
  */
 class YcSpecialViewCommon : YcSpecialViewBase<YcSpecialReleaseBinding> {
     val mBuild: YcSpecialViewBuild by YcSpecialViewBuild.create()
-    
+
     constructor(originalView: View) : super(originalView, YcSpecialReleaseBinding::inflate)
     constructor(activity: Activity) : super(activity, YcSpecialReleaseBinding::inflate)
 

@@ -284,6 +284,8 @@ fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTIC
 fun ImageView.ycLoadImageNet(imageNet: String?) {
     GlideApp.with(context)
         .asBitmap()
+        .placeholder(R.drawable.yc_loading)
+        .error(R.drawable.yc_loading_fail)
         .load(imageNet)
         .into(this)
 }
