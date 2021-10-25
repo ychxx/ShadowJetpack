@@ -10,7 +10,7 @@ import com.yc.jetpacklib.exception.YcException
  */
 open class YcSpecialViewSmart(originalView: RecyclerView, private val containerFl: FrameLayout) :
     YcSpecialViewBase<YcSpecialReleaseBinding>(originalView, YcSpecialReleaseBinding::inflate) {
-    open val mBuild: YcSpecialViewBuild by YcSpecialViewBuild.create()
+    open val mBuild: YcSpecialViewBuild = YcSpecialViewBuild()
 
     override fun YcSpecialReleaseBinding.onUpdate(specialState: Int) {
         mBuild.apply {

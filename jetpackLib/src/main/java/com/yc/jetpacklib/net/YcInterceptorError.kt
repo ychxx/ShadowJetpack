@@ -36,8 +36,16 @@ class YcInterceptorError : YcInterceptor {
                 if (TextUtils.isEmpty(msg)) {
                     msg = "接口异常!code:$code message:$msg"
                 }
-                if (YcJetpack.mInstance.mNetSuccessCode != null && code != YcJetpack.mInstance.mNetSuccessCode) {
-                    throw YcIoException(msg, code)
+                if (YcJetpack.mInstance.mNetSuccessCode != null) {
+                    var isFail = true
+                    for (successCode in YcJetpack.mInstance.mNetSuccessCode!!) {
+                        if (successCode == code) {
+                            isFail = false
+                        }
+                    }
+                    if (isFail) {
+                        throw YcIoException(msg, code)
+                    }
 //                    return response.newBuilder().body(msg.toResponseBody(response.body!!.contentType())).build()
                 }
             }

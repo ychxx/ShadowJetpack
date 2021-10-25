@@ -32,20 +32,33 @@
     <attr name="ycSelectTextSize" format="dimension" />
     <!-- 未选中字体大小 -->
     <attr name="ycUnSelectTextSize" format="dimension" />
+    <attr name="ycRadiusInner" format="dimension" />
+    <attr name="ycRadiusOuter" format="dimension" />
+    <attr name="ycProgress" format="float" />
     <declare-styleable name="YcRingView">
         <attr name="ycBg" />
         <attr name="ycRingColor1" format="reference|color" />
         <attr name="ycRingColor2" format="reference|color" />
-        <attr name="ycRadiusInner" format="dimension" />
-        <attr name="ycRadiusOuter" format="dimension" />
-        <attr name="ycProgress" format="float" />
+        <attr name="ycRadiusInner" />
+        <attr name="ycRadiusOuter" />
+        <attr name="ycProgress" />
         <attr name="ycText" />
         <attr name="ycText2" />
         <attr name="ycTextColor" />
         <attr name="ycTextColor2" />
         <attr name="ycTextSize" />
     </declare-styleable>
-
+    <declare-styleable name="YcRingIntervalView">
+        <attr name="ycBg" />
+        <attr name="ycRadiusInner" />
+        <attr name="ycRadiusOuter" />
+        <attr name="ycText" />
+        <attr name="ycProgress" />
+        <attr name="ycText2" />
+        <attr name="ycTextColor" />
+        <attr name="ycTextColor2" />
+        <attr name="ycTextSize" />
+    </declare-styleable>
     <declare-styleable name="YcUnderlineTextView">
         <attr name="ycSelectColor" />
         <attr name="ycUnSelectColor" />

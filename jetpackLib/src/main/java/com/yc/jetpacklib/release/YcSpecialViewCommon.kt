@@ -4,11 +4,12 @@ import android.app.Activity
 import android.view.View
 import com.yc.jetpacklib.databinding.YcSpecialReleaseBinding
 import com.yc.jetpacklib.exception.YcException
+
 /**
  *  通用的网络异常，空数据等展示页
  */
-class YcSpecialViewCommon : YcSpecialViewBase<YcSpecialReleaseBinding> {
-    val mBuild: YcSpecialViewBuild by YcSpecialViewBuild.create()
+open class YcSpecialViewCommon : YcSpecialViewBase<YcSpecialReleaseBinding> {
+    open val mBuild: YcSpecialViewBuild = YcSpecialViewBuild()
 
     constructor(originalView: View) : super(originalView, YcSpecialReleaseBinding::inflate)
     constructor(activity: Activity) : super(activity, YcSpecialReleaseBinding::inflate)

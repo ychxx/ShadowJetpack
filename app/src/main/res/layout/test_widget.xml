@@ -60,7 +60,11 @@
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
-        android:src="@drawable/ic_avater_default" />
+        android:scaleType="fitCenter" />
 
+    <com.yc.shadowjetpack.YcRingIntervalView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:ycRadiusInner="100dp"
+        app:ycRadiusOuter="150dp" />
 </LinearLayout>

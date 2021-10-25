@@ -53,7 +53,7 @@ class YcJetpack private constructor() {
     /**
      * 请求成功返回的code
      */
-    var mNetSuccessCode: Int? = 200
+    var mNetSuccessCode: MutableList<Int>? = mutableListOf(200)
 
     /**
      * retrofit的过滤器

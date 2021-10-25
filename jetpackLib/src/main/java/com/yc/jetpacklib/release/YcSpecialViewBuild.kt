@@ -10,21 +10,16 @@ import com.yc.jetpacklib.extension.ycLoadImageRes
 /**
  *  通用的一些参数
  */
-open class YcSpecialViewBuild {
-    companion object {
-        fun create() = lazy {
-            return@lazy YcSpecialViewBuild()
-        }
-    }
+open class YcSpecialViewBuild : YcISpecialViewBuild<YcSpecialReleaseBinding> {
 
-    var mIsShowTitle: Boolean = false
-    var mTitleName: String = ""
-    var mTitleLeftClick: ((View) -> Unit)? = null
-    var mTitleRightClick: ((View) -> Unit)? = null
-    var mTitleRightTv: String? = null
-    var mTitleRightIv: Int? = null
-    var mSpecialClickListener: ((View) -> Unit)? = null
-    fun YcSpecialReleaseBinding.onBuildUpdate(specialState: Int) {
+    override var mIsShowTitle: Boolean = false
+    override var mTitleName: String = ""
+    override var mTitleLeftClick: ((View) -> Unit)? = null
+    override var mTitleRightClick: ((View) -> Unit)? = null
+    override var mTitleRightTv: String? = null
+    override var mTitleRightIv: Int? = null
+    override var mSpecialClickListener: ((View) -> Unit)? = null
+    override fun YcSpecialReleaseBinding.onBuildUpdate(specialState: Int) {
         when (specialState) {
             YcSpecialState.DATA_EMPTY -> {
                 releaseContentTv.text = "暂无内容"
@@ -79,30 +74,7 @@ open class YcSpecialViewBuild {
         }
     }
 
-    /**
-     * 设置标题
-     * @param titleName String                  标题名
-     * @param leftClick Function1<View, Unit>?  左侧点击事件，空则默认finish
-     * @param rightClick Function1<View, Unit>? 右侧点击事件
-     * @param rightTv String?                   右侧文字
-     * @param rightIv Int?                      右侧图片
-     */
-    fun setBuildTitle(
-        titleName: String = "",
-        leftClick: ((View) -> Unit)? = null,
-        rightClick: ((View) -> Unit)? = null,
-        rightTv: String? = null,
-        rightIv: Int? = null
-    ) {
-        mTitleName = titleName
-        mTitleLeftClick = leftClick
-        mTitleRightClick = rightClick
-        mTitleRightTv = rightTv
-        mTitleRightIv = rightIv
-        mIsShowTitle = true
-    }
-
-    fun YcSpecialViewBase<YcSpecialReleaseBinding>.buildShow(exception: YcException) {
+    override fun YcSpecialViewBase<YcSpecialReleaseBinding>.buildShow(exception: YcException) {
         when (exception.code) {
             YcNetErrorCode.NETWORK_ERROR, YcNetErrorCode.TIME_OUT_ERROR -> {
                 show(YcSpecialState.NET_ERROR)
