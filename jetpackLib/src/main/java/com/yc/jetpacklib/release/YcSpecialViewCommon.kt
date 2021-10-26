@@ -2,50 +2,30 @@ package com.yc.jetpacklib.release
 
 import android.app.Activity
 import android.view.View
-import com.yc.jetpacklib.databinding.YcSpecialReleaseBinding
 import com.yc.jetpacklib.exception.YcException
+import com.yc.jetpacklib.init.YcJetpack
 
 /**
  *  通用的网络异常，空数据等展示页
  */
-open class YcSpecialViewCommon : YcSpecialViewBase<YcSpecialReleaseBinding> {
-    open val mBuild: YcSpecialViewBuild = YcSpecialViewBuild()
+open class YcSpecialViewCommon : YcSpecialViewBase {
+    val mSpecialViewBuild: YcSpecialViewConfigureBase
 
-    constructor(originalView: View) : super(originalView, YcSpecialReleaseBinding::inflate)
-    constructor(activity: Activity) : super(activity, YcSpecialReleaseBinding::inflate)
-
-    override fun YcSpecialReleaseBinding.onUpdate(specialState: Int) {
-        mBuild.apply {
-            onBuildUpdate(specialState)
-        }
+    constructor(
+        originalView: View,
+        specialViewBuild: YcSpecialViewConfigureBase = YcJetpack.mInstance.mCreateSpecialViewBuildBase.invoke(originalView.context)
+    ) : super(originalView, { specialViewBuild.getSpecialView() }) {
+        mSpecialViewBuild = specialViewBuild
     }
 
-    fun show(exception: YcException) {
-        mBuild.apply {
-            show(exception)
-        }
+    constructor(
+        activity: Activity, specialViewBuild: YcSpecialViewConfigureBase = YcJetpack.mInstance.mCreateSpecialViewBuildBase.invoke(activity)
+    ) : super(activity, { specialViewBuild.getSpecialView() }) {
+        mSpecialViewBuild = specialViewBuild
     }
 
-    /**
-     * 设置标题
-     * @param titleName String                  标题名
-     * @param leftClick Function1<View, Unit>?  左侧点击事件，空则默认finish
-     * @param rightClick Function1<View, Unit>? 右侧点击事件
-     * @param rightTv String?                   右侧文字
-     * @param rightIv Int?                      右侧图片
-     */
-    fun setTitle(
-        titleName: String = "",
-        leftClick: ((View) -> Unit)? = null,
-        rightClick: ((View) -> Unit)? = null,
-        rightTv: String? = null,
-        rightIv: Int? = null
-    ) {
-        mBuild.mTitleName = titleName
-        mBuild.mTitleLeftClick = leftClick
-        mBuild.mTitleRightClick = rightClick
-        mBuild.mTitleRightTv = rightTv
-        mBuild.mTitleRightIv = rightIv
-        mBuild.mIsShowTitle = true
+    override fun onUpdate(specialState: Int, exception: YcException?) {
+        mSpecialViewBuild.onUpdate(specialState, exception)
     }
+
 }

@@ -10,7 +10,7 @@ import androidx.annotation.IntDef
 
 
 class YcSocketState {
-    @Target(AnnotationTarget.TYPE, AnnotationTarget.PROPERTY)
+    @Target(AnnotationTarget.TYPE, AnnotationTarget.PROPERTY, AnnotationTarget.FUNCTION)
     @IntDef(PREPARE, CONNED, DISCONNECT, ERROR)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class State

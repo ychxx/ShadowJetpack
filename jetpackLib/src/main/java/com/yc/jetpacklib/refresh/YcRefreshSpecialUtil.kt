@@ -19,8 +19,6 @@ import com.yc.jetpacklib.release.YcSpecialViewSmart
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import kotlin.contracts.InvocationKind
-import kotlin.contracts.contract
 
 /**
  * Creator: yc
@@ -41,13 +39,13 @@ class PageConfigure : IPageConfigure {
     override val mPageIndexStart: Int = 1
 }
 
-open class YcRefreshSpecialRecycleViewUtil(
+open class YcRefreshSpecialUtil(
     private val mLifecycleOwner: LifecycleOwner,
     private val mSmartRefreshLayout: SmartRefreshLayout,
     private val mAdapter: RecyclerView.Adapter<*>,
     var mSpecialViewSimple: YcSpecialViewSmart,
-    private val isAutoRefresh: Boolean = true,
-    val mPageConfigure: IPageConfigure = PageConfigure()
+    isAutoRefresh: Boolean = true,
+    protected val mPageConfigure: IPageConfigure = PageConfigure()
 ) {
     suspend fun <T> Flow<YcResult<YcDataSourceEntity<T>>>.ycCollect(block: (YcResult<YcDataSourceEntity<T>>) -> Unit) {
         this.collect {
@@ -70,7 +68,7 @@ open class YcRefreshSpecialRecycleViewUtil(
     var mErrorTip: ((String) -> Unit) = {
         mSmartRefreshLayout.context.showToast(it)
     }
-    var mRefreshAndLoadMore: (suspend YcRefreshSpecialRecycleViewUtil.(isRefresh: Boolean, pageIndex: Int, pageSize: Int) -> Unit)? =
+    var mRefreshAndLoadMore: (suspend YcRefreshSpecialUtil.(isRefresh: Boolean, pageIndex: Int, pageSize: Int) -> Unit)? =
         null
 
     /**
@@ -82,23 +80,13 @@ open class YcRefreshSpecialRecycleViewUtil(
             if (isHasPreData) {//刷新成功，恢复之前布局
                 mSpecialViewSimple.recovery()
             } else {//刷新成功，但数据为空
-                mSpecialViewSimple.apply {
-                    mBuild.mSpecialClickListener = {
-                        startRefresh()
-                    }
-                    show(YcSpecialState.DATA_EMPTY)
-                }
+                mSpecialViewSimple.show(YcSpecialState.DATA_EMPTY)
             }
         }.doFail { error ->
             if (isHasPreData) {//之前有数据，则显示错误提示
                 mErrorTip.invoke("刷新失败：${error.msg}")
             } else {//之前无数据，则显示替换布局
-                mSpecialViewSimple.apply {
-                    mBuild.mSpecialClickListener = {
-                        startRefresh()
-                    }
-                    show(error)
-                }
+                mSpecialViewSimple.show(YcSpecialState.NETWORK_ERROR, error)
             }
         }
     }
@@ -114,7 +102,7 @@ open class YcRefreshSpecialRecycleViewUtil(
         mSmartRefreshLayout.setOnRefreshListener {
             initRefresh()
             mLifecycleOwner.lifecycleScope.launch {
-                mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialRecycleViewUtil, true, mPageConfigure.mPageIndex, mPageConfigure.mPageSize)
+                mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialUtil, true, mPageConfigure.mPageIndex, mPageConfigure.mPageSize)
                 finish()
             }
         }
@@ -125,13 +113,13 @@ open class YcRefreshSpecialRecycleViewUtil(
                     mSmartRefreshLayout.finishLoadMoreWithNoMoreData()
                 } else {
                     mLifecycleOwner.lifecycleScope.launch {
-                        mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialRecycleViewUtil, false, mPageIndex, mPageSize)
+                        mRefreshAndLoadMore?.invoke(this@YcRefreshSpecialUtil, false, mPageIndex, mPageSize)
                         finish()
                     }
                 }
             }
         }
-        mSpecialViewSimple.mBuild.mSpecialClickListener = {
+        mSpecialViewSimple.mSpecialViewBuild.mYcSpecialBean.mSpecialClickListener = {
             startRefresh()
         }
         if (isAutoRefresh) {

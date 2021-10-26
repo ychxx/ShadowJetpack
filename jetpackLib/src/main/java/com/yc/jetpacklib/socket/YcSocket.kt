@@ -168,6 +168,14 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
     }
 
     /**
+     * 获取当前socket状态
+     * @return Int
+     */
+    fun getState(): @YcSocketState.State Int {
+        return mState.get()
+    }
+
+    /**
      * 重置
      */
     protected open fun resetSocket() {

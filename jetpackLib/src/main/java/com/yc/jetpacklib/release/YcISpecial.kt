@@ -1,11 +1,12 @@
 package com.yc.jetpacklib.release
 
-import androidx.viewbinding.ViewBinding
+import com.yc.jetpacklib.exception.YcException
+
 
 /**
  *
  */
-interface YcISpecialState<VB : ViewBinding> {
+interface YcISpecial {
     /**
      * 设置类型
      *
@@ -16,17 +17,12 @@ interface YcISpecialState<VB : ViewBinding> {
     /**
      * 显示
      */
-    fun show()
-
-    /**
-     * 显示
-     */
-    fun show(specialState: Int)
+    fun show(@YcSpecialState specialState: Int, exception: YcException? = null)
 
     /**
      * 恢复
      */
     fun recovery()
 
-    var mCustomUi: (VB.() -> Unit)?
+    fun onUpdate(@YcSpecialState specialState: Int, exception: YcException? = null)
 }

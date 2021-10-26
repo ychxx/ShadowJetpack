@@ -1,6 +1,7 @@
 package com.yc.jetpacklib.init
 
 import android.app.Application
+import android.content.Context
 import android.content.res.Resources
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
@@ -9,6 +10,8 @@ import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.YcLogExt
 import com.yc.jetpacklib.refresh.YcRefreshFooterAdapter
 import com.yc.jetpacklib.refresh.YcRefreshHeaderView
+import com.yc.jetpacklib.release.YcSpecialViewConfigureBase
+import com.yc.jetpacklib.release.YcSpecialViewConfigureImp
 import com.yc.jetpacklib.widget.pickerview.YcPickerColor
 import okhttp3.Interceptor
 import org.xutils.x
@@ -64,6 +67,10 @@ class YcJetpack private constructor() {
      * 接口地址
      */
     var mDefaultBaseUrl = ""
+    var mCreateSpecialViewBuildBase: ((context: Context) -> YcSpecialViewConfigureBase) = {
+        YcSpecialViewConfigureImp(it)//这里有问题
+    }
+
 
     /**
      * 默认保存文件夹路径

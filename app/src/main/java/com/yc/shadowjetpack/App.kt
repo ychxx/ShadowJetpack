@@ -11,6 +11,11 @@ import com.yc.jetpacklib.init.YcJetpack
 class App : Application() {
     override fun onCreate() {
         super.onCreate()
-        YcJetpack.mInstance.init(this)
+        YcJetpack.mInstance.apply {
+            init(this@App)
+            mCreateSpecialViewBuildBase = {
+                TestSpecialViewConfigureImp(it)
+            }
+        }
     }
 }

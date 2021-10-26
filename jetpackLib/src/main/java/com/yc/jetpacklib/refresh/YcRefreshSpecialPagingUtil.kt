@@ -17,7 +17,7 @@ import com.yc.jetpacklib.release.YcSpecialViewSmart
  * Date: 2021/7/27 15:48
  * UseDes: 刷新帮助类(刷新失败且列表数据为空时，会替换成特殊布局)
  */
-open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : YcRefreshBaseUtil<T>(mLifecycleOwner) {
+open class YcRefreshSpecialPagingUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : YcRefreshBaseUtil<T>(mLifecycleOwner) {
     /**
      * 替换布局
      */
@@ -30,23 +30,13 @@ open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : 
         ycLogESimple("Refresh$it")
         it.doSuccess {
             if (mPagingDataAdapter.itemCount <= 0) {//刷新成功，但数据为空
-                mSpecialViewSimple?.apply {
-                    mBuild.mSpecialClickListener = {
-                        startRefresh()
-                    }
-                    show(YcSpecialState.DATA_EMPTY)
-                }
+                mSpecialViewSimple.show(YcSpecialState.DATA_EMPTY)
             } else {//刷新成功，恢复之前布局
-                mSpecialViewSimple?.recovery()
+                mSpecialViewSimple.recovery()
             }
         }.doFail { error ->
             if (mPagingDataAdapter.itemCount <= 0) {//之前无数据，则显示替换布局
-                mSpecialViewSimple?.apply {
-                    mBuild.mSpecialClickListener = {
-                        startRefresh()
-                    }
-                    show(error)
-                }
+                mSpecialViewSimple.show(YcSpecialState.DATA_EMPTY, error)
             } else {//之前有数据，则显示错误提示
                 mErrorTip.invoke("刷新失败：${error.msg}")
             }
@@ -69,9 +59,9 @@ open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : 
         containerRecyclerViewFl: FrameLayout,
         isAutoRefresh: Boolean = true,
         apply: YcRefreshBaseUtil<T>.() -> Unit
-    ): YcRefreshSpecialViewUtil<T> {
+    ): YcRefreshSpecialPagingUtil<T> {
         return this.build(adapter, smartRefreshLayout, YcSpecialViewSmart(recyclerView, containerRecyclerViewFl).apply {
-            mBuild.mSpecialClickListener = {
+            mSpecialViewBuild.mYcSpecialBean.mSpecialClickListener = {
                 startRefresh(true)
             }
         }, isAutoRefresh, apply)
@@ -91,7 +81,7 @@ open class YcRefreshSpecialViewUtil<T : Any>(mLifecycleOwner: LifecycleOwner) : 
         specialViewSmart: YcSpecialViewSmart,
         isAutoRefresh: Boolean = true,
         apply: YcRefreshBaseUtil<T>.() -> Unit
-    ): YcRefreshSpecialViewUtil<T> {
+    ): YcRefreshSpecialPagingUtil<T> {
         mPagingDataAdapter = adapter
         mSmartRefreshLayout = smartRefreshLayout
         mSpecialViewSimple = specialViewSmart

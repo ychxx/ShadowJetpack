@@ -16,7 +16,8 @@ import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.recycleView.YcPager
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
-import com.yc.jetpacklib.refresh.YcRefreshSpecialViewUtil
+import com.yc.jetpacklib.refresh.YcRefreshSpecialPagingUtil
+import com.yc.jetpacklib.release.YcSpecialState
 import com.yc.shadowjetpack.databinding.TestItemBinding
 import com.yc.shadowjetpack.databinding.TestRefreshActivityBinding
 import kotlinx.coroutines.delay
@@ -56,7 +57,7 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
                 delay(2000)
                 if (mIsError) {
                     ycLogESimple("网络请求出错")
-                    throw YcException("测试错误", 404)
+                    throw YcException("测试网络请求错误1", 404)
                 }
                 val dataList = mutableListOf<ItemData>()
                 for (i in 0 until 15) {
@@ -85,7 +86,8 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
             btnTestItem.text = "${data.name}- $position"
         }
     }
-//    private val mAdapter2 by YcPagingDataAdapterChange.ycLazyInit(TestItemBinding::inflate, ItemData.diffCallback) {
+
+    //    private val mAdapter2 by YcPagingDataAdapterChange.ycLazyInit(TestItemBinding::inflate, ItemData.diffCallback) {
 //        btnTestItem.text = "${data.name}- $position"
 //    }
     //    private val mAdapter2 = object : YcPagingDataAdapterChange<ItemData, TestItemBinding>(TestItemBinding::inflate, ItemData.diffCallback) {
@@ -93,11 +95,11 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
 //
 //        }
 //    }
-    private lateinit var mRefreshUtil: YcRefreshSpecialViewUtil<ItemData>
+    private lateinit var mRefreshUtil: YcRefreshSpecialPagingUtil<ItemData>
     override fun TestRefreshActivityBinding.initView() {
         rvTestRefresh.adapter = mAdapter
         rvTestRefresh.ycInitLinearLayoutManage()
-        mRefreshUtil = YcRefreshSpecialViewUtil<ItemData>(this@TestRefreshActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
+        mRefreshUtil = YcRefreshSpecialPagingUtil<ItemData>(this@TestRefreshActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
             mRefreshCall = {
                 mViewModel.getDataPagingData()
             }
@@ -121,7 +123,7 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
 //            }
         }
         btnTestRefreshSpecialShow.setOnClickListener {
-            mRefreshUtil.mSpecialViewSimple.show(YcException("测试异常", 400))
+            mRefreshUtil.mSpecialViewSimple.show(YcSpecialState.DATA_EMPTY_ERROR, YcException("测试异常", 400))
         }
         btnTestRefreshSpecialHide.setOnClickListener {
             mRefreshUtil.mSpecialViewSimple.recovery()

@@ -2,65 +2,45 @@ package com.yc.jetpacklib.release
 
 import android.R
 import android.app.Activity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.viewbinding.ViewBinding
+import com.yc.jetpacklib.exception.YcException
 
 /**
  *
  */
-abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
+abstract class YcSpecialViewBase : YcISpecial {
     /**
      * 原始View（即要被替换的View）
      */
-    lateinit var mOriginalView: View
+    protected var mOriginalView: View
 
     /**
      * 替换View
      */
-    protected var mReleaseView: View? = null
+    protected var mReleaseView: () -> View
 
     /**
      * 是否显示替换View
      */
-    protected var isReleaseViewShow = false
+    protected var mIsReleaseViewShow = false
 
     @YcSpecialState
-    protected var mSpecialState = YcSpecialState.NET_ERROR
-
-    private var _mViewBinding: VB? = null
-    protected val mViewBinding get() = _mViewBinding!!
-
-    private var mReleaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null
-
-    /**
-     * 修改UI布局和绑定事件（开放给外部类调用）
-     */
-    override var mCustomUi: (VB.() -> Unit)? = null
-
-    /**
-     * 修改UI布局和绑定事件(开放给子类调用，优先级弱于mCustomUi)
-     */
-    var mCustomUiProtected: (VB.() -> Unit)? = null
-
-    /**
-     * 只替换部分View
-     */
-    constructor(originalView: View, releaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) {
-        mOriginalView = originalView
-        mReleaseVB = releaseVB
-    }
+    protected var mSpecialState = YcSpecialState.NETWORK_NO
 
     /**
      * 替换整个页面View
      */
-    constructor(activity: Activity, releaseVB: ((LayoutInflater, ViewGroup?, Boolean) -> VB)? = null) {
-        mOriginalView = activity.findViewById(R.id.content)
-        mReleaseVB = releaseVB
+    constructor(activity: Activity, releaseView: () -> View) : this(activity.findViewById(R.id.content) as View, releaseView)
+
+    /**
+     * 只替换部分View
+     */
+    constructor(originalView: View, releaseView: () -> View) {
+        mOriginalView = originalView
+        mReleaseView = releaseView
     }
 
-    override fun setSpecialState(specialState: Int) {
+    override fun setSpecialState(@YcSpecialState specialState: Int) {
         mSpecialState = specialState
     }
 
@@ -68,22 +48,11 @@ abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
      * 显示
      */
     @Synchronized
-    override fun show(specialState: Int) {
+    override fun show(@YcSpecialState specialState: Int, exception: YcException?) {
         setSpecialState(specialState)
-        show()
-    }
-
-    /**
-     * 显示
-     */
-    @Synchronized
-    override fun show() {
-        if (isReleaseViewShow) return
-        isReleaseViewShow = true
-        createReleaseView()
-        mViewBinding.onUpdate(mSpecialState)
-        mCustomUiProtected?.invoke(mViewBinding)
-        mCustomUi?.invoke(mViewBinding)
+        if (mIsReleaseViewShow) return
+        mIsReleaseViewShow = true
+        onUpdate(mSpecialState, exception)
         replaceReal()
     }
 
@@ -91,7 +60,7 @@ abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
      * 替换
      */
     open fun replaceReal() {
-        YcReleaseLayoutUtils.replace(mOriginalView, mReleaseView!!)
+        YcReleaseLayoutUtils.replace(mOriginalView, mReleaseView.invoke())
     }
 
     /**
@@ -99,27 +68,12 @@ abstract class YcSpecialViewBase<VB : ViewBinding> : YcISpecialState<VB> {
      */
     @Synchronized
     override fun recovery() {
-        if (!isReleaseViewShow) return
-        isReleaseViewShow = false
+        if (!mIsReleaseViewShow) return
+        mIsReleaseViewShow = false
         recoveryReal()
     }
 
     open fun recoveryReal() {
         YcReleaseLayoutUtils.recovery(mOriginalView)
     }
-
-    /**
-     * 创建一个替换用的布局
-     */
-    protected open fun createReleaseView() {
-        if (mReleaseView == null) {
-            _mViewBinding = mReleaseVB!!.invoke(LayoutInflater.from(mOriginalView.context), null, false)
-            mReleaseView = _mViewBinding!!.root
-        }
-    }
-
-    /**
-     * 根据状态更新ui
-     */
-    abstract fun VB.onUpdate(specialState: Int)
 }

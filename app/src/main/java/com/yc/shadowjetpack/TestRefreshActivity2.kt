@@ -14,13 +14,12 @@ import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.net.doFail
 import com.yc.jetpacklib.net.doSuccess
 import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapter
-import com.yc.jetpacklib.recycleView.YcRefreshResult
-import com.yc.jetpacklib.refresh.YcRefreshSpecialRecycleViewUtil
+import com.yc.jetpacklib.refresh.YcRefreshSpecialUtil
+import com.yc.jetpacklib.release.YcSpecialState
 import com.yc.jetpacklib.release.YcSpecialViewSmart
 import com.yc.shadowjetpack.databinding.TestItemBinding
 import com.yc.shadowjetpack.databinding.TestRefreshActivityBinding
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collect
 
 /**
  * Creator: yc
@@ -38,7 +37,7 @@ class TestRefreshActivity2 : YcBaseActivityPlus<TestRefreshActivityBinding>(Test
             delay(3000)
             if (mIsError) {
                 ycLogESimple("网络请求出错")
-                throw YcException("测试错误", 404)
+                throw YcException("测试网络请求错误2", 404)
             }
             val dataList = mutableListOf<ItemData>()
             for (i in 0 until pageSize) {
@@ -67,11 +66,11 @@ class TestRefreshActivity2 : YcBaseActivityPlus<TestRefreshActivityBinding>(Test
         }
     }
 
-    private lateinit var mRefreshUtil: YcRefreshSpecialRecycleViewUtil
+    private lateinit var mRefreshUtil: YcRefreshSpecialUtil
     override fun TestRefreshActivityBinding.initView() {
         rvTestRefresh.adapter = mAdapter
         rvTestRefresh.ycInitLinearLayoutManage()
-        mRefreshUtil = YcRefreshSpecialRecycleViewUtil(this@TestRefreshActivity2, slTestRefresh, mAdapter, YcSpecialViewSmart(rvTestRefresh, flRefresh))
+        mRefreshUtil = YcRefreshSpecialUtil(this@TestRefreshActivity2, slTestRefresh, mAdapter, YcSpecialViewSmart(rvTestRefresh, flRefresh))
         mRefreshUtil.mRefreshAndLoadMore = { isRefresh: Boolean, pageIndex: Int, pageSize: Int ->
             mViewModel.getPageProxy(pageIndex, pageSize).ycCollect {
                 it.doSuccess {
@@ -82,7 +81,7 @@ class TestRefreshActivity2 : YcBaseActivityPlus<TestRefreshActivityBinding>(Test
             }
         }
         btnTestRefreshSpecialShow.setOnClickListener {
-            mRefreshUtil.mSpecialViewSimple.show(YcException("测试异常", 400))
+            mRefreshUtil.mSpecialViewSimple.show(YcSpecialState.DATA_EMPTY_ERROR,YcException("测试异常", 400))
         }
         btnTestRefreshSpecialHide.setOnClickListener {
             mRefreshUtil.mSpecialViewSimple.recovery()
