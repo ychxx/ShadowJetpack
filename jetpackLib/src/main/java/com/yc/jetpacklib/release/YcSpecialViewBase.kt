@@ -50,9 +50,9 @@ abstract class YcSpecialViewBase : YcISpecial {
     @Synchronized
     override fun show(@YcSpecialState specialState: Int, exception: YcException?) {
         setSpecialState(specialState)
+        onUpdate(mSpecialState, exception)
         if (mIsReleaseViewShow) return
         mIsReleaseViewShow = true
-        onUpdate(mSpecialState, exception)
         replaceReal()
     }
 
