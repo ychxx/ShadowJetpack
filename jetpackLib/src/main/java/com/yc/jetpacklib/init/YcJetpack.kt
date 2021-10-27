@@ -68,7 +68,7 @@ class YcJetpack private constructor() {
      */
     var mDefaultBaseUrl = ""
     var mCreateSpecialViewBuildBase: ((context: Context) -> YcSpecialViewConfigureBase) = {
-        YcSpecialViewConfigureImp(it)//这里有问题
+        YcSpecialViewConfigureImp(it)
     }
 
 

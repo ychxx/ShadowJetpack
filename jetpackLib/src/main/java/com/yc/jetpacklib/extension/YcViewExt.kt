@@ -30,6 +30,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.signature.ObjectKey
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
+import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.utils.YcColorUtil
 import com.yc.jetpacklib.utils.YcSoftInputUtil
 import com.yc.jetpacklib.utils.YcUI
@@ -281,11 +282,11 @@ fun RecyclerView.ycInitLinearLayoutManage(orientation: Int = RecyclerView.VERTIC
 /**
  * 加载网络图片
  */
-fun ImageView.ycLoadImageNet(imageNet: String?) {
+fun ImageView.ycLoadImageNet(imageNet: String?, placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading, errorImg: Int = YcJetpack.mInstance.mImgIdResFail) {
     GlideApp.with(context)
         .asBitmap()
-        .placeholder(R.drawable.yc_loading)
-        .error(R.drawable.yc_loading_fail)
+        .placeholder(placeholderImg)
+        .error(errorImg)
         .load(imageNet)
         .into(this)
 }
@@ -294,7 +295,11 @@ fun ImageView.ycLoadImageNet(imageNet: String?) {
 /**
  * 加载网络图片（圆形）
  */
-fun ImageView.ycLoadImageNetCircle(imageNet: String?, placeholderImg: Int = R.drawable.yc_ic_scan_code_pic, errorImg: Int = R.drawable.yc_ic_scan_code_pic) {
+fun ImageView.ycLoadImageNetCircle(
+    imageNet: String?,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
     GlideApp.with(context)
         .asBitmap()
         .load(imageNet)
@@ -307,12 +312,19 @@ fun ImageView.ycLoadImageNetCircle(imageNet: String?, placeholderImg: Int = R.dr
 /**
  * 加载网络图片（圆）
  */
-fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) {
+fun ImageView.ycLoadImageNetCircle(
+    imgNetUrl: String?,
+    imageUpdateTime: String,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
     GlideApp.with(context)
         .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
         .asBitmap()
         .load(imgNetUrl)
         .circleCrop()
+        .placeholder(placeholderImg)
+        .error(errorImg)
         .into(this)
 }
 
@@ -324,8 +336,8 @@ fun ImageView.ycLoadImageNetCircle(imgNetUrl: String?, imageUpdateTime: String) 
 fun ImageView.ycLoadImageNetFilletDp(
     imageNet: String?,
     roundingRadius: Float,
-    placeholderImg: Int = R.drawable.yc_ic_scan_code_pic,
-    errorImg: Int = R.drawable.yc_ic_scan_code_pic
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
 ) {
     GlideApp.with(context)
         .asBitmap()
@@ -343,8 +355,8 @@ fun ImageView.ycLoadImageNetFilletDp(
 fun ImageView.ycLoadImageNetFilletPx(
     imageNet: String?,
     roundingRadius: Int,
-    placeholderImg: Int = R.drawable.yc_ic_scan_code_pic,
-    errorImg: Int = R.drawable.yc_ic_scan_code_pic
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
 ) {
     GlideApp.with(context)
         .asBitmap()
@@ -358,11 +370,17 @@ fun ImageView.ycLoadImageNetFilletPx(
 /**
  * 加载网络图片（用时间来区分地址相同，图片内容不相同情况）
  */
-fun ImageView.ycLoadImageNet(imgNetUrl: String?, imageUpdateTime: String) {
+fun ImageView.ycLoadImageNet(
+    imgNetUrl: String?, imageUpdateTime: String,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
     GlideApp.with(context)
         .applyDefaultRequestOptions(RequestOptions().signature(ObjectKey(imageUpdateTime)))
         .asBitmap()
         .load(imgNetUrl)
+        .placeholder(placeholderImg)
+        .error(errorImg)
         .into(this)
 }
 
