@@ -8,7 +8,6 @@ import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.exception.YcIoException
 import org.json.JSONException
 import retrofit2.HttpException
-import java.io.IOException
 import java.lang.NullPointerException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
@@ -26,7 +25,7 @@ fun Throwable.toYcException(): YcException {
         is MalformedJsonException -> YcException("接口解析出错", YcNetErrorCode.JSON_ERROR)
         is IllegalStateException -> YcException("接口解析出错", YcNetErrorCode.JSON_ERROR)
         is HttpException -> YcException("网络请求错误", code())
-        is ConnectException -> YcException("连接失败", YcNetErrorCode.NETWORK_ERROR)
+        is ConnectException -> YcException("连接失败", YcNetErrorCode.NETWORK_NO)
         is SocketTimeoutException -> YcException("网络超时", YcNetErrorCode.TIME_OUT_ERROR)
         is NullPointerException -> YcException("空异常", YcNetErrorCode.DATE_NULL_ERROR)
         else -> YcException("未知错误", YcNetErrorCode.UN_KNOWN_ERROR)

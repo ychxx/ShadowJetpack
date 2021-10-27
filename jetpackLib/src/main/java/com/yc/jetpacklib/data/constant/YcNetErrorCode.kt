@@ -11,7 +11,7 @@ object YcNetErrorCode {
     /**
      * 网络错误(连接超时、没网络)
      */
-    const val NETWORK_ERROR = 1002
+    const val NETWORK_NO = 1002
 
     /**
      * 网络超时

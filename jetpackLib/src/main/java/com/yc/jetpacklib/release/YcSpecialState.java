@@ -17,7 +17,7 @@ public @interface YcSpecialState {
     /**
      * 无网络
      */
-    int NETWORK_NO = 0;
+    int NETWORK_NO = YcNetErrorCode.NETWORK_NO;
     /**
      * 接口错误
      */

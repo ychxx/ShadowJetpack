@@ -12,7 +12,7 @@ import kotlinx.coroutines.flow.*
  */
 fun <T> Flow<YcResult<T>>.checkNet(): Flow<YcResult<T>> = onStart {
     if (!YcNetUtil.isNetworkAvailable()) {
-        throw YcException("网络不可用", YcNetErrorCode.NETWORK_ERROR)
+        throw YcException("网络不可用", YcNetErrorCode.NETWORK_NO)
     }
 }.catch {
     it.printStackTrace()
