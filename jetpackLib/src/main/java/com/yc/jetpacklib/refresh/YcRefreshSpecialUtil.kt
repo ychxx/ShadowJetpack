@@ -8,6 +8,7 @@ import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.data.entity.YcDataSourceEntity
 import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.extension.ycLogESimple
+import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.net.doFail
 import com.yc.jetpacklib.net.doSuccess
@@ -86,7 +87,7 @@ open class YcRefreshSpecialUtil(
             if (isHasPreData) {//之前有数据，则显示错误提示
                 mErrorTip.invoke("刷新失败：${error.msg}")
             } else {//之前无数据，则显示替换布局
-                mSpecialViewSimple.show(YcSpecialState.NETWORK_ERROR, error)
+                mSpecialViewSimple.show(YcJetpack.mInstance.mYcExceptionToSpecialState(error), error)
             }
         }
     }

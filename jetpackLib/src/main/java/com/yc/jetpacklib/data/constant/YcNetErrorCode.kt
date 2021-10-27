@@ -11,7 +11,7 @@ object YcNetErrorCode {
     /**
      * 网络错误(连接超时、没网络)
      */
-    const val NETWORK_ERROR = 1002
+    const val NETWORK_NO = 1002
 
     /**
      * 网络超时
@@ -32,11 +32,6 @@ object YcNetErrorCode {
      * 数据为空错误，用于请求的数据不能为空接口判断
      */
     const val DATE_NULL_ERROR = 1007
-
-    /**
-     * 加载更多时数据为空
-     */
-    const val MORE_DATE_NULL = 1008
 
 
     /**

@@ -6,6 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.extension.ycLogESimple
+import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
 import com.yc.jetpacklib.recycleView.doSuccess
@@ -36,7 +37,7 @@ open class YcRefreshSpecialPagingUtil<T : Any>(mLifecycleOwner: LifecycleOwner) 
             }
         }.doFail { error ->
             if (mPagingDataAdapter.itemCount <= 0) {//之前无数据，则显示替换布局
-                mSpecialViewSimple.show(YcSpecialState.DATA_EMPTY, error)
+                mSpecialViewSimple.show(YcJetpack.mInstance.mYcExceptionToSpecialState(error), error)
             } else {//之前有数据，则显示错误提示
                 mErrorTip.invoke("刷新失败：${error.msg}")
             }
