@@ -33,11 +33,6 @@ object YcNetErrorCode {
      */
     const val DATE_NULL_ERROR = 1007
 
-    /**
-     * 加载更多时数据为空
-     */
-    const val MORE_DATE_NULL = 1008
-
 
     /**
      * 请求错误

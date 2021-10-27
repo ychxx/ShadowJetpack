@@ -7,9 +7,12 @@ import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.data.constant.YcNetErrorCode
+import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.extension.YcLogExt
 import com.yc.jetpacklib.refresh.YcRefreshFooterAdapter
 import com.yc.jetpacklib.refresh.YcRefreshHeaderView
+import com.yc.jetpacklib.release.YcSpecialState
 import com.yc.jetpacklib.release.YcSpecialViewConfigureBase
 import com.yc.jetpacklib.release.YcSpecialViewConfigureImp
 import com.yc.jetpacklib.widget.pickerview.YcPickerColor
@@ -67,10 +70,36 @@ class YcJetpack private constructor() {
      * 接口地址
      */
     var mDefaultBaseUrl = ""
+
+    /**
+     * 创建一个替换布局（用于不一致时变换）
+     */
     var mCreateSpecialViewBuildBase: ((context: Context) -> YcSpecialViewConfigureBase) = {
-        YcSpecialViewConfigureImp(it)//这里有问题
+        YcSpecialViewConfigureImp(it)
     }
 
+    /**
+     * 请求异常转替换布局状态
+     */
+    var mYcExceptionToSpecialState: (YcException) -> Int = {
+        when (it.code) {
+            YcNetErrorCode.TIME_OUT_ERROR, YcNetErrorCode.NETWORK_NO -> {
+                YcSpecialState.NETWORK_NO
+            }
+            YcNetErrorCode.DATE_NULL -> {
+                YcSpecialState.DATA_EMPTY
+            }
+            YcNetErrorCode.DATE_NULL_ERROR -> {
+                YcSpecialState.DATA_EMPTY_ERROR
+            }
+            YcNetErrorCode.JSON_ERROR, YcNetErrorCode.UN_KNOWN_ERROR, YcNetErrorCode.REQUEST_NULL -> {
+                YcSpecialState.NETWORK_ERROR
+            }
+            else -> {
+                YcSpecialState.NETWORK_ERROR
+            }
+        }
+    }
 
     /**
      * 默认保存文件夹路径
