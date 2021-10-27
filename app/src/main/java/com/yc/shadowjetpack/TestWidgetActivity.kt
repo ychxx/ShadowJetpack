@@ -1,5 +1,7 @@
 package com.yc.shadowjetpack
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.extension.ycLoadImageNetCircle
 import com.yc.jetpacklib.extension.ycLoadImageNetFilletDp
@@ -8,6 +10,7 @@ import com.yc.jetpacklib.extension.ycSetColorFilter
 import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.utils.YcLoop
 import com.yc.shadowjetpack.databinding.TestWidgetBinding
+import java.util.*
 
 /**
  * Creator: yc
@@ -22,12 +25,15 @@ class TestWidgetActivity : YcBaseActivityPlus<TestWidgetBinding>(TestWidgetBindi
 //        mViewBinding.ring.setProgress(50 / 100f)
 //    }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun TestWidgetBinding.initView() {
 //        loop.start(true)
         this.ring.setText("1234", "/6070")
-        ivAvater.ycLoadImageNetCircle(null, R.drawable.ic_avater_default, R.drawable.ic_avater_default)
+        ivAvater.ycLoadImageNetCircle(null, Date().toInstant().toString(), R.drawable.ic_avater_default, R.drawable.ic_avater_default)
 
-        ivAvater.ycLoadImageNetFilletDp(null, 10f, R.drawable.ic_avater_default, R.drawable.ic_avater_default)
+        //ivAvater.ycLoadImageNetCircle(null, R.drawable.ic_avater_default, R.drawable.ic_avater_default)
+
+        // ivAvater.ycLoadImageNetFilletDp(null, 10f, R.drawable.ic_avater_default, R.drawable.ic_avater_default)
 
     }
 }
