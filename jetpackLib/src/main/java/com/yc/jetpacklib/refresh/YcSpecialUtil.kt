@@ -31,10 +31,14 @@ import kotlinx.coroutines.launch
 
 open class YcSpecialUtil(
     private val mLifecycleOwner: LifecycleOwner,
-    private val mAdapter: RecyclerView.Adapter<*>,
+    val mAdapter: RecyclerView.Adapter<*>,
     var mSpecialViewSimple: YcSpecialViewCommon,
     isAutoRefresh: Boolean = true,
 ) {
+    @PublishedApi
+    internal val `access$mAdapter`: RecyclerView.Adapter<*>
+        get() = mAdapter
+
     suspend fun <T> Flow<YcResult<YcDataSourceEntity<T>>>.ycCollect(block: (YcResult<YcDataSourceEntity<T>>) -> Unit) {
         this.collect {
             block(it)
@@ -42,6 +46,17 @@ open class YcSpecialUtil(
                 mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Success(false))
             }.doFail {
                 mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Fail(it))
+            }
+        }
+    }
+
+    suspend inline fun <reified T> Flow<YcResult<T>>.ycCollect2(crossinline block: (YcResult<T>) -> Unit) {
+        this.collect {
+            block(it)
+            it.doSuccess {
+                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false))
+            }.doFail {
+                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Fail(it))
             }
         }
     }
