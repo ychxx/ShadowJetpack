@@ -26,25 +26,39 @@ class YcInterceptorError : YcInterceptor {
                 throw YcIoException("请求返回为空", YcNetErrorCode.REQUEST_NULL)
             } else {
                 val jsonObject = JSONObject(body)
-                val code = jsonObject.optInt("code", -1)
-                var msg = ""
-                if (jsonObject.has("message")) {
-                    msg = jsonObject.optString("message")
-                } else if (jsonObject.has("msg")) {
-                    msg = jsonObject.optString("msg")
-                }
-                if (TextUtils.isEmpty(msg)) {
-                    msg = "接口异常!code:$code message:$msg"
-                }
-                if (YcJetpack.mInstance.mNetSuccessCode != null) {
-                    var isFail = true
-                    for (successCode in YcJetpack.mInstance.mNetSuccessCode!!) {
-                        if (successCode == code) {
-                            isFail = false
-                        }
+                val code: Int = when {
+                    jsonObject.has("code") -> {
+                        jsonObject.optInt("code")
                     }
-                    if (isFail) {
-                        throw YcIoException(msg, code)
+                    jsonObject.has("sta0tus") -> {
+                        jsonObject.optInt("status")
+                    }
+                    else -> {
+                        -2333
+                    }
+                }
+                val msg = when {
+                    jsonObject.has("message") -> {
+                        jsonObject.optString("message")
+                    }
+                    jsonObject.has("msg") -> {
+                        jsonObject.optString("msg")
+                    }
+                    else -> {
+                        "接口异常! 无返回数据"
+                    }
+                }
+                if (code != -2333) {
+                    if (YcJetpack.mInstance.mNetSuccessCode != null) {
+                        var isFail = true
+                        for (successCode in YcJetpack.mInstance.mNetSuccessCode!!) {
+                            if (successCode == code) {
+                                isFail = false
+                            }
+                        }
+                        if (isFail) {
+                            throw YcIoException(msg, code)
+                        }
                     }
 //                    return response.newBuilder().body(msg.toResponseBody(response.body!!.contentType())).build()
                 }
