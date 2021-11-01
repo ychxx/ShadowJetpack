@@ -127,6 +127,21 @@ fun String?.ycToTime(
 }
 
 /**
+ * String转换成时分
+ */
+fun String?.ycToHourMinute(
+    defaultData: String = com.yc.jetpacklib.extension.YcAnyExt.mCommonDefaultString,
+    formatTimeInput: String = YcTime.FORMAT_TIME_SECOND,
+    formatTimeOut: String = YcTime.FORMAT_TIME_HOUR_MINUTE
+): String {
+    return if (this != null) {
+        YcTime.stringToString(this, formatTimeInput, formatTimeOut)
+    } else {
+        defaultData
+    }
+}
+
+/**
  * 转成Float类型，格式错误返回空
  */
 fun String?.ycToFloat(): Float? = ycTryReturnData(block = {
