@@ -11,9 +11,11 @@ import androidx.recyclerview.widget.DiffUtil
 import com.yc.jetpacklib.data.entity.YcDataSourceEntity
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.base.YcBaseViewModel
+import com.yc.jetpacklib.data.constant.YcNetErrorCode
 import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
+import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.recycleView.YcPager
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
 import com.yc.jetpacklib.refresh.YcRefreshSpecialPagingUtil
@@ -51,20 +53,36 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
         var mIsError = false
         private val _mGetData = MutableLiveData<PagingData<ItemData>>()
         val mGetData: LiveData<PagingData<ItemData>> get() = _mGetData
-        fun getDataPagingData() = ycLaunch {
+        fun getDataPagingData(@RequestDataType type: Int) = ycLaunch {
             YcPager.getPagerFlow(15, 15) { _, _ ->
                 ycLogESimple("开始网络请求")
                 delay(2000)
-                if (mIsError) {
-                    ycLogESimple("网络请求出错")
-                    throw YcException("测试网络请求错误1", 404)
+                when (type) {
+                    RequestDataType.NORMAL -> {
+                        val dataList = mutableListOf<ItemData>()
+                        for (i in 0 until 15) {
+                            dataList.add(ItemData("item:${mId++}"))
+                        }
+                        ycLogESimple("网络请求成功")
+                        YcDataSourceEntity(dataList, 4)
+                    }
+                    RequestDataType.EMPTY -> {
+                        ycLogESimple("网络请求空数据成功")
+                        YcDataSourceEntity(null, 0)
+                    }
+                    RequestDataType.EMPTY_ERROR -> {
+                        ycLogESimple("网络请求空数据异常")
+                        throw YcException("测试网络请求错误1", 404, YcNetErrorCode.DATE_NULL_ERROR)
+                    }
+                    RequestDataType.ERROR -> {
+                        ycLogESimple("网络请求出错")
+                        throw YcException("测试网络请求错误2", 404)
+                    }
+                    else -> {
+                        ycLogESimple("请求状态未设置")
+                        YcDataSourceEntity(null, 0)
+                    }
                 }
-                val dataList = mutableListOf<ItemData>()
-                for (i in 0 until 15) {
-                    dataList.add(ItemData("item:${mId++}"))
-                }
-                ycLogESimple("网络请求成功")
-                YcDataSourceEntity(dataList, 4)
             }.cachedIn(viewModelScope).collect {
                 _mGetData.postValue(it)
             }
@@ -96,12 +114,15 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
 //        }
 //    }
     private lateinit var mRefreshUtil: YcRefreshSpecialPagingUtil<ItemData>
+
+    @RequestDataType
+    private var mRequestDataType: Int = RequestDataType.NORMAL
     override fun TestRefreshActivityBinding.initView() {
         rvTestRefresh.adapter = mAdapter
         rvTestRefresh.ycInitLinearLayoutManage()
         mRefreshUtil = YcRefreshSpecialPagingUtil<ItemData>(this@TestRefreshActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
             mRefreshCall = {
-                mViewModel.getDataPagingData()
+                mViewModel.getDataPagingData(mRequestDataType)
             }
             //无需要对刷新失败/成功做处理，会显示toast
 //            mRefreshResult = {
@@ -128,12 +149,21 @@ class TestRefreshActivity : YcBaseActivityPlus<TestRefreshActivityBinding>(TestR
         btnTestRefreshSpecialHide.setOnClickListener {
             mRefreshUtil.mSpecialViewSimple.recovery()
         }
-        btnTestRefreshFail.setOnClickListener {
-            mViewModel.mIsError = true
+        btnTestRequestFail.setOnClickListener {
+            mRequestDataType = RequestDataType.ERROR
         }
-        btnTestRefreshSuccess.setOnClickListener {
-            mViewModel.mIsError = false
+        btnTestRequestSuccess.setOnClickListener {
+            mRequestDataType = RequestDataType.NORMAL
         }
+        btnTestSetRequestEmpty.setOnClickListener {
+            mRequestDataType = RequestDataType.EMPTY
+            mRefreshUtil.setDataSourceRefresh()
+        }
+        btnTestSetRequestEmptyError.setOnClickListener {
+            mRequestDataType = RequestDataType.EMPTY_ERROR
+            mRefreshUtil.setDataSourceRefresh()
+        }
+
         btnTestRefreshEmpty.setOnClickListener {
             mRefreshUtil.acClearPagingData()
         }

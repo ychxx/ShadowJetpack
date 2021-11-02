@@ -11,6 +11,8 @@ import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.extension.toYcException
 import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
+import com.yc.jetpacklib.init.YcJetpack
+import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
 
@@ -65,6 +67,10 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
      */
     private var mIsFirst = true
 
+    /**
+     * 是否强制更新数据源（用于外部调用，重新获取新的数据源）
+     */
+    private var mIsForceDataSource: Boolean = false
 
     /**
      * 错误提示
@@ -100,8 +106,9 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         apply?.invoke(this)
         mSmartRefreshLayout.setOnRefreshListener {
             //用于判断是否需要改变数据源，如果没有改变则不需设置（例如搜索列表的关键字改变）
-            if (mIsFirst || mPagingData == null) {
+            if (mIsFirst || mPagingData == null || mIsForceDataSource) {
                 mIsFirst = false
+                mIsForceDataSource = false
                 mRefreshCall?.invoke()
             } else {
                 mPagingDataAdapter.refresh()
@@ -148,7 +155,9 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
                 if (mIsRefresh) {
                     mIsRefresh = false
                     mSmartRefreshLayout.finishRefresh(false)
-                    mRefreshResult.invoke(YcRefreshResult.Fail(loadState.error.toYcException()))
+                    YcJetpack.mInstance.isContinueWhenException(loadState.error.toYcException()) {
+                        mRefreshResult.invoke(YcRefreshResult.Fail(this))
+                    }
                 }
             }
         }
@@ -198,6 +207,17 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
     }
 
     /**
+     * 设置数据源
+     * @param isAutoRefresh Boolean 是否自动执行刷新
+     */
+    fun setDataSourceRefresh(isAutoRefresh: Boolean = false) {
+        mIsForceDataSource = true
+        if (isAutoRefresh) {
+            startRefresh(true)
+        }
+    }
+
+    /**
      * 清空数据
      */
     fun clearPagingData(lifecycleOwner: LifecycleOwner) {
@@ -220,4 +240,6 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         mPagingData = pagingData
         mPagingDataAdapter.submitData(pagingData)
     }
+
+
 }

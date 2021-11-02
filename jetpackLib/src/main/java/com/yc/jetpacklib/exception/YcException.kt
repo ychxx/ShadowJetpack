@@ -6,6 +6,11 @@ package com.yc.jetpacklib.exception
  */
 public open class YcException : Exception {
     var code: Int
+
+    /**
+     * 已知异常，抛出异常时用
+     */
+    var knownCode: Int
     var msg: String? = null
         get() {
             return if (field == null) {
@@ -17,15 +22,18 @@ public open class YcException : Exception {
 
     constructor(code: Int, throwable: Throwable?) : super(throwable) {
         this.code = code
+        this.knownCode = code
     }
 
-    constructor(msg: String?, code: Int) {
+    constructor(msg: String?, code: Int, knownCode: Int = code) {
         this.msg = msg
         this.code = code
+        this.knownCode = knownCode
     }
 
     constructor(code: Int, msg: String?) {
         this.msg = msg
         this.code = code
+        this.knownCode = code
     }
 }

@@ -7,16 +7,28 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btnTestRefreshFail"
+        android:id="@+id/btnTestRequestFail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置之后请求失败" />
+        android:text="设置请求为失败" />
 
     <Button
-        android:id="@+id/btnTestRefreshSuccess"
+        android:id="@+id/btnTestRequestSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="设置之后请求成功" />
+        android:text="设置请求为成功" />
+
+    <Button
+        android:id="@+id/btnTestSetRequestEmpty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置请求为空数据" />
+
+    <Button
+        android:id="@+id/btnTestSetRequestEmptyError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="设置请求为空数据异常" />
 
     <Button
         android:id="@+id/btnTestRefreshEmpty"
@@ -28,7 +40,7 @@
         android:id="@+id/btnTestRefreshDataSours"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="变成有数据" />
+        android:text="主动刷新" />
 
     <Button
         android:id="@+id/btnTestRefreshSpecialShow"

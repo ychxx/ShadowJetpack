@@ -7,13 +7,13 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/btnTestRefreshFail"
+        android:id="@+id/btnTestRequestFail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="设置之后请求失败" />
 
     <Button
-        android:id="@+id/btnTestRefreshSuccess"
+        android:id="@+id/btnTestRequestSuccess"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="设置之后请求成功" />

@@ -16,6 +16,15 @@ class App : Application() {
             mCreateSpecialViewBuildBase = {
                 TestSpecialViewConfigureImp(it)
             }
+            mIsForceNoHandle = {
+                when (it.code) {
+                    401 -> {
+                        //处理特定code 例如token过期之类的
+                        true
+                    }
+                    else -> false
+                }
+            }
         }
     }
 }

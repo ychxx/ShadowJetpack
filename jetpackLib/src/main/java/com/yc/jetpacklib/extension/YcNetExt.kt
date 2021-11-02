@@ -2,6 +2,7 @@ package com.yc.jetpacklib.extension
 
 import com.yc.jetpacklib.data.constant.YcNetErrorCode
 import com.yc.jetpacklib.exception.YcException
+import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.net.YcNetUtil
 import com.yc.jetpacklib.net.YcResult
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +17,9 @@ fun <T> Flow<YcResult<T>>.checkNet(): Flow<YcResult<T>> = onStart {
     }
 }.catch {
     it.printStackTrace()
-    emit(YcResult.Fail(it.toYcException()))
+    YcJetpack.mInstance.isContinueWhenExceptionSuspend(it.toYcException()) {
+        emit(YcResult.Fail(this))
+    }
 }.flowOn(Dispatchers.IO)
 
 //TODO 待完成 用于替代请求时创建flow

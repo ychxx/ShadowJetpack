@@ -130,7 +130,7 @@ fun String?.ycToTime(
  * String转换成时分
  */
 fun String?.ycToHourMinute(
-    defaultData: String = com.yc.jetpacklib.extension.YcAnyExt.mCommonDefaultString,
+    defaultData: String = YcAnyExt.mCommonDefaultString,
     formatTimeInput: String = YcTime.FORMAT_TIME_SECOND,
     formatTimeOut: String = YcTime.FORMAT_TIME_HOUR_MINUTE
 ): String {

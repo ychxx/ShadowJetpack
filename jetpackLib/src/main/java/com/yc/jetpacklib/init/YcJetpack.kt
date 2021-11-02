@@ -3,6 +3,7 @@ package com.yc.jetpacklib.init
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import com.huawei.hms.scankit.p.T
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -25,7 +26,6 @@ import java.io.File
  * Date: 2021/6/3 13:54
  * UseDes:
  */
-
 class YcJetpack private constructor() {
     companion object {
         const val OTHER_BASE_URL = "other_base_url"
@@ -82,7 +82,7 @@ class YcJetpack private constructor() {
      * 请求异常转替换布局状态
      */
     var mYcExceptionToSpecialState: (YcException) -> Int = {
-        when (it.code) {
+        when (it.knownCode) {
             YcNetErrorCode.TIME_OUT_ERROR, YcNetErrorCode.NETWORK_NO -> {
                 YcSpecialState.NETWORK_NO
             }
@@ -100,6 +100,12 @@ class YcJetpack private constructor() {
             }
         }
     }
+
+    /**
+     * 异常时会调用该方法（暂时只要网络请求出现异常时调用）
+     * 返回true时，会强制跳出，不执行原有的逻辑
+     */
+    var mIsForceNoHandle: ((exception: YcException) -> Boolean)? = null
 
     /**
      * 默认保存文件夹路径
@@ -125,6 +131,24 @@ class YcJetpack private constructor() {
     }
 
     fun getResources(): Resources = mApplication.resources
+
+    /**
+     *检测异常时是否继续执行
+     */
+    inline fun isContinueWhenException(exception: YcException, crossinline execution: YcException.() -> Unit) {
+        if (mIsForceNoHandle?.invoke(exception) != true) {
+            execution.invoke(exception)
+        }
+    }
+
+    /**
+     *检测异常时是否继续执行（耗时的）
+     */
+    suspend inline fun isContinueWhenExceptionSuspend(exception: YcException, crossinline execution: suspend YcException.() -> Unit) {
+        if (mIsForceNoHandle?.invoke(exception) != true) {
+            execution.invoke(exception)
+        }
+    }
 
     var mPickerColor = YcPickerColor(
         R.color.common_bg, R.color.common_bg, R.color.every_lib_blue, R.color.transparent, R.color.every_lib_black_333A40
