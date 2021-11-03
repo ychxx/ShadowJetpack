@@ -201,4 +201,20 @@ object YcTime {
         return format.format(start)
     }
 
+    /**
+     * 秒变小时 格式：hh:mm:ss
+     */
+    fun secondToHour(mTimer: Int): String {
+        val hour: Int = mTimer / 3600 % 24
+        val minute: Int = mTimer % 3600 / 60
+        return java.lang.String.format("%02d:%02d:%02d", hour, minute, mTimer % 60)
+    }
+
+    /**
+     * 秒变分钟 格式：mm:ss
+     */
+    fun secondToMinute(mTimer: Int): String {
+        val minute: Int = mTimer % 3600 / 60
+        return java.lang.String.format("%02d:%02d", minute, mTimer % 60)
+    }
 }
