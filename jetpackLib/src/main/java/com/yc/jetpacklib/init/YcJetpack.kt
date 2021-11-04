@@ -3,6 +3,9 @@ package com.yc.jetpacklib.init
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
+import com.huawei.hms.scankit.p.T
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -10,12 +13,14 @@ import com.yc.jetpacklib.R
 import com.yc.jetpacklib.data.constant.YcNetErrorCode
 import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.extension.YcLogExt
+import com.yc.jetpacklib.permission.YcPermissionHelper
 import com.yc.jetpacklib.refresh.YcRefreshFooterAdapter
 import com.yc.jetpacklib.refresh.YcRefreshHeaderView
 import com.yc.jetpacklib.release.YcSpecialState
 import com.yc.jetpacklib.release.YcSpecialViewConfigureBase
 import com.yc.jetpacklib.release.YcSpecialViewConfigureImp
 import com.yc.jetpacklib.widget.dialog.YcCommonDialog
+import com.yc.jetpacklib.widget.dialog.YcIDialog
 import com.yc.jetpacklib.widget.pickerview.YcPickerColor
 import okhttp3.Interceptor
 import org.xutils.x
@@ -76,6 +81,13 @@ class YcJetpack private constructor() {
      */
     var mCreateSpecialViewBuildBase: ((context: Context) -> YcSpecialViewConfigureBase) = {
         YcSpecialViewConfigureImp(it)
+    }
+
+    /**
+     * 默认申请权限时，展示的对话框
+     */
+    var mDefaultPermissionDialog: ((context: Context, lifecycleOwner: LifecycleOwner) -> YcIDialog<*>?) = { context, lifecycleOwner ->
+        YcCommonDialog(context, lifecycleOwner)
     }
 
     /**
@@ -160,6 +172,4 @@ class YcJetpack private constructor() {
     ) {
         this.mPickerColor = YcPickerColor(dividerColor, titleBgColor, submitColor, cancelColor, textColorCenter)
     }
-    
-
 }

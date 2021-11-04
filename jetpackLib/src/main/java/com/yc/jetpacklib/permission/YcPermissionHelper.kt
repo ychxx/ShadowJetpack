@@ -5,8 +5,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import com.yc.jetpacklib.R
 import com.yc.jetpacklib.init.YcJetpack
-import com.yc.jetpacklib.widget.dialog.YcCommonDialog
+import com.yc.jetpacklib.widget.dialog.YcIDialog
 
 
 /**
@@ -16,9 +17,7 @@ import com.yc.jetpacklib.widget.dialog.YcCommonDialog
  */
 open class YcPermissionHelper(val activity: FragmentActivity) {
     private var mPermissionRegister: ActivityResultLauncher<Array<String>>? = null
-    val mDialog by lazy {
-        YcJetpack.mInstance.mPermissionCommonDialog
-    }
+    var mDialog: YcIDialog<*>? = YcJetpack.mInstance.mDefaultPermissionDialog.invoke(activity, activity)
 
     init {
         activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
