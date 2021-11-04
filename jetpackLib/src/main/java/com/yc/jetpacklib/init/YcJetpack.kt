@@ -13,7 +13,6 @@ import com.yc.jetpacklib.R
 import com.yc.jetpacklib.data.constant.YcNetErrorCode
 import com.yc.jetpacklib.exception.YcException
 import com.yc.jetpacklib.extension.YcLogExt
-import com.yc.jetpacklib.permission.YcPermissionHelper
 import com.yc.jetpacklib.refresh.YcRefreshFooterAdapter
 import com.yc.jetpacklib.refresh.YcRefreshHeaderView
 import com.yc.jetpacklib.release.YcSpecialState
