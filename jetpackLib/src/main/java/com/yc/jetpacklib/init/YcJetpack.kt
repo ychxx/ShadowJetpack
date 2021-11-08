@@ -3,9 +3,7 @@ package com.yc.jetpacklib.init
 import android.app.Application
 import android.content.Context
 import android.content.res.Resources
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
-import com.huawei.hms.scankit.p.T
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
