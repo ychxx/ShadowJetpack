@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.yc.jetpacklib.utils
 
 import android.annotation.SuppressLint
@@ -65,7 +67,11 @@ object YcVersionUtil {
         try {
             val packageInfo: PackageInfo? = context.packageManager.getPackageInfo(context.packageName, 0)
             if (packageInfo != null) {
-                return packageInfo.longVersionCode
+                return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
+                    packageInfo.versionCode.toLong()//添加这个原因：在夜神模拟器上会闪退 (适配28以下)
+                } else {
+                    packageInfo.longVersionCode
+                }
             }
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
