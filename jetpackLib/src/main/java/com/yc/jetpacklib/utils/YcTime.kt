@@ -183,6 +183,23 @@ object YcTime {
         return diff.toString()
     }
 
+    //计算两个时间的间隔天数（格式： YYYY-MM-DD HH:MM:SS），时间差值秒
+    fun getDateDifferenceToMinu(date1: String, date2: String): Int {
+        if (TextUtils.isEmpty(date1) && TextUtils.isEmpty(date2)) return 0
+        // 转换为标准时间
+
+        val df: DateFormat = getSimpleDateFormat(FORMAT_TIME_SECOND)
+        var diff = 0L //差值
+        try {
+            val d1 = df.parse(date1)?.time
+            val d2 = df.parse(date2)?.time
+            diff = (d2!! - d1!!) / 1000
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return diff.toInt()
+
+    }
 
     //long类型的时间转换成String类型
     fun longToString(time: Long, format: String): String {
@@ -200,6 +217,8 @@ object YcTime {
         val start = c.time
         return format.format(start)
     }
+
+
 
     /**
      * 秒变小时 格式：hh:mm:ss
