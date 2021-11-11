@@ -189,7 +189,9 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
                 mSmartRefreshLayout.finishLoadMore()
                 if (mIsLoadMore) {
                     mIsLoadMore = false
-                    mLoadMoreResult.invoke(YcRefreshResult.Fail(loadState.error.toYcException()))
+                    YcJetpack.mInstance.isContinueWhenException(loadState.error.toYcException()) {
+                        mLoadMoreResult.invoke(YcRefreshResult.Fail(this))
+                    }
                 }
             }
         }
