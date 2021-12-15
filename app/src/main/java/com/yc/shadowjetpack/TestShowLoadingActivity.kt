@@ -26,9 +26,6 @@ class TestShowLoadingActivity : YcBaseActivityPlus<TestLoadingActivityBinding>(T
     }
 
     class VM : YcBaseViewModel() {
-        fun testShow() = ycLaunchHasLoading {
-            delay(3000)
-        }
         fun testShowFlow() = ycLaunch {
             flow {
                 delay(5000)

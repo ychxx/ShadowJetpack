@@ -1,70 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:fillViewport="true">
 
-    <com.yc.jetpacklib.widget.YcUnderlineTextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="dasdasdasd"
-        app:ycBgUnderlineWidth="2dp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!--    <com.yc.jetpacklib.widget.YcRingView-->
-    <!--        android:id="@+id/ring"-->
-    <!--        android:layout_width="120dp"-->
-    <!--        android:layout_height="120dp"-->
-    <!--        android:text="50/100"-->
-    <!--        app:ycProgress="0.5"-->
-    <!--        app:ycRadiusInner="37.5dp"-->
-    <!--        app:ycRadiusOuter="60dp" />-->
 
-    <com.yc.jetpacklib.widget.YcRingView
-        android:id="@+id/ring"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        app:ycProgress="0"
-        app:ycRadiusInner="37.5dp"
-        app:ycRadiusOuter="60dp"
-        app:ycText="100"
-        app:ycText2="/200"
-        app:ycTextColor="@color/yellow"
-        app:ycTextColor2="@color/red"
-        app:ycTextSize="14sp" />
+        <com.yc.jetpacklib.widget.YcUnderlineTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="dasdasdasd"
+            app:ycBgUnderlineWidth="2dp" />
 
-    <!--    <com.yc.jetpacklib.widget.YcRingView-->
-    <!--        android:layout_width="120dp"-->
-    <!--        android:layout_height="120dp"-->
-    <!--        app:ycProgress="1"-->
-    <!--        app:ycRadiusInner="37.5dp"-->
-    <!--        app:ycRadiusOuter="60dp" />-->
+        <!--    <com.yc.jetpacklib.widget.YcRingView-->
+        <!--        android:id="@+id/ring"-->
+        <!--        android:layout_width="120dp"-->
+        <!--        android:layout_height="120dp"-->
+        <!--        android:text="50/100"-->
+        <!--        app:ycProgress="0.5"-->
+        <!--        app:ycRadiusInner="37.5dp"-->
+        <!--        app:ycRadiusOuter="60dp" />-->
 
-    <!--    <com.yc.jetpacklib.widget.YcRingView-->
-    <!--        android:layout_width="120dp"-->
-    <!--        android:layout_height="120dp"-->
-    <!--        app:ycProgress="0.9"-->
-    <!--        app:ycRadiusInner="37.5dp"-->
-    <!--        app:ycRadiusOuter="60dp" />-->
-    <ImageView
-        android:id="@+id/ivTestWidget"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:src="@color/yellow" />
+        <com.yc.jetpacklib.widget.YcRingView
+            android:id="@+id/ring"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            app:ycProgress="0"
+            app:ycRadiusInner="37.5dp"
+            app:ycRadiusOuter="60dp"
+            app:ycText="100"
+            app:ycText2="/200"
+            app:ycTextColor="@color/yellow"
+            app:ycTextColor2="@color/red"
+            app:ycTextSize="14sp" />
 
-    <ImageView
-        android:id="@+id/ivAvater"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="10dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitCenter" />
+        <!--    <com.yc.jetpacklib.widget.YcRingView-->
+        <!--        android:layout_width="120dp"-->
+        <!--        android:layout_height="120dp"-->
+        <!--        app:ycProgress="1"-->
+        <!--        app:ycRadiusInner="37.5dp"-->
+        <!--        app:ycRadiusOuter="60dp" />-->
 
-    <com.yc.shadowjetpack.YcRingIntervalView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        app:ycRadiusInner="100dp"
-        app:ycRadiusOuter="150dp" />
-</LinearLayout>
+        <!--    <com.yc.jetpacklib.widget.YcRingView-->
+        <!--        android:layout_width="120dp"-->
+        <!--        android:layout_height="120dp"-->
+        <!--        app:ycProgress="0.9"-->
+        <!--        app:ycRadiusInner="37.5dp"-->
+        <!--        app:ycRadiusOuter="60dp" />-->
+        <ImageView
+            android:id="@+id/ivTestWidget"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@color/yellow" />
+
+        <ImageView
+            android:id="@+id/ivAvater"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="10dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter" />
+
+        <com.yc.shadowjetpack.YcRingIntervalView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            app:ycRadiusInner="100dp"
+            app:ycRadiusOuter="150dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

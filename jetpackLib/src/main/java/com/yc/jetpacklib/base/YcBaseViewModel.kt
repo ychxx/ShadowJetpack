@@ -29,16 +29,6 @@ open class YcBaseViewModel : ViewModel() {
         }
     }
 
-    protected fun ycLaunchHasLoading(delayTime: Long = mDefaultDelayTime, block: suspend (coroutineScope: CoroutineScope) -> Unit): Job {
-        mLoadingJob?.cancel()
-        mLoadingJob = viewModelScope.launch {
-            showLoading(delayTime)
-            block(this)
-            hideLoading()
-        }
-        return mLoadingJob!!
-    }
-
     /**
      * 冷流开始时，显示加载框
      * 冷流结束时，自动隐藏加载框
@@ -61,11 +51,8 @@ open class YcBaseViewModel : ViewModel() {
      * 冷流开始时，显示加载框
      * 冷流结束时，不会隐藏加载框，需手动调用hideLoading方法
      */
-    protected fun <T> Flow<T>.ycHasLoadingNoAutoClose(delayTime: Long = mDefaultDelayTime): Flow<T> {
-        onStart {
-            showLoading(delayTime)
-        }
-        return this
+    protected fun <T> Flow<T>.ycHasLoadingNoAutoClose(delayTime: Long = mDefaultDelayTime): Flow<T> = onStart {
+        showLoading(delayTime)
     }
 
     /**
