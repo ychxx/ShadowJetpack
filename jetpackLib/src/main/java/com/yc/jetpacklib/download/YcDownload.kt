@@ -57,7 +57,7 @@ class YcDownload(val mConfig: YcDownloadConfig) {
         fun createDownloadFile(
             url: String,
             saveFileName: String = "",
-            onSuccess: ((result: File?) -> Unit)? = null,
+            onSuccess: ((result: File) -> Unit)? = null,
             onFail: ((error: String?) -> Unit)? = null
         ) = YcDownload(YcDownloadConfig(url, YcJetpack.mInstance.mDefaultSaveDirPath + saveFileName, onSuccess, onFail))
 
@@ -69,7 +69,7 @@ class YcDownload(val mConfig: YcDownloadConfig) {
             context: Context,
             url: String,
             saveFilePath: String,
-            onSuccess: ((result: File?) -> Unit)? = null,
+            onSuccess: ((result: File) -> Unit)? = null,
             onFail: ((error: String?) -> Unit)? = null
         ) = YcDownload(YcDownloadConfig(url, saveFilePath, onSuccess, onFail, progressDialog = ProgressDialog(context).apply {
             setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)

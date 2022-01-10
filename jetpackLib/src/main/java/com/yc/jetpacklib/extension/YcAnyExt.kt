@@ -1,5 +1,6 @@
 package com.yc.jetpacklib.extension
 
+import android.view.View
 import com.yc.jetpacklib.utils.YcTime
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
@@ -312,6 +313,50 @@ fun Boolean?.ycIsTrue(): Boolean {
  */
 fun Boolean?.ycIsFalse(): Boolean {
     return this != null && !this
+}
+
+/**
+ *  是否可见 （true 可见，false/空 不可见）
+ */
+fun Boolean?.ycIsVisibleOrInvisible(): Int {
+    return if (this == true) {
+        View.VISIBLE
+    } else {
+        View.INVISIBLE
+    }
+}
+
+/**
+ *  是否可见 （true/空 不可见，false 不可见）
+ */
+fun Boolean?.ycIsInvisibleOrVisible(): Int {
+    return if (this == false) {
+        View.VISIBLE
+    } else {
+        View.INVISIBLE
+    }
+}
+
+/**
+ *  是否隐藏 （true 显示，false/空 隐藏）
+ */
+fun Boolean?.ycIsVisibleOrGone(): Int {
+    return if (this == true) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
+}
+
+/**
+ *  是否隐藏 （true/空 隐藏，false 显示）
+ */
+fun Boolean?.ycIsGoneOrVisible(): Int {
+    return if (this == false) {
+        View.VISIBLE
+    } else {
+        View.GONE
+    }
 }
 
 /**
