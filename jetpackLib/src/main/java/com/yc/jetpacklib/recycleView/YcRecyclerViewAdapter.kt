@@ -96,4 +96,46 @@ open class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(protected val cre
         if (isRefresh)
             notifyDataSetChanged()
     }
+
+
+    fun addOrReleaseOrRemoveLast(data: Data, position: Int) {
+        if (position < mData.size) {
+            mData[position] = data
+            val start = position + 1
+            val end = mData.size - 1
+            for (i in end downTo start) {
+                mData.removeAt(i)
+            }
+            if (end - position > 0) {
+                notifyItemRangeRemoved(start, end - start)
+            } else {
+                notifyItemChanged(position)
+            }
+        } else {
+            mData.add(data)
+            notifyItemChanged(position)
+        }
+    }
+
+    fun release(data: Data, position: Int) {
+        if (position < mData.size) {
+            mData[position] = data
+        } else {
+            mData.add(data)
+        }
+        notifyItemChanged(position)
+    }
+
+    fun removeData(data: Data, isRefresh: Boolean = false) {
+        mData.remove(data)
+        if (isRefresh)
+            notifyItemRemoved(mData.size)
+    }
+
+    fun removeData(positionStart: Int, positionEnd: Int = mData.size - 1) {
+        for (i in positionEnd downTo positionStart) {
+            mData.removeAt(i)
+        }
+        notifyItemRangeRemoved(positionStart, positionEnd - positionStart)
+    }
 }
