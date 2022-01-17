@@ -15,7 +15,10 @@ import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
+import com.yc.jetpacklib.exception.YcException
+import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.manager.YcActivityManager
+import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapter
 import com.yc.jetpacklib.refresh.YcRefreshBaseUtil
 import com.yc.jetpacklib.utils.YcViewModelLazy
@@ -102,5 +105,18 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
 
     protected fun <Data : Any> YcRefreshBaseUtil<Data>.acClearPagingData() {
         this.clearPagingData(this@YcBaseActivity)
+    }
+
+    /**
+     * @param defaultMsg String 当错误msg为空时，显示的提示
+     */
+    protected fun YcResult<*>.ycShowNetError(defaultMsg: String = "请求失败,错误msg为空") {
+        if (this is YcResult.Fail) {
+            exception.ycShowNetError(defaultMsg)
+        }
+    }
+
+    protected fun YcException.ycShowNetError(defaultMsg: String = "请求失败,错误msg为空") {
+        showToast(msg ?: defaultMsg)
     }
 }
