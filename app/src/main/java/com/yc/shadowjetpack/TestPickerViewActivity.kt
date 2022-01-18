@@ -24,7 +24,7 @@ class TestPickerViewActivity : YcBaseActivityPlus<TestPickerviewActivityBinding>
         }
 
         btnTimePickerView.setOnClickListener {
-            YcPickerView.showTimePicker(this@TestPickerViewActivity, YcPickerView.YearMonthDate, "时间选择器") { date, v ->
+            YcPickerView.showStartTimePicker(this@TestPickerViewActivity, YcPickerView.YearMonthDate, "时间选择器") { date, v ->
                 showToast("选择了${date.toString()}")
             }
         }
