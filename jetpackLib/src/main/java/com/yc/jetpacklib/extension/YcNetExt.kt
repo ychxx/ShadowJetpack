@@ -6,6 +6,7 @@ import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.net.YcNetUtil
 import com.yc.jetpacklib.net.YcResult
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.ProducerScope
 import kotlinx.coroutines.flow.*
 
 /**
@@ -22,15 +23,28 @@ fun <T> Flow<YcResult<T>>.checkNet(): Flow<YcResult<T>> = onStart {
     }
 }.flowOn(Dispatchers.IO)
 
-//TODO 待完成 用于替代请求时创建flow
-//@OptIn(ExperimentalTypeInference::class)
-//public fun <T > ycFlowIO(@BuilderInference block: suspend FlowCollector<T>.() -> Unit): Flow<T> = flow(block)
-//    .onStart {
-//        if (!YcNetUtil.isNetworkAvailable()) {
-//            throw YcException("网络不可用", YcNetError.NETWORK_ERROR)
-//        }
-//    }.catch {
-//        it.printStackTrace()
-//        emit(YcResult.Fail(it.toYcException()))
-//    }.flowOn(Dispatchers.IO)
-//
+
+fun <T> ycFlow(block: suspend ProducerScope<YcResult<T>>.() -> Unit): Flow<YcResult<T>> = channelFlow {
+    block()
+}.checkNet()
+
+fun <Data> ycToFlow(block: suspend () -> Data) = ycFlow<Data> {
+    send(YcResult.Success(block.invoke()))
+}
+
+/**
+ *
+ * @param block
+ * @param failCall 异常回调（只是用于提前处理异常，如：自动登录失败，清空token数据）
+ * @return Flow<YcResult<T>>
+ */
+inline fun <T> ycFlow2(
+    crossinline block: suspend ProducerScope<YcResult<T>>.() -> Unit,
+    crossinline failCall: suspend YcException.() -> Unit
+): Flow<YcResult<T>> = channelFlow {
+    block()
+}.catch { cause ->
+    failCall.invoke(cause.toYcException())
+    throw cause
+}.checkNet()
+

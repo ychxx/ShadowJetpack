@@ -3,7 +3,7 @@ package com.yc.shadowjetpack.chart
 import com.yc.jetpacklib.base.YcRepository
 import com.yc.jetpacklib.net.YcResult
 import kotlinx.coroutines.flow.Flow
-
+import com.yc.jetpacklib.extension.ycFlow
 /**
  * Creator: yc
  * Date: 2021/8/17 15:36

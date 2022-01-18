@@ -1,18 +1,12 @@
 package com.yc.jetpacklib.base
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.MainThread
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.*
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +28,25 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
     protected val mViewBinding get() = _mViewBinding!!
     protected open lateinit var mYcLoadingDialog: YcLoadingDialog
     protected var mIsShow: Boolean = false
+    protected var mFragmentState: Lifecycle.Event = Lifecycle.Event.ON_CREATE
+
+    /**
+     * 是否执行过lazySingleLoad()方法了
+     */
+    protected var mIsLazyLoad = false
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        lifecycle.addObserver(LifecycleEventObserver { source, event ->
+            mFragmentState = event
+            when (event) {
+                Lifecycle.Event.ON_RESUME -> {
+                    ycOnResume()
+                    if (!mIsLazyLoad) {
+                        mIsLazyLoad = true
+                        ycOnResumeSingle()
+                    }
+                }
+            }
+        })
         return if (createVB != null) {
             mYcLoadingDialog = YcLoadingDialog(requireContext(), this)
             _mViewBinding = createVB.invoke(inflater, container, false)
@@ -50,11 +62,22 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
         initView(view, savedInstanceState)
     }
 
-    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
-        super.setUserVisibleHint(isVisibleToUser)
-    }
-
     protected abstract fun initView(view: View, savedInstanceState: Bundle?)
+
+    /**
+     * 用于懒加载（只执行一次）
+     */
+    protected open fun ycOnResumeSingle() {}
+
+    /**
+     * Fragment用户可见时调用
+     */
+    protected open fun ycOnResume() {}
+
+    /**
+     * Fragment用户不可见时调用
+     */
+    protected open fun ycOnPause() {}
     override fun onDestroy() {
         super.onDestroy()
         _mViewBinding = null
