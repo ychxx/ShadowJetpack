@@ -4,10 +4,14 @@ import androidx.lifecycle.*
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.huawei.hms.scankit.p.T
+import com.huawei.hms.scankit.p.yc
+import com.yc.jetpacklib.extension.checkNet
+import com.yc.jetpacklib.extension.ycFlow
+import com.yc.jetpacklib.net.YcResult
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.onCompletion
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.channels.ProducerScope
+import kotlinx.coroutines.flow.*
 
 /**
  * Creator: yc
@@ -26,6 +30,14 @@ open class YcBaseViewModel : ViewModel() {
     protected inline fun ycLaunch(crossinline block: suspend (coroutineScope: CoroutineScope) -> Unit): Job {
         return viewModelScope.launch {
             block(this)
+        }
+    }
+
+    protected inline fun <Data> Flow<Data>.ycCollect(crossinline block: (Data) -> Unit) {
+        viewModelScope.launch {
+            this@ycCollect.collect {
+                block.invoke(it)
+            }
         }
     }
 

@@ -28,7 +28,10 @@ fun <T> ycFlow(block: suspend ProducerScope<YcResult<T>>.() -> Unit): Flow<YcRes
     block()
 }.checkNet()
 
-fun <Data> ycToFlow(block: suspend () -> Data) = ycFlow<Data> {
+/**
+ * 用于同步请求的flow（即有先后调用顺序的多个请求）
+ */
+inline fun <Data> ycFlowSync(crossinline block: suspend () -> Data) = ycFlow<Data> {
     send(YcResult.Success(block.invoke()))
 }
 
