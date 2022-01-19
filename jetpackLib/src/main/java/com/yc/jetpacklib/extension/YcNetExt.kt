@@ -30,8 +30,9 @@ fun <T> ycFlow(block: suspend ProducerScope<YcResult<T>>.() -> Unit): Flow<YcRes
 
 /**
  * 用于同步请求的flow（即有先后调用顺序的多个请求）
+ * 不能使用inline内联，会报类型转换错误
  */
-inline fun <Data> ycFlowSync(crossinline block: suspend () -> Data) = ycFlow<Data> {
+fun <Data> ycFlowSync(block: suspend () -> Data) = ycFlow<Data> {
     send(YcResult.Success(block.invoke()))
 }
 
