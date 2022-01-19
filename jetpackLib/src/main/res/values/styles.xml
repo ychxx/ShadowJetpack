@@ -38,9 +38,4 @@
         <item name="android:windowExitAnimation">@anim/yc_popup_bottom_exit_anim</item>
     </style>
 
-    <style name="LineHorizontalStyle">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">#F8F8F8</item>
-    </style>
 </resources>

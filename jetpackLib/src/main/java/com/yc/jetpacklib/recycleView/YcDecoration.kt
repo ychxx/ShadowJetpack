@@ -21,10 +21,10 @@ import com.yc.jetpacklib.utils.ycDp
  * //TODO 很久以前的代码（暂时先用着）
  */
 open class YcDecoration(private var mSpace: Int = 10.ycDp()) : ItemDecoration() {
-    private var mLineColor = YcResources.getColorRes(R.color.transparent) //0xFFE9F7FF;
-    private val mIsHasColor = false //是否有颜色
-    private val mIsHasBorder = false //边缘是否需要分割线；线性布局的上下/左右，表格布局的四周
-    private var mPaint: Paint? = null
+    protected var mLineColor = YcResources.getColorRes(R.color.transparent) //0xFFE9F7FF;
+    protected var mIsHasColor = false //是否有颜色
+    protected val mIsHasBorder = false //边缘是否需要分割线；线性布局的上下/左右，表格布局的四周
+    protected var mPaint: Paint? = null
 
     init {
         mPaint = Paint()
@@ -41,6 +41,7 @@ open class YcDecoration(private var mSpace: Int = 10.ycDp()) : ItemDecoration() 
 
     fun setLineColor(lineColor: Int) {
         mLineColor = lineColor
+        mIsHasColor = true
         mPaint!!.color = mLineColor
     }
 

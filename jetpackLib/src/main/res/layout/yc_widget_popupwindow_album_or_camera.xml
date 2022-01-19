@@ -23,7 +23,7 @@
             android:textColor="#2782FF"
             android:textSize="19sp" />
 
-        <View style="@style/LineHorizontalStyle" />
+        <View style="@style/YcLineHorizontalStyle" />
 
         <Button
             android:id="@+id/btnSecond"
@@ -37,7 +37,7 @@
 
         <View
             android:id="@+id/viewThird"
-            style="@style/LineHorizontalStyle"
+            style="@style/YcLineHorizontalStyle"
             android:layout_width="match_parent"
             android:visibility="gone" />
 
