@@ -56,6 +56,7 @@ open class YcPagingDataAdapterChange<Data : Any, VB : ViewBinding>(
     }
 
     protected lateinit var mPagingData: PagingData<Data>
+
     override fun ycSubmitData(lifecycleOwner: LifecycleOwner, pagingData: PagingData<Data>) {
         mPagingData = pagingData
         submitData(lifecycleOwner.lifecycle, pagingData)

@@ -1,5 +1,6 @@
 package com.yc.shadowjetpack
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -8,8 +9,10 @@ import androidx.annotation.ColorInt
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.extension.ycGetColorRes
 import com.yc.jetpacklib.extension.ycLogE
+import kotlin.math.atan2
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlin.math.sqrt
 
 /**
  * Creator: yc
@@ -83,6 +86,8 @@ class YcRingIntervalView @JvmOverloads constructor(context: Context, attrs: Attr
     }
 
     private val mRadiusWidth = 20f
+
+    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas?) {
         canvas?.apply {
             mCircleCenterX = width / 2
@@ -96,6 +101,10 @@ class YcRingIntervalView @JvmOverloads constructor(context: Context, attrs: Attr
             tempPaint.color = Color.RED
             drawLine(0f, -height / 2f, 0f, height / 2f, tempPaint)
             drawLine(-width / 2f, 0f, width / 2f, 0f, tempPaint)
+            drawLine(-width / 4f, -height / 2f, -width / 4f, height / 2f, tempPaint)
+            drawLine(width / 4f, -height / 2f, width / 4f, height / 2f, tempPaint)
+            drawLine(-width / 2f, mRadiusInner.toFloat(), width / 2f, mRadiusInner.toFloat(), tempPaint)
+            drawLine(-width / 2f, -mRadiusInner.toFloat(), width / 2f, -mRadiusInner.toFloat(), tempPaint)
             drawCircle(0f, 0f, mRadiusInner.toFloat(), tempPaint)
 
             val tempPaint2 = Paint()
@@ -108,9 +117,23 @@ class YcRingIntervalView @JvmOverloads constructor(context: Context, attrs: Attr
             ycLogE("--startX:$startX startY:$startY")
             this.drawText("测试", startX, startY, mPaintRing)
             val path = Path()
+            path.moveTo(0f, mRadiusWidth)
 
-            path.rQuadTo(0f, -mRadiusWidth, mRadiusWidth, -mRadiusWidth)
-            path.rQuadTo(mRadiusWidth, 0f, mRadiusWidth, mRadiusWidth)
+            val o = atan2(mRadiusWidth.toDouble(), mRadiusInner.toDouble()) / (Math.PI / 180)
+            val angle = 360f / 4
+            val circleStartX: Float = 0f
+            val circleStartY: Float = 0f
+            val oval = RectF(circleStartX, circleStartY - mRadiusInner, circleStartX + 2 * mRadiusInner, circleStartY + mRadiusInner)
+            path.addArc(oval, (90 + o).toFloat(), ((angle - 2 * o).toFloat()))
+//            path.addArc(oval, 90f , 90f)
+            val oval2 = RectF(
+                circleStartX + mRadiusWidth * 2,
+                circleStartY - mRadiusInner + mRadiusWidth * 2,
+                circleStartX + 2 * mRadiusInner - mRadiusWidth * 2,
+                circleStartY + mRadiusInner - mRadiusWidth * 2
+            )
+            path.addArc(oval2, (90 + o).toFloat(), ((angle - 2 * o).toFloat()))
+//            path.addArc(oval2, 90f , 90f)
 //            path.arcTo()
 //            path.addArc()
 //            val matrix = Matrix()
@@ -133,5 +156,21 @@ class YcRingIntervalView @JvmOverloads constructor(context: Context, attrs: Attr
 
         }
 //        super.draw(canvas)
+    }
+
+    fun drawSemicircle(p1: PointF, p2: PointF): RectF {
+        val diameter = sqrt(((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)).toDouble())
+        val radius = diameter / 2
+        val centerX = (p1.x + p2.x) / 2
+        val centerY = (p1.y + p2.y) / 2
+        return RectF((centerX - radius).toFloat(), (centerY - radius).toFloat(), (centerX + radius).toFloat(), (centerY + radius).toFloat())
+    }
+
+    fun drawArc(p1: PointF, p2: PointF): RectF {
+        val diameter = sqrt(((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y)).toDouble())
+        val radius = diameter / 2
+        val centerX = (p1.x + p2.x) / 2
+        val centerY = (p1.y + p2.y) / 2
+        return RectF((centerX - radius).toFloat(), (centerY - radius).toFloat(), (centerX + radius).toFloat(), (centerY + radius).toFloat())
     }
 }

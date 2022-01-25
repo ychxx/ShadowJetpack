@@ -3,6 +3,7 @@ package com.yc.jetpacklib.base
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.yc.jetpacklib.data.entity.YcDataSourceEntity
+import com.yc.jetpacklib.extension.ycIsNotEmpty
 
 /**
  *
@@ -20,9 +21,9 @@ abstract class YcBaseDataSource<T : Any> : PagingSource<Int, T>() {
             //没有更多数据
             null
         }
-        if (dataSourceEntity.data?.isNotEmpty() != null) {
+        if (dataSourceEntity.data.ycIsNotEmpty()) {
             LoadResult.Page(
-                data = dataSourceEntity.data,
+                data = dataSourceEntity.data!!,
                 prevKey = getPreKey(params.key),
                 nextKey = nextKey
             )
@@ -32,11 +33,13 @@ abstract class YcBaseDataSource<T : Any> : PagingSource<Int, T>() {
     } catch (e: Exception) {
         LoadResult.Error(throwable = e)
     }
+
     private fun getPreKey(key: Int?): Int? = if (key == null) {
         null
     } else {
         key - 1
     }
+
     override fun getRefreshKey(state: PagingState<Int, T>): Int? {
         return null
     }

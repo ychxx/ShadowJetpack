@@ -13,6 +13,8 @@ import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.net.YcResult
+import com.yc.jetpacklib.recycleView.YcPagingDataAdapter
+import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
 
@@ -232,7 +234,11 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
      */
     fun setPagingData(lifecycleOwner: LifecycleOwner, pagingData: PagingData<T>) {
         mPagingData = pagingData
-        mPagingDataAdapter.submitData(lifecycleOwner.lifecycle, pagingData)
+        if (mPagingDataAdapter is YcPagingDataAdapter<T, *>) {
+            (mPagingDataAdapter as YcPagingDataAdapter<T, *>).ycSubmitData(lifecycleOwner, pagingData)
+        } else {
+            mPagingDataAdapter.submitData(lifecycleOwner.lifecycle, pagingData)
+        }
     }
 
     /**
@@ -240,8 +246,10 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
      */
     suspend fun setPagingData(pagingData: PagingData<T>) {
         mPagingData = pagingData
-        mPagingDataAdapter.submitData(pagingData)
+        if (mPagingDataAdapter is YcPagingDataAdapter<T, *>) {
+            (mPagingDataAdapter as YcPagingDataAdapter<T, *>).ycSubmitData(pagingData)
+        } else {
+            mPagingDataAdapter.submitData(pagingData)
+        }
     }
-
-
 }
