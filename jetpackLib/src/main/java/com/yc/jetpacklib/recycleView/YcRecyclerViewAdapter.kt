@@ -65,7 +65,7 @@ open class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(protected val cre
             val dataBean = getItem(position)
             holder.viewBinding.root.setOnClickListener {
                 mItemClick?.invoke(dataBean!!)
-                mItemClick2?.invoke(dataBean!!, position)
+                mItemClick2?.invoke(dataBean!!, holder.bindingAdapterPosition)
             }
             mOnUpdate?.invoke(holder.viewBinding, dataBean!!)
             mOnUpdate2?.invoke(holder.viewBinding, position, dataBean!!)
