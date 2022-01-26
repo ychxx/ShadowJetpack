@@ -20,6 +20,22 @@
       </map>
     </option>
   </component>
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_item.xml" value="0.2947916666666667" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_refresh_activity.xml" value="0.3484375" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_remove_page_data_activity.xml" value="0.3484375" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_widget.xml" value="0.225" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/drawable/yc_shape_underline.xml" value="0.1828125" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/temp.xml" value="0.17916666666666667" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_actionbar_layout.xml" value="0.28802083333333334" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_dialog_loading.xml" value="0.28055555555555556" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_edt_img.xml" value="0.3338541666666667" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_popupwindow_album_or_camera.xml" value="0.16302083333333334" />
+      </map>
+    </option>
+  </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
@@ -29,7 +45,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.33247555326814204" />
+        <option name="scale" value="0.37828100874935666" />
       </ProjectState>
     </option>
   </component>
