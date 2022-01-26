@@ -65,13 +65,13 @@ open class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
 
     override fun onBindViewHolder(holder: YcViewHolder<VB>, position: Int) {
         try {
-            val dataBean = getItem(position)
+            val dataBean = getItem(holder.bindingAdapterPosition)
             holder.viewBinding.root.setOnClickListener {
                 mItemClick?.invoke(dataBean!!)
                 mItemClick2?.invoke(dataBean!!, holder.bindingAdapterPosition)
             }
             mOnUpdate?.invoke(holder.viewBinding, dataBean!!)
-            mOnUpdate2?.invoke(holder.viewBinding, position, dataBean!!)
+            mOnUpdate2?.invoke(holder.viewBinding, holder.bindingAdapterPosition, dataBean!!)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()
