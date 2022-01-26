@@ -34,14 +34,14 @@ import kotlinx.parcelize.Parcelize
 @SuppressLint("SetTextI18n")
 class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActivityBinding>(TestRemovePagingDataActivityBinding::inflate) {
     @Parcelize
-    data class ItemData(val name: String, val name2: String) : Parcelable {
+    data class ItemData2(val name: String, val name2: String) : Parcelable {
         companion object {
-            val diffCallback = object : DiffUtil.ItemCallback<ItemData>() {
-                override fun areItemsTheSame(oldItem: ItemData, newItem: ItemData): Boolean {
+            val diffCallback = object : DiffUtil.ItemCallback<ItemData2>() {
+                override fun areItemsTheSame(oldItem: ItemData2, newItem: ItemData2): Boolean {
                     return oldItem == newItem
                 }
 
-                override fun areContentsTheSame(oldItem: ItemData, newItem: ItemData): Boolean {
+                override fun areContentsTheSame(oldItem: ItemData2, newItem: ItemData2): Boolean {
                     return oldItem == newItem
                 }
             }
@@ -50,14 +50,14 @@ class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActi
 
     class VM : YcBaseViewModel() {
         var mId = 0
-        private val _mGetData = MutableLiveData<PagingData<ItemData>>()
-        val mGetData: LiveData<PagingData<ItemData>> get() = _mGetData
+        private val _mGetData = MutableLiveData<PagingData<ItemData2>>()
+        val mGetData: LiveData<PagingData<ItemData2>> get() = _mGetData
         fun getDataPagingData(@RequestDataType type: Int) = ycLaunch {
             YcPager.getPagerFlow(15, 15) { _, _ ->
                 ycLogESimple("开始网络请求")
-                val dataList = mutableListOf<ItemData>()
+                val dataList = mutableListOf<ItemData2>()
                 for (i in 0 until 15) {
-                    dataList.add(ItemData("item:${mId++}", "12"))
+                    dataList.add(ItemData2("item:${mId++}", "12"))
                 }
                 YcDataSourceEntity(dataList, 1)
             }.cachedIn(viewModelScope).collect {
@@ -67,19 +67,19 @@ class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActi
     }
 
     private val mViewModel: VM by ycViewModels()
-    private val mAdapter: YcPagingDataAdapterChange<ItemData, TestItemBinding> by YcPagingDataAdapterChange.ycLazyInitApply(
-        TestItemBinding::inflate, ItemData.diffCallback
+    private val mAdapter: YcPagingDataAdapterChange<ItemData2, TestItemBinding> by YcPagingDataAdapterChange.ycLazyInitApply(
+        TestItemBinding::inflate, ItemData2.diffCallback
     ) {
         mItemClick = {
 
         }
-        mItemClick2 = { data: ItemData, position: Int ->
+        mItemClick2 = { data: ItemData2, position: Int ->
 
         }
         mOnUpdate = {
 
         }
-        mOnUpdate2 = { position: Int, data: ItemData ->
+        mOnUpdate2 = { position: Int, data: ItemData2 ->
             btnTestItem.text = "${data.name}- $position"
             btnTestItem.setOnClickListener {
                 removeItem(this@TestRemovePagingDataActivity.lifecycle, data)
@@ -87,14 +87,14 @@ class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActi
         }
     }
 
-    private lateinit var mRefreshUtil: YcRefreshSpecialPagingUtil<ItemData>
+    private lateinit var mRefreshUtil: YcRefreshSpecialPagingUtil<ItemData2>
 
     @RequestDataType
     private var mRequestDataType: Int = RequestDataType.NORMAL
     override fun TestRemovePagingDataActivityBinding.initView() {
         rvTestRefresh.adapter = mAdapter
         rvTestRefresh.ycInitLinearLayoutManage()
-        mRefreshUtil = YcRefreshSpecialPagingUtil<ItemData>(this@TestRemovePagingDataActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
+        mRefreshUtil = YcRefreshSpecialPagingUtil<ItemData2>(this@TestRemovePagingDataActivity).build(mAdapter, slTestRefresh, rvTestRefresh, flRefresh) {
             mRefreshCall = {
                 mViewModel.getDataPagingData(mRequestDataType)
             }
