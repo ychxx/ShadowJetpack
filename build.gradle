@@ -42,7 +42,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven { url 'https://jitpack.io' }0
         jcenter() // Warning: this repository is going to shut down soon
         maven { url 'https://developer.huawei.com/repo/' } //华为扫码
     }
