@@ -97,7 +97,6 @@ open class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(protected val cre
             notifyDataSetChanged()
     }
 
-
     fun addOrReleaseOrRemoveLast(data: Data, position: Int) {
         if (position < mData.size) {
             mData[position] = data
