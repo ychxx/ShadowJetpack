@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.paging:paging-compose:1.0.0-alpha04@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e6870d3fd7711cc57cac097446c9cf58/paging-compose-1.0.0-alpha04/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96f88de6be08239d5588018007fbfe40/jetified-paging-compose-1.0.0-alpha04/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96f88de6be08239d5588018007fbfe40/jetified-paging-compose-1.0.0-alpha04/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96f88de6be08239d5588018007fbfe40/jetified-paging-compose-1.0.0-alpha04/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96f88de6be08239d5588018007fbfe40/jetified-paging-compose-1.0.0-alpha04/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/96f88de6be08239d5588018007fbfe40/jetified-paging-compose-1.0.0-alpha04/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.paging/paging-compose/1.0.0-alpha04/27a53ee79e6775c2f998369f92656423bfd952d1/paging-compose-1.0.0-alpha04-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

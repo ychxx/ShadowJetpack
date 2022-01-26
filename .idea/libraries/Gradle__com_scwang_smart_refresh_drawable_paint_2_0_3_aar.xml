@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="Gradle: com.scwang.smart:refresh-drawable-paint:2.0.3@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/104e86d456a0901930d60f6ab26bb99c/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/104e86d456a0901930d60f6ab26bb99c/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/104e86d456a0901930d60f6ab26bb99c/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5903376faa608d71d359363cb3573a37/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5903376faa608d71d359363cb3573a37/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5903376faa608d71d359363cb3573a37/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dfb76c2ebea3c3245de6d9f0f5ebf05d/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dfb76c2ebea3c3245de6d9f0f5ebf05d/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/dfb76c2ebea3c3245de6d9f0f5ebf05d/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eed89af24b774d0506666a3a497acde6/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eed89af24b774d0506666a3a497acde6/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/eed89af24b774d0506666a3a497acde6/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/865f085f4b27cc32fea3b02ac2ab0eca/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/865f085f4b27cc32fea3b02ac2ab0eca/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/865f085f4b27cc32fea3b02ac2ab0eca/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b8ed2d7d57543f0df7ab0bde1134c4a1/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b8ed2d7d57543f0df7ab0bde1134c4a1/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b8ed2d7d57543f0df7ab0bde1134c4a1/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d8f46f00498800eab092790b2c426b6/jetified-refresh-drawable-paint-2.0.3/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d8f46f00498800eab092790b2c426b6/jetified-refresh-drawable-paint-2.0.3/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/5d8f46f00498800eab092790b2c426b6/jetified-refresh-drawable-paint-2.0.3/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.scwang.smart/refresh-drawable-paint/2.0.3/b6ab8459bc0688d138ec61f2f762b8a6d7013011/refresh-drawable-paint-2.0.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.scwang.smart/refresh-drawable-paint/2.0.3/9f2924c0980c5eba2d44ce678567fbd87d89428d/refresh-drawable-paint-2.0.3-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

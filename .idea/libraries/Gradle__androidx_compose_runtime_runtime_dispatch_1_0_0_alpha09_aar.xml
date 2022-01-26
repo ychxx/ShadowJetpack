@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.compose.runtime:runtime-dispatch:1.0.0-alpha09@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05a093437708c49742ed48e70cc7280e/runtime-dispatch-1.0.0-alpha09/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/188238f1fc6ca0f0139d62a4b4a016ab/jetified-runtime-dispatch-1.0.0-alpha09/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/188238f1fc6ca0f0139d62a4b4a016ab/jetified-runtime-dispatch-1.0.0-alpha09/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/188238f1fc6ca0f0139d62a4b4a016ab/jetified-runtime-dispatch-1.0.0-alpha09/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/188238f1fc6ca0f0139d62a4b4a016ab/jetified-runtime-dispatch-1.0.0-alpha09/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/188238f1fc6ca0f0139d62a4b4a016ab/jetified-runtime-dispatch-1.0.0-alpha09/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.runtime/runtime-dispatch/1.0.0-alpha09/3e0f741c7320386e6a8bc33c6ffa27c28fe9908a/runtime-dispatch-1.0.0-alpha09-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Gradle: androidx.compose.ui:ui-graphics:1.0.0-alpha09@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4b194c20fef91d3c115ceb36bd31e9d9/ui-graphics-1.0.0-alpha09/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9c6caca343791f83bcee3b68fb52c7cf/jetified-ui-graphics-1.0.0-alpha09/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9c6caca343791f83bcee3b68fb52c7cf/jetified-ui-graphics-1.0.0-alpha09/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9c6caca343791f83bcee3b68fb52c7cf/jetified-ui-graphics-1.0.0-alpha09/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9c6caca343791f83bcee3b68fb52c7cf/jetified-ui-graphics-1.0.0-alpha09/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9c6caca343791f83bcee3b68fb52c7cf/jetified-ui-graphics-1.0.0-alpha09/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/androidx.compose.ui/ui-graphics/1.0.0-alpha09/8cbc94d815debda10b092cb37bf21f8de24c34b1/ui-graphics-1.0.0-alpha09-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
