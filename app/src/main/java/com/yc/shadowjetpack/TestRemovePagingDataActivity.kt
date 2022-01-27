@@ -79,8 +79,8 @@ class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActi
         mOnUpdate = {
 
         }
-        mOnUpdate2 = { position: Int, data: ItemData2 ->
-            btnTestItem.text = "${data.name}- $position"
+        mOnUpdate3 = { holder, data: ItemData2 ->
+            btnTestItem.text = "${data.name}- ${holder.bindingAdapter}"
             btnTestItem.setOnClickListener {
                 removeItem(this@TestRemovePagingDataActivity.lifecycle, data)
             }

@@ -46,7 +46,7 @@ open class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(protected val cre
     override var mItemClick2: ((item: Data, position: Int) -> Unit)? = null
     override var mOnUpdate: (VB.(data: Data) -> Unit)? = null
     override var mOnUpdate2: (VB.(position: Int, data: Data) -> Unit)? = null
-
+    override var mOnUpdate3: (VB.(holder: YcViewHolder<VB>, data: Data) -> Unit)? = null
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
         return YcViewHolder(createVB.invoke(LayoutInflater.from(parent.context), parent, false))
     }
@@ -68,7 +68,8 @@ open class YcRecyclerViewAdapter<Data : Any, VB : ViewBinding>(protected val cre
                 mItemClick2?.invoke(dataBean!!, holder.bindingAdapterPosition)
             }
             mOnUpdate?.invoke(holder.viewBinding, dataBean!!)
-            mOnUpdate2?.invoke(holder.viewBinding, holder.bindingAdapterPosition, dataBean!!)
+            mOnUpdate2?.invoke(holder.viewBinding, position, dataBean!!)
+            mOnUpdate3?.invoke(holder.viewBinding, holder, dataBean!!)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()

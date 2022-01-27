@@ -27,4 +27,8 @@ interface YcIAdapter<Data, VB : ViewBinding> {
      * 布局
      */
     var mOnUpdate2: (VB.(position: Int, data: Data) -> Unit)?
+    /**
+     * 布局
+     */
+    var mOnUpdate3: (VB.(holder:YcViewHolder<VB>, data: Data) -> Unit)?
 }

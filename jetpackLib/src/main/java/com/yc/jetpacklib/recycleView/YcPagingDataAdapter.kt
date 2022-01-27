@@ -56,6 +56,7 @@ open class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
     override var mItemClick2: ((item: Data, position: Int) -> Unit)? = null
     override var mOnUpdate: (VB.(data: Data) -> Unit)? = null
     override var mOnUpdate2: (VB.(position: Int, data: Data) -> Unit)? = null
+    override var mOnUpdate3: (VB.(holder: YcViewHolder<VB>, data: Data) -> Unit)? = null
     protected lateinit var mContext: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YcViewHolder<VB> {
@@ -72,6 +73,7 @@ open class YcPagingDataAdapter<Data : Any, VB : ViewBinding>(
             }
             mOnUpdate?.invoke(holder.viewBinding, dataBean!!)
             mOnUpdate2?.invoke(holder.viewBinding, holder.bindingAdapterPosition, dataBean!!)
+            mOnUpdate3?.invoke(holder.viewBinding, holder, dataBean!!)
         } catch (e: Exception) {
             Log.e("ycEvery", "onBindViewHolder爆炸啦")
             e.printStackTrace()
