@@ -59,7 +59,7 @@ class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActi
                 for (i in 0 until 15) {
                     dataList.add(ItemData2("item:${mId++}", "12"))
                 }
-                YcDataSourceEntity(dataList, 1)
+                YcDataSourceEntity(dataList, 5)
             }.cachedIn(viewModelScope).collect {
                 _mGetData.postValue(it)
             }
@@ -80,7 +80,7 @@ class TestRemovePagingDataActivity : YcBaseActivityPlus<TestRemovePagingDataActi
 
         }
         mOnUpdate3 = { holder, data: ItemData2 ->
-            btnTestItem.text = "${data.name}- ${holder.bindingAdapter}"
+            btnTestItem.text = "${data.name}- ${holder.invoke()}"
             btnTestItem.setOnClickListener {
                 removeItem(this@TestRemovePagingDataActivity.lifecycle, data)
             }

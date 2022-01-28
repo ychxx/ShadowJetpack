@@ -91,7 +91,7 @@ dependencies {
     // implementation "androidx.paging:paging-rxjava3:$paging_version"// 可选RxJava3支持
     implementation "androidx.paging:paging-guava:$paging_version"
 // optional - Guava ListenableFuture support
-    implementation "androidx.paging:paging-compose:1.0.0-alpha04"// Jetpack Compose Integration
+    implementation "androidx.paging:paging-compose:$paging_compose_version"// Jetpack Compose Integration
 
     /**-- Room components SQLite数据库--**/
     api "androidx.room:room-runtime:$room_version"
