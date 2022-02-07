@@ -30,6 +30,9 @@
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c9685c2fe96897a87911c1673ae39e23/jetified-xutils-3.5.0/res" />
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c9685c2fe96897a87911c1673ae39e23/jetified-xutils-3.5.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c9685c2fe96897a87911c1673ae39e23/jetified-xutils-3.5.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d70700b47ff1a9ff42bb539e8a98a2f1/jetified-xutils-3.5.0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d70700b47ff1a9ff42bb539e8a98a2f1/jetified-xutils-3.5.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d70700b47ff1a9ff42bb539e8a98a2f1/jetified-xutils-3.5.0/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.xutils/xutils/3.5.0/114f8841d03198cc5d1a05cf40fdbdd9adfb0242/xutils-3.5.0-javadoc.jar!/" />

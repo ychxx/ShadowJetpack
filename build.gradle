@@ -18,9 +18,9 @@ buildscript {
         gson_version = "2.8.6"
         xutils_version = "3.5.0"
         room_version = "2.2.5"
-        immersionbar_version = "3.0.0"
+        immersionbar_version = "3.0"
         scanplus_version = "2.1.0.300"
-        smart_refresh_version = "2.0.3"
+        smart_refresh_version = "2.0.5"
     }
     repositories {
         google()
@@ -43,7 +43,7 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-        jcenter() // Warning: this repository is going to shut down soon
+//        jcenter() // Warning: this repository is going to shut down soon
         maven { url 'https://developer.huawei.com/repo/' } //华为扫码
     }
 }

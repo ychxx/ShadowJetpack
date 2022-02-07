@@ -114,18 +114,18 @@ dependencies {
     implementation "org.xutils:xutils:$xutils_version"
 
     /**-- 加载更多和刷新 --**/
-    api "com.scwang.smart:refresh-layout-kernel:$smart_refresh_version"      //核心必须依赖
-    implementation "com.scwang.smart:refresh-header-material:$smart_refresh_version"    //谷歌刷新头
-    implementation "com.scwang.smart:refresh-footer-classics:$smart_refresh_version"    //经典加载
+    api "io.github.scwang90:refresh-layout-kernel:$smart_refresh_version"      //核心必须依赖
+    implementation "io.github.scwang90:refresh-header-material:$smart_refresh_version"    //谷歌刷新头
+    implementation "io.github.scwang90:refresh-footer-classics:$smart_refresh_version"    //经典加载
 
     /**--状态栏--**/
-    implementation "com.gyf.immersionbar:immersionbar:$immersionbar_version"
-    implementation "com.gyf.immersionbar:immersionbar-components:$immersionbar_version"
-    implementation "com.gyf.immersionbar:immersionbar-ktx:$immersionbar_version"
-
+//    implementation "com.gyf.immersionbar:immersionbar:$immersionbar_version"
+//    implementation "com.gyf.immersionbar:immersionbar-components:$immersionbar_version"
+//    implementation "com.gyf.immersionbar:immersionbar-ktx:$immersionbar_version"
+    implementation "com.github.jousen:ImmersionBar:$immersionbar_version"
     /**-- 仿iOS的选择器 --**/
-    api 'com.contrarywind:Android-PickerView:4.1.9'
-
+//    api 'com.contrarywind:Android-PickerView:4.1.9'
+    api 'com.github.ychxx:Android-PickerView:1.0'
     /**华为扫描二维码 **/
     implementation "com.huawei.hms:scanplus:$scanplus_version"
 }
