@@ -122,10 +122,10 @@ dependencies {
 //    implementation "com.gyf.immersionbar:immersionbar:$immersionbar_version"
 //    implementation "com.gyf.immersionbar:immersionbar-components:$immersionbar_version"
 //    implementation "com.gyf.immersionbar:immersionbar-ktx:$immersionbar_version"
-    implementation "com.github.jousen:ImmersionBar:$immersionbar_version"
+    api "com.github.ychxx:ImmersionBar:$immersionbar_version"
     /**-- 仿iOS的选择器 --**/
 //    api 'com.contrarywind:Android-PickerView:4.1.9'
-    api 'com.github.ychxx:Android-PickerView:1.0'
+    api "com.github.ychxx:Android-PickerView:$picker_view_version"
     /**华为扫描二维码 **/
     implementation "com.huawei.hms:scanplus:$scanplus_version"
 }
