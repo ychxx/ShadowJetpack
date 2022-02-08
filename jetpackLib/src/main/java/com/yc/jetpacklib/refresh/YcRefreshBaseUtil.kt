@@ -86,8 +86,8 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
             override fun onDestroy(owner: LifecycleOwner) {
                 super.onDestroy(owner)
                 if (::mSmartRefreshLayout.isInitialized) {
-                    mSmartRefreshLayout.finishRefresh()
-                    mSmartRefreshLayout.finishLoadMore()
+                    mSmartRefreshLayout.finishRefresh(0)
+                    mSmartRefreshLayout.finishLoadMore(0)
                 }
             }
         })
@@ -147,7 +147,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
             }
             is LoadState.NotLoading -> {
                 if (mIsRefresh) {
-                    mSmartRefreshLayout.finishRefresh(true)
+                    mSmartRefreshLayout.finishRefresh(0)
                     mSmartRefreshLayout.setNoMoreData(noMoreData)
                     mIsRefresh = false
                     mRefreshResult.invoke(YcRefreshResult.Success(noMoreData))
@@ -156,7 +156,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
             is LoadState.Error -> {
                 if (mIsRefresh) {
                     mIsRefresh = false
-                    mSmartRefreshLayout.finishRefresh(false)
+                    mSmartRefreshLayout.finishRefresh(0)
                     YcJetpack.mInstance.isContinueWhenException(loadState.error.toYcException()) {
                         mRefreshResult.invoke(YcRefreshResult.Fail(this))
                     }
@@ -182,13 +182,13 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
                     if (noMoreData) {
                         mSmartRefreshLayout.finishLoadMoreWithNoMoreData()
                     } else {
-                        mSmartRefreshLayout.finishLoadMore(true)
+                        mSmartRefreshLayout.finishLoadMore(0)
                     }
                     mLoadMoreResult.invoke(YcRefreshResult.Success(noMoreData))
                 }
             }
             is LoadState.Error -> {
-                mSmartRefreshLayout.finishLoadMore()
+                mSmartRefreshLayout.finishLoadMore(0)
                 if (mIsLoadMore) {
                     mIsLoadMore = false
                     YcJetpack.mInstance.isContinueWhenException(loadState.error.toYcException()) {
@@ -207,8 +207,8 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         if (isDataSourceChange) {
             mPagingData = null
         }
-        mSmartRefreshLayout.finishRefresh()
-        mSmartRefreshLayout.finishLoadMore()
+        mSmartRefreshLayout.finishRefresh(0)
+        mSmartRefreshLayout.finishLoadMore(0)
         mSmartRefreshLayout.autoRefresh(0)
     }
 
