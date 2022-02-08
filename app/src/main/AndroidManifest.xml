@@ -35,6 +35,7 @@
         <activity android:name=".TestPickerViewActivity" />
         <activity android:name=".socket.TestSocketActivity" />
         <activity android:name=".TestRefreshActivity2" />
+        <activity android:name=".TestRefreshActivity3" />
         <activity android:name=".TestRemovePagingDataActivity" />
 
     </application>

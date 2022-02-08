@@ -20,7 +20,7 @@ class YcRefreshHeaderView(context: Context) : SimpleComponent(context, null, 0),
     override fun onFinish(layout: RefreshLayout, success: Boolean): Int {
         super.onFinish(layout, success)
         mAnimDraw.stop()
-        return 500 //延迟500毫秒之后再弹回
+        return 0
     }
 
     override fun onStateChanged(refreshLayout: RefreshLayout, oldState: RefreshState, newState: RefreshState) {

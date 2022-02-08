@@ -1,23 +1,17 @@
 package com.yc.jetpacklib.refresh
 
 import androidx.annotation.IntDef
-import androidx.annotation.StringDef
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.huawei.hms.scankit.p.T
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.extension.toYcException
-import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
-import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.init.YcJetpack
-import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapter
-import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
 
@@ -60,7 +54,6 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
      * 加载更多结果回调
      */
     var mLoadMoreResult: ((YcRefreshResult) -> Unit) = {
-        ycLogESimple("LoadMoreResult$it")
         it.doFail { error ->
             mErrorTip.invoke("加载失败：${error.msg}")
         }
@@ -84,17 +77,15 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         mSmartRefreshLayout.context.showToast(it)
     }
 
-    @IntDef(REFRESH_INIT)
+    @IntDef(REFRESH_INIT, REFRESH_LOADING, REFRESH_FINISH)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    annotation class State {
-
-    }
+    annotation class State {}
 
     companion object {
         const val REFRESH_INIT = 0
-        const val REFRESH_START = 0
-        const val REFRESH_LOADING = 0
-        const val REFRESH_FINISH = 0
+        const val REFRESH_START = 1
+        const val REFRESH_LOADING = 2
+        const val REFRESH_FINISH = 3
     }
 
     @State
@@ -126,6 +117,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
     open fun build(isAutoRefresh: Boolean = true, apply: (YcRefreshBaseUtil<T>.() -> Unit)? = null): YcRefreshBaseUtil<T> {
         apply?.invoke(this)
         mSmartRefreshLayout.setOnRefreshListener {
+            mRefreshState = REFRESH_START
             //用于判断是否需要改变数据源，如果没有改变则不需设置（例如搜索列表的关键字改变）
             if (mIsFirst || mPagingData == null || mIsForceDataSource) {
                 mIsFirst = false
@@ -143,7 +135,6 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
             }
         }
         mPagingDataAdapter.addLoadStateListener {
-            ycLogESimple("LoadStateListener$it")
             onRefresh(it.refresh, it.source.append.endOfPaginationReached)
             onLoadMore(it.append, it.source.append.endOfPaginationReached)
         }
@@ -159,7 +150,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
     private fun onRefresh(loadState: LoadState, noMoreData: Boolean) {
         when (loadState) {
             is LoadState.Loading -> {
-                if (mRefreshState != REFRESH_LOADING) {
+                if (mRefreshState == REFRESH_START) {
                     mRefreshState = REFRESH_LOADING
                     mSmartRefreshLayout.resetNoMoreData()
                 }
@@ -228,8 +219,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         }
         mSmartRefreshLayout.finishRefresh(0)
         mSmartRefreshLayout.finishLoadMore(0)
-        mRefreshState = REFRESH_START
-        mSmartRefreshLayout.autoRefresh(50)
+        mSmartRefreshLayout.autoRefresh(150)
     }
 
     /**

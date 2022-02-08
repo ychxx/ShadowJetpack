@@ -58,7 +58,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 10 -> {
                     startActivity(Intent(this@MainActivity, TestRemovePagingDataActivity::class.java))
                 }
-
+                11 -> {
+                    startActivity(Intent(this@MainActivity, TestRefreshActivity3::class.java))
+                }
             }
         }
     }
@@ -87,6 +89,6 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试扫描", 8))
         mAdapter.addData(Item("测试刷新2", 9))
         mAdapter.addData(Item("动态删除pagingData", 10))
-
+        mAdapter.addData(Item("快速替换pagingData", 11))
     }
 }

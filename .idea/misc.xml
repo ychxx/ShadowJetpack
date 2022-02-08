@@ -24,7 +24,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_item.xml" value="0.2947916666666667" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_loading_activity.xml" value="0.3484375" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_refresh_activity.xml" value="0.3484375" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_refresh_activity3.xml" value="0.3484375" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_remove_page_data_activity.xml" value="0.3484375" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_widget.xml" value="0.225" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/drawable/yc_shape_underline.xml" value="0.1828125" />
