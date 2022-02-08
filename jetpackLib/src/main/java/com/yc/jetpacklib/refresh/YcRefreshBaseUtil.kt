@@ -209,7 +209,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         }
         mSmartRefreshLayout.finishRefresh()
         mSmartRefreshLayout.finishLoadMore()
-        mSmartRefreshLayout.autoRefresh()
+        mSmartRefreshLayout.autoRefresh(0)
     }
 
     /**
