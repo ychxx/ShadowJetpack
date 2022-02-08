@@ -228,9 +228,11 @@ open class YcRefreshBaseUtil<T : Any>(val mLifecycleOwner: LifecycleOwner) {
     private fun startRefresh() {
         mRefreshStartJob?.cancel()
         mRefreshStartJob = mLifecycleOwner.lifecycleScope.launch {
-            while (mSmartRefreshLayout.state == RefreshState.RefreshFinish) {
+            if (mSmartRefreshLayout.state != RefreshState.None) {
                 mSmartRefreshLayout.finishRefresh(0)
-                delay(100)
+                while (mSmartRefreshLayout.state != RefreshState.None) {
+                    delay(100)
+                }
             }
             mSmartRefreshLayout.autoRefresh(0)
         }
