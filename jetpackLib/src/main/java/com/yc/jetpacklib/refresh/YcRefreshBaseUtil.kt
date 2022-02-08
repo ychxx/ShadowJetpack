@@ -207,6 +207,8 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         if (isDataSourceChange) {
             mPagingData = null
         }
+        mSmartRefreshLayout.finishRefresh()
+        mSmartRefreshLayout.finishLoadMore()
         mSmartRefreshLayout.autoRefresh()
     }
 

@@ -109,7 +109,10 @@ class YcDownload(val mConfig: YcDownloadConfig) {
                 } else {
                     ycLogE("下载成功：${mConfig.saveFilePath}")
                     mDownloadState = YcDownLoadState.DOWNLOAD_SUCCESS
-                    mConfig.progressDialog?.dismiss()
+                    mConfig.progressDialog?.apply {
+                        progress = max
+                        dismiss()
+                    }
                     mConfig.onSuccess?.invoke(result)
                 }
 
