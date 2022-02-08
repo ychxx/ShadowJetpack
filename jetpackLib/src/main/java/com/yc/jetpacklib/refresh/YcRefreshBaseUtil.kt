@@ -3,24 +3,29 @@ package com.yc.jetpacklib.refresh
 import androidx.annotation.IntDef
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
+import com.scwang.smart.refresh.layout.constant.RefreshState
 import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.extension.toYcException
 import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapter
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * Creator: yc
  * Date: 2021/7/27 15:48
  * UseDes: 刷新帮助类
  */
-open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
+open class YcRefreshBaseUtil<T : Any>(val mLifecycleOwner: LifecycleOwner) {
     lateinit var mPagingDataAdapter: PagingDataAdapter<T, *>
     lateinit var mSmartRefreshLayout: SmartRefreshLayout
     lateinit var mRecyclerView: RecyclerView
@@ -29,11 +34,6 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
      * 数据源
      */
     protected var mPagingData: PagingData<T>? = null
-
-//    /**
-//     * 当前是否正在刷新
-//     */
-//    private var mIsRefresh: Boolean = false
 
     /**
      * 刷新回调
@@ -209,6 +209,8 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         }
     }
 
+    private var mRefreshStartJob: Job? = null
+
     /**
      * 主动刷新
      * @param isDataSourceChange Boolean    数据源是否改变
@@ -217,9 +219,21 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         if (isDataSourceChange) {
             mPagingData = null
         }
-        mSmartRefreshLayout.finishRefresh(0)
-        mSmartRefreshLayout.finishLoadMore(0)
-        mSmartRefreshLayout.autoRefresh(150)
+        startRefresh()
+    }
+
+    /**
+     * 处理刷新动画结束过程中-无法触发新的刷新问题
+     */
+    private fun startRefresh() {
+        mRefreshStartJob?.cancel()
+        mRefreshStartJob = mLifecycleOwner.lifecycleScope.launch {
+            while (mSmartRefreshLayout.state == RefreshState.RefreshFinish) {
+                mSmartRefreshLayout.finishRefresh(0)
+                delay(100)
+            }
+            mSmartRefreshLayout.autoRefresh(0)
+        }
     }
 
     /**
