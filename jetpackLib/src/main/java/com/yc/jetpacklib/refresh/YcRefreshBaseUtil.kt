@@ -2,6 +2,7 @@ package com.yc.jetpacklib.refresh
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
+import androidx.paging.CombinedLoadStates
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.paging.PagingDataAdapter
@@ -9,12 +10,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.extension.toYcException
-import com.yc.jetpacklib.extension.ycInitLinearLayoutManage
 import com.yc.jetpacklib.extension.ycLogESimple
 import com.yc.jetpacklib.init.YcJetpack
-import com.yc.jetpacklib.net.YcResult
 import com.yc.jetpacklib.recycleView.YcPagingDataAdapter
-import com.yc.jetpacklib.recycleView.YcPagingDataAdapterChange
 import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
 
@@ -81,6 +79,8 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         mSmartRefreshLayout.context.showToast(it)
     }
 
+    private var mLockId = 0
+
     init {
         mLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
@@ -123,15 +123,17 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
                 mPagingDataAdapter.retry()
             }
         }
-        mPagingDataAdapter.addLoadStateListener {
-            ycLogESimple("LoadStateListener$it")
-            onRefresh(it.refresh, it.source.append.endOfPaginationReached)
-            onLoadMore(it.append, it.source.append.endOfPaginationReached)
-        }
         if (isAutoRefresh) {
             startRefresh()
         }
         return this
+    }
+
+    private var mPagingDataLoadStateListener: ((CombinedLoadStates) -> Unit)? = null
+    private fun createLoadStateListener(): ((CombinedLoadStates) -> Unit) = {
+        ycLogESimple("LoadStateListener$it")
+        onRefresh(it.refresh, it.source.append.endOfPaginationReached)
+        onLoadMore(it.append, it.source.append.endOfPaginationReached)
     }
 
     /**
@@ -147,6 +149,7 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
             }
             is LoadState.NotLoading -> {
                 if (mIsRefresh) {
+
                     mSmartRefreshLayout.finishRefresh(0)
                     mSmartRefreshLayout.setNoMoreData(noMoreData)
                     mIsRefresh = false
@@ -207,6 +210,11 @@ open class YcRefreshBaseUtil<T : Any>(mLifecycleOwner: LifecycleOwner) {
         if (isDataSourceChange) {
             mPagingData = null
         }
+        if (mPagingDataLoadStateListener != null) {
+            mPagingDataAdapter.removeLoadStateListener(mPagingDataLoadStateListener!!)
+        }
+        mPagingDataLoadStateListener = createLoadStateListener()
+        mPagingDataAdapter.addLoadStateListener(mPagingDataLoadStateListener!!)
         mSmartRefreshLayout.finishRefresh(0)
         mSmartRefreshLayout.finishLoadMore(0)
         mSmartRefreshLayout.autoRefresh(0)
