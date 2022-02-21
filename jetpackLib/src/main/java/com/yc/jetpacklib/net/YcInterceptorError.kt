@@ -33,6 +33,9 @@ class YcInterceptorError : YcInterceptor {
                     jsonObject.has("status") -> {
                         jsonObject.optInt("status")
                     }
+                    jsonObject.has("result") -> {
+                        jsonObject.optInt("result")
+                    }
                     else -> {
                         -2333
                     }
