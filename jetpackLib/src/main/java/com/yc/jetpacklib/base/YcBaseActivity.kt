@@ -66,8 +66,8 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
         }
         return YcViewModelLazy(VM::class, { viewModelStore }, factoryPromise, {
             it.mIsShowLoading.observe(this@YcBaseActivity) {
-                if (it) {
-                    showLoading()
+                if (it.isShow) {
+                    showLoading(it.msg)
                 } else {
                     hideLoading()
                 }
@@ -75,8 +75,8 @@ abstract class YcBaseActivity<VB : ViewBinding>(private val createVB: ((LayoutIn
         })
     }
 
-    open fun showLoading() {
-        mYcLoadingDialog.show()
+    open fun showLoading(msg: String? = null) {
+        mYcLoadingDialog.show(msg)
     }
 
     open fun hideLoading() {

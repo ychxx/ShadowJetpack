@@ -20,16 +20,21 @@ import android.app.Dialog
 import android.content.Context
 import android.util.Log
 import android.view.Gravity
+import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import com.yc.jetpacklib.R
+import com.yc.jetpacklib.extension.ycIsEmpty
 
 /**
  * 加载框
  */
 class YcLoadingDialog constructor(context: Context, lifecycleOwner: LifecycleOwner, theme: Int = R.style.YcLoadingDialogStyle) :
     Dialog(context, theme) {
+    val mTipTv: TextView
+
     init {
         lifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
@@ -40,6 +45,7 @@ class YcLoadingDialog constructor(context: Context, lifecycleOwner: LifecycleOwn
             }
         })
         setContentView(R.layout.yc_widget_dialog_loading)
+        mTipTv = findViewById(R.id.tvYcLoading)
         //设置对话框位置大小
         window?.apply {
             setGravity(Gravity.CENTER)
@@ -49,5 +55,19 @@ class YcLoadingDialog constructor(context: Context, lifecycleOwner: LifecycleOwn
         }
         setCancelable(false)
         setCanceledOnTouchOutside(false)
+    }
+
+    /**
+     * 显示加载框和文字
+     * @param msg String?
+     */
+    fun show(msg: String? = null) {
+        if (msg.ycIsEmpty()) {
+            mTipTv.visibility = View.GONE
+        } else {
+            mTipTv.visibility = View.VISIBLE
+            mTipTv.text = msg
+        }
+        show()
     }
 }

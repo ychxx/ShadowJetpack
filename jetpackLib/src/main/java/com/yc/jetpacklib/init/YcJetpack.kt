@@ -4,8 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import androidx.lifecycle.LifecycleOwner
-import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.Logger
+import com.elvishew.xlog.LogLevel
+import com.elvishew.xlog.XLog
+
 import com.scwang.smart.refresh.layout.SmartRefreshLayout
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.data.constant.YcNetErrorCode
@@ -127,7 +128,7 @@ class YcJetpack private constructor() {
         mApplication = app
         mDefaultSaveDirPath = defaultSaveDirPath
         //Logger初始化
-        Logger.addLogAdapter(AndroidLogAdapter())
+        XLog.init(LogLevel.ALL)
         x.Ext.init(mApplication)
     }
 

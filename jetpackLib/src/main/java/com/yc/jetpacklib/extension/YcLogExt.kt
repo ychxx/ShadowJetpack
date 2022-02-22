@@ -1,7 +1,7 @@
 package com.yc.jetpacklib.extension
 
 import android.util.Log
-import com.orhanobut.logger.Logger
+import com.elvishew.xlog.XLog
 
 /**
  * log
@@ -18,7 +18,7 @@ fun ycLogESimple(msg: String? = "", tag: String = "log") {
 
 fun ycLogE(msg: String? = "") {
     if (YcLogExt.mIsShowLogger) {
-        Logger.e(msg.orEmpty())
+        XLog.e(msg.orEmpty())
     }
 }
 
@@ -30,12 +30,12 @@ fun ycLogDSimple(msg: String? = "", tag: String = "log") {
 
 fun ycLogD(msg: String? = "") {
     if (YcLogExt.mIsShowLogger) {
-        Logger.d(msg.orEmpty())
+        XLog.d(msg.orEmpty())
     }
 }
 
 fun ycLogEJson(json: String? = "") {
     if (YcLogExt.mIsShowLogger) {
-        Logger.json(json)
+        XLog.json(json)
     }
 }
