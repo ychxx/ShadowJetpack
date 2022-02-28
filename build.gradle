@@ -19,7 +19,7 @@ buildscript {
         xutils_version = "3.5.0"
         room_version = "2.2.5"
         immersionbar_version = "1.0.2"
-        picker_view_version = "1.1"
+        picker_view_version = "1.2"
         scanplus_version = "2.1.0.300"
         smart_refresh_version = "2.0.5"
     }
