@@ -52,30 +52,30 @@ open class YcRefreshSpecialUtil(
     internal val `access$mAdapter`: RecyclerView.Adapter<*>
         get() = mAdapter
 
-    suspend fun <T> Flow<YcResult<YcDataSourceEntity<T>>>.ycCollect(block: (YcResult<YcDataSourceEntity<T>>) -> Unit) {
+    suspend fun <Data> Flow<YcResult<YcDataSourceEntity<Data>>>.ycCollect(isShowError: Boolean = false, block: (YcResult<YcDataSourceEntity<Data>>) -> Unit) {
         this.collect {
             block(it)
             it.doSuccess {
-                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Success(mPageConfigure.mPageIndex > it.pageSum))
+                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Success(mPageConfigure.mPageIndex > it.pageSum), isShowError)
             }.doFail {
-                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Fail(it))
+                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
             }
         }
     }
 
-    suspend inline fun <reified T> Flow<YcResult<T>>.ycCollect2(crossinline block: (YcResult<T>) -> Unit) {
+    suspend inline fun <reified Data> Flow<YcResult<Data>>.ycCollect2(isShowError: Boolean = false, crossinline block: (YcResult<Data>) -> Unit) {
         this.collect {
             block(it)
             it.doSuccess {
-                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false))
+                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false), isShowError)
             }.doFail {
-                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Fail(it))
+                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
             }
         }
     }
 
     open fun interface RefreshResult {
-        fun onCall(isHasPreData: Boolean, refreshResult: YcRefreshResult)
+        fun onCall(isHasPreData: Boolean, refreshResult: YcRefreshResult, isShowError: Boolean)
     }
 
     /**
@@ -90,7 +90,7 @@ open class YcRefreshSpecialUtil(
     /**
      * 刷新结果回调
      */
-    var mRefreshResult: RefreshResult = RefreshResult { isHasPreData, refreshResult ->
+    var mRefreshResult: RefreshResult = RefreshResult { isHasPreData, refreshResult, isShowError ->
         ycLogESimple("Refresh$refreshResult")
         refreshResult.doSuccess {
             if (isHasPreData) {//刷新成功，恢复之前布局
@@ -100,7 +100,8 @@ open class YcRefreshSpecialUtil(
             }
         }.doFail { error ->
             if (isHasPreData) {//之前有数据，则显示错误提示
-                mErrorTip.invoke("刷新失败：${error.msg}")
+                if (isShowError)
+                    mErrorTip.invoke("刷新失败：${error.msg}")
             } else {//之前无数据，则显示替换布局
                 mSpecialViewSimple.show(YcJetpack.mInstance.mYcExceptionToSpecialState(error), error)
             }
@@ -169,5 +170,15 @@ open class YcRefreshSpecialUtil(
         mSmartRefreshLayout.autoRefresh()
     }
 
-
+    /**
+     * 刷新和加载更多请求结果调用
+     * @param result YcResult<Data>
+     */
+    fun ycRefreshAndLoadMoreResult(isShowError: Boolean = false, result: YcResult<*>) {
+        result.doSuccess {
+            mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false), isShowError)
+        }.doFail {
+            mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
+        }
+    }
 }

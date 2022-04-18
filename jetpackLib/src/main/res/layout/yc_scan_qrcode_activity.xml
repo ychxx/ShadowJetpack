@@ -22,7 +22,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@drawable/yc_scan_code_frame_bg" />
+        android:src="@drawable/yc_scan_code_frame_bg" />
 
     <TextView
         android:layout_width="match_parent"
