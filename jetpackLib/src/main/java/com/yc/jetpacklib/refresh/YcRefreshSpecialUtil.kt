@@ -174,7 +174,7 @@ open class YcRefreshSpecialUtil(
      * 刷新和加载更多请求结果调用
      * @param result YcResult<Data>
      */
-    fun ycRefreshAndLoadMoreResult(isShowError: Boolean = false, result: YcResult<*>) {
+    fun ycRefreshAndLoadMoreResult(result: YcResult<*>, isShowError: Boolean = false) {
         result.doSuccess {
             mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false), isShowError)
         }.doFail {
