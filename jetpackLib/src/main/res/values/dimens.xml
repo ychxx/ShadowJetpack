@@ -18,4 +18,7 @@
     <dimen name="jetpack_single_height">54dp</dimen>
     <dimen name="jetpack_single_text_size">15sp</dimen>
 
+
+    <dimen name="image_padding">4dp</dimen>
+
 </resources>

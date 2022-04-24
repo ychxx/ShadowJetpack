@@ -16,7 +16,7 @@ import com.yc.jetpacklib.R
 /**
  * 通用的对话框
  */
-class YcCommonDialog @JvmOverloads constructor(context: Context, mLifecycleOwner: LifecycleOwner, theme: Int = R.style.YcCommonDialogStyle) :
+class YcCommonDialog @JvmOverloads constructor(context: Context, mLifecycleOwner: LifecycleOwner, theme: Int = R.style.YcCommonDialogStyle, isCancelable:Boolean=false) :
     Dialog(context, theme), YcIDialog<YcCommonDialog> {
     private var mContentView: TextView//内容
     private var mLeftBtn: Button
@@ -46,8 +46,8 @@ class YcCommonDialog @JvmOverloads constructor(context: Context, mLifecycleOwner
         dialogWindow.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
         val lp = dialogWindow.attributes
         dialogWindow.attributes = lp //此处暂未设置偏移量
-        setCancelable(false)
-        setCanceledOnTouchOutside(false)
+        setCancelable(isCancelable)
+        setCanceledOnTouchOutside(isCancelable)
         mLeftBtn.setOnClickListener {
             dismiss()
             if (mOnLeftClick != null) {
