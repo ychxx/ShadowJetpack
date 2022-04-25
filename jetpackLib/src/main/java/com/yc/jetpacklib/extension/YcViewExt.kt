@@ -482,10 +482,10 @@ fun ImageView.ycLoadImageViewTarget(
 }
 
 fun ImageView.ycLoadBitmapImageViewTarget(
-    url: String, width: Int, height: Int, sizeMultiplier: Float,
-    setResourceCallBack: ((Bitmap?) -> Unit)? = null,
+    url: String, width: Int = 180, height: Int = 180, sizeMultiplier: Float = 0.5f,
     placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
-    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail,
+    setResourceCallBack: ((Bitmap?) -> Unit)? = null,
 ) {
     GlideApp.with(context)
         .asBitmap()
@@ -517,7 +517,7 @@ fun ImageView.ycLoadAsGifImage(
 }
 
 fun ImageView.ycLoadGridImage(
-    url: String, width: Int, height: Int,
+    url: String, width: Int = 180, height: Int = 180,
     placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
     errorImg: Int = YcJetpack.mInstance.mImgIdResFail
 ) {
