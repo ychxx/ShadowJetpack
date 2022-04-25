@@ -108,6 +108,8 @@ class YcCommonDialog @JvmOverloads constructor(context: Context, mLifecycleOwner
      */
     override fun setRightBtnText(rightBtnText: String?): YcCommonDialog {
         mRightBtn.text = rightBtnText ?: ""
+        mRightBtn.visibility = View.VISIBLE
+        mLineV.visibility = View.VISIBLE
         return this
     }
 
