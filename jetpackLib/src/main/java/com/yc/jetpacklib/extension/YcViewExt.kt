@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.PointF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
@@ -27,6 +29,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.signature.ObjectKey
 import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
@@ -452,3 +455,29 @@ fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int, roundingRadius: Int
 }
 
 
+fun ImageView.ycLoadImageViewTarget(
+    url: String,
+    onLoadStartedCallBack: ((Drawable?) -> Unit)? = null,
+    onLoadFailedCallBack: ((Drawable?) -> Unit)? = null,
+    setResourceCallBack: ((Bitmap?) -> Unit)? = null
+) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(url)
+        .into(object : ImageViewTarget<Bitmap?>(this) {
+            override fun onLoadStarted(placeholder: Drawable?) {
+                super.onLoadStarted(placeholder)
+                onLoadStartedCallBack?.invoke(placeholder)
+            }
+
+            override fun onLoadFailed(errorDrawable: Drawable?) {
+                super.onLoadFailed(errorDrawable)
+                onLoadFailedCallBack?.invoke(errorDrawable)
+            }
+
+            override fun setResource(resource: Bitmap?) {
+                setResourceCallBack?.invoke(resource)
+            }
+        })
+
+}
