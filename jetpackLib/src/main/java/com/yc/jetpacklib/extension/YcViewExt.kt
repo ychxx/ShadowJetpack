@@ -26,12 +26,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.BitmapImageViewTarget
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.signature.ObjectKey
-import com.yc.jetpacklib.R
 import com.yc.jetpacklib.image.GlideApp
 import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.utils.YcColorUtil
@@ -480,4 +479,53 @@ fun ImageView.ycLoadImageViewTarget(
             }
         })
 
+}
+
+fun ImageView.ycLoadBitmapImageViewTarget(
+    url: String, width: Int, height: Int, sizeMultiplier: Float,
+    setResourceCallBack: ((Bitmap?) -> Unit)? = null,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(url)
+        .override(width, height)
+        .centerCrop()
+        .sizeMultiplier(sizeMultiplier)
+        .apply(RequestOptions().placeholder(placeholderImg))
+        .error(errorImg)
+        .into(object : BitmapImageViewTarget(this) {
+            override fun setResource(resource: Bitmap?) {
+                setResourceCallBack?.invoke(resource)
+            }
+        })
+
+}
+
+fun ImageView.ycLoadAsGifImage(
+    url: String,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
+    GlideApp.with(context)
+        .asGif()
+        .load(url)
+        .placeholder(placeholderImg)
+        .error(errorImg)
+        .into(this)
+}
+
+fun ImageView.ycLoadGridImage(
+    url: String, width: Int, height: Int,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
+    GlideApp.with(context)
+        .load(url)
+        .override(width, height)
+        .centerCrop()
+        .apply(RequestOptions().placeholder(placeholderImg))
+        .error(errorImg)
+        .into(this)
 }
