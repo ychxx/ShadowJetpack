@@ -34,7 +34,7 @@ fun <T> ycFlow(block: suspend ProducerScope<YcResult<T>>.() -> Unit): Flow<YcRes
  */
 fun <Data> ycFlowSync(block: suspend () -> Data) = ycFlow<Data> {
     send(YcResult.Success(block.invoke()))
-}
+}.checkNet()
 
 /**
  *

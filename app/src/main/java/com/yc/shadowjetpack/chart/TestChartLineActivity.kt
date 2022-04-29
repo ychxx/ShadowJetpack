@@ -1,12 +1,21 @@
 package com.yc.shadowjetpack.chart
 
+import android.graphics.Color
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.YAxis
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.extension.*
 import com.yc.jetpacklib.net.doFail
 import com.yc.jetpacklib.net.doSuccess
-import com.yc.jetpacklib.widget.chart.*
+import com.yc.jetpacklib.widget.chart.YcChartAxisYUnitRenderer
+import com.yc.jetpacklib.widget.chart.YcChartFiniteLength
+import com.yc.jetpacklib.widget.chart.YcChartMarkerView
+import com.yc.jetpacklib.widget.chart.YcMarkerEntity
 import com.yc.shadowjetpack.R
 import com.yc.shadowjetpack.databinding.TestLineChartBinding
 
@@ -22,13 +31,24 @@ class TestChartLineActivity : YcBaseActivityPlus<TestLineChartBinding>(TestLineC
             it.doSuccess {
                 lcTest.refreshChartInfo(it)
                 bcTest.refreshChartInfo(it)
+                pcTest.refreshChartInfo(it)
             }.doFail {
                 showToast(it.msg ?: "报错啦！！")
             }
         }
         lcTest.ycChartInitDefault()
-        lcTest.rendererLeftYAxis = YcChartAxisYUnitRenderer(lcTest,"(m)")
+        lcTest.rendererLeftYAxis = YcChartAxisYUnitRenderer(lcTest, "(m)")
         bcTest.ycChartBarInitDefault()
+        pcTest.ycChartInitDefault()
+    }
+
+    private fun PieChart.refreshChartInfo(pieData: ChartEntity?) {
+        if (pieData == null) {
+            clear()
+        } else {
+            ycChartSetLineDataSet(pieData.pieEntryList)
+        }
+        ycChartRefresh()//刷新图表
     }
 
     private fun LineChart.refreshChartInfo(data: ChartEntity?) {

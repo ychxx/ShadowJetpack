@@ -4,9 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.DashPathEffect
 import android.util.Log
-import com.github.mikephil.charting.charts.BarChart
-import com.github.mikephil.charting.charts.BarLineChartBase
-import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.*
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
@@ -54,11 +52,9 @@ fun BarChart.ycChartBarInitDefault() {
  * 默认配置初始化
  * @receiver BarLineChartBase<*>
  */
-
 fun BarLineChartBase<*>.ycChartBaseInit() {
     this.axisLeft.ycChartAxisYLeftInit(context)
     this.xAxis.ycChartAxisXInit(context)
-    ycChartRefresh()
     setNoDataText(context.getString(R.string.jetpack_chart_data_empty))
     setNoDataTextColor(ycGetColorRes(R.color.jetpack_chart_x_y_text_color))
     setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
@@ -77,6 +73,30 @@ fun BarLineChartBase<*>.ycChartBaseInit() {
     setBackgroundResource(R.color.white)
     axisRight.isEnabled = false//右侧y轴设置为不使用
     animateXY(0, 0)
+    ycChartRefresh()
+}
+
+/**
+ * 默认配置初始化
+ * @receiver BarLineChartBase<*>
+ */
+fun PieChart.ycChartInitDefault() {
+    setExtraOffsets(5f, 10f, 5f, 5f)
+    setNoDataText(context.getString(R.string.jetpack_chart_data_empty))
+    setNoDataTextColor(ycGetColorRes(R.color.jetpack_chart_x_y_text_color))
+    // 不使用描述文本相关信息
+    description.isEnabled = false
+    legend.isEnabled = false //关闭显示label
+    setBackgroundResource(R.color.white)
+    setDrawHoleEnabled(true)
+    setHoleColor(Color.WHITE)
+    setHoleRadius(58f)
+    setTransparentCircleRadius(61f)
+    setTransparentCircleColor(Color.WHITE)
+    setTransparentCircleAlpha(110)
+    setHighlightPerTapEnabled(false)
+    setRotationEnabled(false)
+    setDrawCenterText(false)
 }
 
 /**
@@ -163,6 +183,15 @@ fun BarLineChartBase<*>.ycChartSetScaleEnabled(enabled: Boolean) {
  * @receiver BarLineChartBase<*>
  */
 fun BarLineChartBase<*>.ycChartRefresh() {
+    notifyDataSetChanged()
+    invalidate() //刷新
+}
+
+/**
+ * 刷新数据
+ * @receiver BarLineChartBase<*>
+ */
+fun PieRadarChartBase<*>.ycChartRefresh() {
     notifyDataSetChanged()
     invalidate() //刷新
 }
@@ -265,6 +294,29 @@ fun YAxis.ycChartSetLimitLine(
     } else {
         limitLines.add(lineIndex, yLimitLine)
     }
+}
+
+
+fun PieChart.ycChartSetLineDataSet(pieDataList: List<PieEntry>, formatter: ((PieEntry) -> String)? = null) {
+    val dataSet = PieDataSet(pieDataList, "")
+    dataSet.axisDependency = YAxis.AxisDependency.LEFT
+    val colors = resources.getStringArray(R.array.yc_pic_chart_colors).map {
+        Color.parseColor(it)
+    }
+    dataSet.colors = colors
+    dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
+    dataSet.setDrawValues(true)
+    if (data == null) {
+        data = PieData(dataSet)
+    } else {
+        this.data.dataSet = dataSet
+    }
+    data.setValueFormatter(object : ValueFormatter() {
+        override fun getPieLabel(value: Float, pieEntry: PieEntry): String {
+            return formatter?.invoke(pieEntry) ?: super.getPieLabel(value, pieEntry)
+        }
+    })
+    ycChartRefresh()
 }
 
 /**
