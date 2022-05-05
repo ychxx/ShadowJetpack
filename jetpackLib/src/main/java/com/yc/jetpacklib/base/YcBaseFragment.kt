@@ -128,7 +128,7 @@ abstract class YcBaseFragment<VB : ViewBinding>(private val createVB: ((LayoutIn
     }
 
     open fun hideLoading() {
-        mYcLoadingDialog.hide()
+        mYcLoadingDialog.dismiss()
     }
 
     protected fun launch(block: suspend () -> Unit) {

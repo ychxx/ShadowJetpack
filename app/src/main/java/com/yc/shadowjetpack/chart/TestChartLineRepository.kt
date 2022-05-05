@@ -16,7 +16,7 @@ class TestChartLineRepository : YcRepository() {
         val xList = mutableListOf<String>()
         val yList = mutableListOf<Float>()
 
-        for (i in 0 until 30) {
+        for (i in 0 until 5) {
             if ((i + 1) / 10 <= 0) {
                 xList.add("08.0${i + 1}")
             } else {

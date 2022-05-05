@@ -46,6 +46,7 @@ fun BarChart.ycChartBarInitDefault() {
     renderer = YcChartBarRenderer(this)
     marker = YcChartMarkerView(this)//单击图表后，显示的提示框
     ycChartAxisYLeftValueInt()//左侧y轴上显示数据为正整数
+
 }
 
 /**
@@ -85,6 +86,7 @@ fun PieChart.ycChartInitDefault() {
     setNoDataText(context.getString(R.string.jetpack_chart_data_empty))
     setNoDataTextColor(ycGetColorRes(R.color.jetpack_chart_x_y_text_color))
     // 不使用描述文本相关信息
+    renderer = YcPieChartRenderer(this)
     description.isEnabled = false
     legend.isEnabled = false //关闭显示label
     setBackgroundResource(R.color.white)
@@ -97,6 +99,7 @@ fun PieChart.ycChartInitDefault() {
     setHighlightPerTapEnabled(false)
     setRotationEnabled(false)
     setDrawCenterText(false)
+    setDrawEntryLabels(false)
 }
 
 /**
@@ -304,6 +307,7 @@ fun PieChart.ycChartSetLineDataSet(pieDataList: List<PieEntry>, formatter: ((Pie
         Color.parseColor(it)
     }
     dataSet.colors = colors
+    dataSet.setValueTextColors(colors)
     dataSet.yValuePosition = PieDataSet.ValuePosition.OUTSIDE_SLICE
     dataSet.setDrawValues(true)
     if (data == null) {

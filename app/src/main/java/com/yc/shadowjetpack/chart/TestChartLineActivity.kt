@@ -40,6 +40,7 @@ class TestChartLineActivity : YcBaseActivityPlus<TestLineChartBinding>(TestLineC
         lcTest.rendererLeftYAxis = YcChartAxisYUnitRenderer(lcTest, "(m)")
         bcTest.ycChartBarInitDefault()
         pcTest.ycChartInitDefault()
+        pcTest.renderer
     }
 
     private fun PieChart.refreshChartInfo(pieData: ChartEntity?) {
