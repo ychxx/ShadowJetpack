@@ -39,7 +39,7 @@ object YcDataStore {
     }
 
     @JvmStatic
-    suspend inline fun getMore(crossinline block: (Preferences) -> Unit) {
+    suspend inline fun getMore(crossinline block: suspend (Preferences) -> Unit) {
         YcJetpack.mInstance.mApplication.ycDataStore.data.map {
             block(it)
             emptyPreferences()

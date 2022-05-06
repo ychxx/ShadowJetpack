@@ -136,10 +136,7 @@ public class YcPieChartRenderer extends PieChartRenderer {
 
         Bitmap drawBitmap = mDrawBitmap == null ? null : mDrawBitmap.get();
 
-        if (drawBitmap == null
-                || (drawBitmap.getWidth() != width)
-                || (drawBitmap.getHeight() != height)) {
-
+        if (drawBitmap == null || (drawBitmap.getWidth() != width) || (drawBitmap.getHeight() != height)) {
             if (width > 0 && height > 0) {
                 drawBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_4444);
                 mDrawBitmap = new WeakReference<>(drawBitmap);
@@ -147,13 +144,9 @@ public class YcPieChartRenderer extends PieChartRenderer {
             } else
                 return;
         }
-
         drawBitmap.eraseColor(Color.TRANSPARENT);
-
         PieData pieData = mChart.getData();
-
         for (IPieDataSet set : pieData.getDataSets()) {
-
             if (set.isVisible() && set.getEntryCount() > 0)
                 drawDataSet(c, set);
         }
@@ -162,14 +155,7 @@ public class YcPieChartRenderer extends PieChartRenderer {
     private Path mPathBuffer = new Path();
     private RectF mInnerRectBuffer = new RectF();
 
-    protected float calculateMinimumRadiusForSpacedSlice(
-            MPPointF center,
-            float radius,
-            float angle,
-            float arcStartPointX,
-            float arcStartPointY,
-            float startAngle,
-            float sweepAngle) {
+    protected float calculateMinimumRadiusForSpacedSlice(MPPointF center, float radius, float angle, float arcStartPointX, float arcStartPointY, float startAngle, float sweepAngle) {
         final float angleMiddle = startAngle + sweepAngle / 2.f;
 
         // Other point of the arc
@@ -181,23 +167,18 @@ public class YcPieChartRenderer extends PieChartRenderer {
         float arcMidPointY = center.y + radius * (float) Math.sin(angleMiddle * Utils.FDEG2RAD);
 
         // This is the base of the contained triangle
-        double basePointsDistance = Math.sqrt(
-                Math.pow(arcEndPointX - arcStartPointX, 2) +
-                        Math.pow(arcEndPointY - arcStartPointY, 2));
+        double basePointsDistance = Math.sqrt(Math.pow(arcEndPointX - arcStartPointX, 2) + Math.pow(arcEndPointY - arcStartPointY, 2));
 
         // After reducing space from both sides of the "slice",
         //   the angle of the contained triangle should stay the same.
         // So let's find out the height of that triangle.
-        float containedTriangleHeight = (float) (basePointsDistance / 2.0 *
-                Math.tan((180.0 - angle) / 2.0 * Utils.DEG2RAD));
+        float containedTriangleHeight = (float) (basePointsDistance / 2.0 * Math.tan((180.0 - angle) / 2.0 * Utils.DEG2RAD));
 
         // Now we subtract that from the radius
         float spacedRadius = radius - containedTriangleHeight;
 
         // And now subtract the height of the arc that's between the triangle and the outer circle
-        spacedRadius -= Math.sqrt(
-                Math.pow(arcMidPointX - (arcEndPointX + arcStartPointX) / 2.f, 2) +
-                        Math.pow(arcMidPointY - (arcEndPointY + arcStartPointY) / 2.f, 2));
+        spacedRadius -= Math.sqrt(Math.pow(arcMidPointX - (arcEndPointX + arcStartPointX) / 2.f, 2) + Math.pow(arcMidPointY - (arcEndPointY + arcStartPointY) / 2.f, 2));
 
         return spacedRadius;
     }
@@ -236,9 +217,7 @@ public class YcPieChartRenderer extends PieChartRenderer {
         final MPPointF center = mChart.getCenterCircleBox();
         final float radius = mChart.getRadius();
         final boolean drawInnerArc = mChart.isDrawHoleEnabled() && !mChart.isDrawSlicesUnderHoleEnabled();
-        final float userInnerRadius = drawInnerArc
-                ? radius * (mChart.getHoleRadius() / 100.f)
-                : 0.f;
+        final float userInnerRadius = drawInnerArc ? radius * (mChart.getHoleRadius() / 100.f) : 0.f;
         final float roundedRadius = (radius - (radius * mChart.getHoleRadius() / 100f)) / 2f;
         final RectF roundedCircleBox = new RectF();
         final boolean drawRoundedSlices = drawInnerArc && mChart.isDrawRoundedSlicesEnabled();
@@ -305,11 +284,7 @@ public class YcPieChartRenderer extends PieChartRenderer {
                     mPathBuffer.arcTo(roundedCircleBox, startAngleOuter + 180, -180);
                 }
 
-                mPathBuffer.arcTo(
-                        circleBox,
-                        startAngleOuter,
-                        sweepAngleOuter
-                );
+                mPathBuffer.arcTo(circleBox, startAngleOuter, sweepAngleOuter);
             }
 
             // API < 21 does not receive floats in addArc, but a RectF
