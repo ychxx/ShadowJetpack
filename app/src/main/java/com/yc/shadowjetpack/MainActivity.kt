@@ -61,6 +61,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 11 -> {
                     startActivity(Intent(this@MainActivity, TestRefreshActivity3::class.java))
                 }
+                12 -> {
+                    startActivity(Intent(this@MainActivity, TestGlideActivity::class.java))
+                }
             }
         }
     }
@@ -90,5 +93,6 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("测试刷新2", 9))
         mAdapter.addData(Item("动态删除pagingData", 10))
         mAdapter.addData(Item("快速替换pagingData", 11))
+        mAdapter.addData(Item("测试Glide", 12))
     }
 }

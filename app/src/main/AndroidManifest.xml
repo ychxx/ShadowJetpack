@@ -37,6 +37,7 @@
         <activity android:name=".TestRefreshActivity2" />
         <activity android:name=".TestRefreshActivity3" />
         <activity android:name=".TestRemovePagingDataActivity" />
+        <activity android:name=".TestGlideActivity" />
 
     </application>
 

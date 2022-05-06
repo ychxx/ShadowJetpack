@@ -5,13 +5,15 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.PointF
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.TypedValue
 import android.view.MotionEvent
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,7 +27,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
@@ -446,10 +450,28 @@ fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int) {
  * 加载资源图片圆角图片(自定义弧度)
  * roundingRadius：px
  */
-fun ImageView.ycLoadImageResCircle(@DrawableRes imgRes: Int, roundingRadius: Int) {
+fun ImageView.ycLoadImageResCircle(
+    @DrawableRes imgRes: Int,
+    roundingRadius: Int,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail,
+) {
     GlideApp.with(context)
         .load(imgRes)
         .transform(CenterCrop(), RoundedCorners(roundingRadius))
+        .into(this)
+}
+
+fun ImageView.ycLoadImageResCircleCenterInside(
+    @DrawableRes imgRes: Int, roundingRadius: Int,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail,
+) {
+    GlideApp.with(context)
+        .load(imgRes)
+        .transform(CenterInside(), RoundedCorners(roundingRadius))
+        .placeholder(placeholderImg)
+        .error(errorImg)
         .into(this)
 }
 
