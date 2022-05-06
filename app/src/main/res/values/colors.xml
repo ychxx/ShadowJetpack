@@ -10,4 +10,19 @@
     <color name="blue">#4792E6</color>
     <color name="yellow">#FFBF50</color>
     <color name="red">#E66060</color>
+    
+    <color name="pie_chart_1">#f07b3f</color>
+    <color name="pie_chart_2">#3490de</color>
+    <color name="pie_chart_3">#6fe7dd</color>
+    <color name="pie_chart_4">#d72323</color>
+    <color name="pie_chart_5">#7e6bc4</color>
+    <color name="pie_chart_6">#f3d7ca</color>
+    <color name="pie_chart_7">#1f5f8b</color>
+    <color name="pie_chart_8">#a7ff83</color>
+    <color name="pie_chart_9">#17b978</color>
+    <color name="pie_chart_10">#ffd2a5</color>
+    <color name="pie_chart_11">#ffffc1</color>
+    <color name="pie_chart_12">#9a0f98</color>
+    <color name="pie_chart_13">#f64662</color>
+    
 </resources>

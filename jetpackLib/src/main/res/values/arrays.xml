@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="yc_pic_chart_colors">
+        <item>#f07b3f</item>
+        <item>#3490de</item>
+        <item>#6fe7dd</item>
+        <item>#d72323</item>
+        <item>#7e6bc4</item>
+        <item>#f3d7ca</item>
+        <item>#1f5f8b</item>
+        <item>#a7ff83</item>
+        <item>#17b978</item>
+        <item>#ffd2a5</item>
+        <item>#ffffc1</item>
+        <item>#9a0f98</item>
+        <item>#f64662</item>
+        <item>#ffa3ac</item>
+        <item>#e4f1fe</item>
+        <item>#27323a</item>
+        <item>#e3ffc3</item>
+        <item>#e43a19</item>
+        <item>#f70776</item>
+        <item>#d7aef3</item>
+        <item>#ffcd38</item>
+        <item>#5432d3</item>
+        <item>#241e92</item>
+        <item>#7b6cf6</item>
+        <item>#364857</item>
+        <item>#89f8ce</item>
+        <item>#4eeaf6</item>
+        <item>#900d0d</item>
+        <item>#cf1b1b</item>
+        <item>#fd2e2e</item>
+        <item>#626eef</item>
+
+    </string-array>
+</resources>
