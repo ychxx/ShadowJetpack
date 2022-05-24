@@ -16,7 +16,12 @@ import com.yc.jetpacklib.R
 /**
  * 通用的对话框
  */
-class YcCommonDialog @JvmOverloads constructor(context: Context, mLifecycleOwner: LifecycleOwner, theme: Int = R.style.YcCommonDialogStyle, isCancelable:Boolean=false) :
+class YcCommonDialog @JvmOverloads constructor(
+    context: Context,
+    mLifecycleOwner: LifecycleOwner,
+    theme: Int = R.style.YcCommonDialogStyle,
+    isCancelable: Boolean = false
+) :
     Dialog(context, theme), YcIDialog<YcCommonDialog> {
     private var mContentView: TextView//内容
     private var mLeftBtn: Button
@@ -119,5 +124,11 @@ class YcCommonDialog @JvmOverloads constructor(context: Context, mLifecycleOwner
     override fun setOnRightClick(onRightClick: YcOnClick): YcCommonDialog {
         mOnRightClick = onRightClick
         return this
+    }
+
+    override fun show() {
+        mRightBtn.visibility = View.VISIBLE
+        mLineV.visibility = View.VISIBLE
+        super.show()
     }
 }

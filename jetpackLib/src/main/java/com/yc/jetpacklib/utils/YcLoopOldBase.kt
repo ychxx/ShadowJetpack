@@ -4,18 +4,17 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.util.concurrent.atomic.AtomicReference
 
 /**
  * Creator: yc
  * Date: 2021/2/20 15:05
  * UseDes:轮询器
  */
-
-open class YcLoopBase(val owner: LifecycleOwner) {
+@Deprecated("由于使用LifecycleOwner.lifecycleScope的协程作用域会导致，在onStop时挂起协程，onResume时才重新启动协程,循环会被暂停。故弃用")
+open class YcLoopOldBase(val owner: LifecycleOwner) {
     companion object {
         fun init(owner: LifecycleOwner, periodTime: Long = 2000L, block: () -> Unit) = lazy {
-            return@lazy YcLoopBase(owner).apply {
+            return@lazy YcLoopOldBase(owner).apply {
                 mPeriodTime = periodTime
                 mBlock = {
                     block()
@@ -50,7 +49,7 @@ open class YcLoopBase(val owner: LifecycleOwner) {
     var mBlock: (() -> Unit)? = null
 
 
-   open fun start(isWait: Boolean = false) {
+    open fun start(isWait: Boolean = false) {
         mJop?.cancel()
         mJop = owner.lifecycleScope.launch {
             if (isWait)

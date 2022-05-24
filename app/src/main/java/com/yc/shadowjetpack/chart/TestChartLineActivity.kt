@@ -79,7 +79,7 @@ class TestChartLineActivity : YcBaseActivityPlus<TestLineChartBinding>(TestLineC
                 addData(YcMarkerEntity(R.drawable.shape_round_test_chart_mask_blue, "标示y2:${data.barEntryList2[it].y}", R.color.red), false)
                 addData(YcMarkerEntity(R.drawable.shape_round_test_chart_mask_red, "标示x:${data.barXList[it]}", R.color.yellow), false)
             }
-            ycChartRefreshAxisXLabelCount(data.barXList.size, 7)
+            ycChartRefreshAxisXLabelCount(data.barXList.size, xShowLabelCount = 7)
             (xAxis.valueFormatter as YcChartFiniteLength).mValues = data.barXList
             ycChartSetBarDataSet(data.barEntryList, ycGetColorRes(R.color.blue), 0, true)
             ycChartSetBarDataSet(data.barEntryList2, ycGetColorRes(R.color.red), 1)

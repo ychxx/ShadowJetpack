@@ -1,4 +1,5 @@
 package com.yc.jetpacklib.utils
+
 import android.text.TextUtils
 import android.util.Log
 import java.text.DateFormat
@@ -219,7 +220,6 @@ object YcTime {
     }
 
 
-
     /**
      * 秒变小时 格式：hh:mm:ss
      */
@@ -235,5 +235,32 @@ object YcTime {
     fun secondToMinute(mTimer: Int): String {
         val minute: Int = mTimer % 3600 / 60
         return java.lang.String.format("%02d:%02d", minute, mTimer % 60)
+    }
+
+    /**
+     * 时间格式转换
+     * @param time String?          输入的时间
+     * @param defaultOut String     默认值
+     * @param formatInput String    输入的格式
+     * @param formatOut String      输出的格式
+     */
+    @JvmStatic
+    fun stringToString(
+        time: String?,
+        defaultOut: String = "",
+        formatInput: String = FORMAT_TIME,
+        formatOut: String = FORMAT_TIME_MONTH_DAY
+    ): String {
+        if (time == null) {
+            return defaultOut
+        }
+        val sdf = SimpleDateFormat(formatInput, Locale.getDefault())
+        return try {
+            val timeDate = sdf.parse(time)
+            SimpleDateFormat(formatOut, Locale.getDefault()).format(timeDate)
+        } catch (e: ParseException) {
+            e.printStackTrace()
+            defaultOut
+        }
     }
 }

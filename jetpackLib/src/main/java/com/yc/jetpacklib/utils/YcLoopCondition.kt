@@ -1,20 +1,21 @@
 package com.yc.jetpacklib.utils
 
 import androidx.lifecycle.*
+import com.yc.jetpacklib.extension.ycIsTrue
 import kotlinx.coroutines.*
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
  * Creator: yc
  * Date: 2022/4/19 16:41
- * UseDes:轮循器(自定义的协程作用域)
+ * UseDes:轮循器-有条件的
  * LifecycleOwner.lifecycleScope的协程作用域会导致，在onStop时挂起协程，onResume时才重新启动协程
  */
-open class YcLoop(val owner: LifecycleOwner) {
+open class YcLoopCondition(val owner: LifecycleOwner) {
     companion object {
         @JvmStatic
-        fun initApply(owner: LifecycleOwner, periodTime: Long = 2000L, block: YcLoop.() -> Unit) = lazy {
-            return@lazy YcLoop(owner).apply {
+        fun initApply(owner: LifecycleOwner, periodTime: Long = 2000L, block: YcLoopCondition.() -> Unit) = lazy {
+            return@lazy YcLoopCondition(owner).apply {
                 mPeriodTime = periodTime
                 block()
             }
@@ -41,6 +42,11 @@ open class YcLoop(val owner: LifecycleOwner) {
     protected val _mPost: MutableLiveData<Any> = MutableLiveData<Any>()
     val mPost: LiveData<Any> = _mPost
 
+    /**
+     * 是否延迟（true 延迟，false 不延迟，立刻执行）
+     */
+    var mIsDelay: (() -> Boolean)? = null
+
     init {
         owner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
@@ -62,6 +68,9 @@ open class YcLoop(val owner: LifecycleOwner) {
             mJop = mScope.launch {
                 if (isWait)
                     delay(mPeriodTime)
+                while (mIsDelay?.invoke().ycIsTrue()) {
+                    delay(100)
+                }
                 if (mState.get() != -1) {
                     _mPost.postValue(0)
                     start(true)
@@ -77,5 +86,4 @@ open class YcLoop(val owner: LifecycleOwner) {
         mJop?.cancel()
         mState.set(-1)
     }
-
 }

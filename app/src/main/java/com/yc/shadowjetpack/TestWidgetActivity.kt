@@ -4,11 +4,6 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.yc.jetpacklib.base.YcBaseActivityPlus
 import com.yc.jetpacklib.extension.ycLoadImageNetCircle
-import com.yc.jetpacklib.extension.ycLoadImageNetFilletDp
-import com.yc.jetpacklib.extension.ycLoadImageResCircle
-import com.yc.jetpacklib.extension.ycSetColorFilter
-import com.yc.jetpacklib.image.GlideApp
-import com.yc.jetpacklib.utils.YcLoop
 import com.yc.shadowjetpack.databinding.TestWidgetBinding
 import java.util.*
 
