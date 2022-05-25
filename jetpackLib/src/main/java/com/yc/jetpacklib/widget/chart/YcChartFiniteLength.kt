@@ -13,10 +13,11 @@ import kotlin.math.roundToInt
 class YcChartFiniteLength(private val maxLength: Int = 5) : ValueFormatter() {
     var mValues: List<String> = listOf()
     override fun getAxisLabel(value: Float, axis: AxisBase): String {
-        return if (mValues.ycIsEmpty() || mValues.size <= value) {
+        val index = abs(value).roundToInt()
+        return if (mValues.ycIsEmpty() || mValues.size <= index) {
             ""
         } else {
-            sub(mValues[abs(value).roundToInt() % mValues.size])
+            sub(mValues[index % mValues.size])
         }
     }
 
