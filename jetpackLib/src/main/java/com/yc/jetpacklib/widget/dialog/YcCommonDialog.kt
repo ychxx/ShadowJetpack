@@ -81,7 +81,7 @@ class YcCommonDialog @JvmOverloads constructor(
     fun showSingle() {
         mRightBtn.visibility = View.GONE
         mLineV.visibility = View.GONE
-        show()
+        super.show()
     }
 
     /**
