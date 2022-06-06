@@ -44,14 +44,14 @@ class PageConfigure : IPageConfigure {
 open class YcRefreshSpecialUtil(
     private val mLifecycleOwner: LifecycleOwner,
     private val mSmartRefreshLayout: SmartRefreshLayout,
-    protected val mAdapter: RecyclerView.Adapter<*>,
+    val mAdapter: RecyclerView.Adapter<*>,
     var mSpecialViewSimple: YcSpecialViewCommon,
     isAutoRefresh: Boolean = true,
     protected val mPageConfigure: IPageConfigure = PageConfigure()
 ) {
-    @PublishedApi
-    internal val `access$mAdapter`: RecyclerView.Adapter<*>
-        get() = mAdapter
+//    @PublishedApi
+//    internal val `access$mAdapter`: RecyclerView.Adapter<*>
+//        get() = mAdapter
 
     suspend fun <Data> Flow<YcResult<YcDataSourceEntity<Data>>>.ycCollect(isShowError: Boolean = false, block: (YcResult<YcDataSourceEntity<Data>>) -> Unit) {
         this.collect {
@@ -68,9 +68,20 @@ open class YcRefreshSpecialUtil(
         this.collect {
             block(it)
             it.doSuccess {
-                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false), isShowError)
+                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Success(false), isShowError)
             }.doFail {
-                mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
+                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
+            }
+        }
+    }
+
+    suspend inline fun <reified Data> Flow<YcResult<Data?>>.ycCollect3(isShowError: Boolean = false, crossinline block: (YcResult<Data?>) -> Unit) {
+        this.collect {
+            block(it)
+            it.doSuccess {
+                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Success(false), isShowError)
+            }.doFail {
+                mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
             }
         }
     }
@@ -177,9 +188,9 @@ open class YcRefreshSpecialUtil(
      */
     fun ycRefreshAndLoadMoreResult(result: YcResult<*>, isShowError: Boolean = false) {
         result.doSuccess {
-            mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Success(false), isShowError)
+            mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Success(false), isShowError)
         }.doFail {
-            mRefreshResult.onCall(`access$mAdapter`.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
+            mRefreshResult.onCall(mAdapter.itemCount > 0, YcRefreshResult.Fail(it), isShowError)
         }
     }
 }
