@@ -16,6 +16,7 @@ import com.yc.jetpacklib.recycleView.YcRefreshResult
 import com.yc.jetpacklib.recycleView.doFail
 import com.yc.jetpacklib.recycleView.doSuccess
 import com.yc.jetpacklib.release.YcSpecialState
+import com.yc.jetpacklib.release.YcSpecialViewCommon
 import com.yc.jetpacklib.release.YcSpecialViewSmart
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.collect
@@ -44,7 +45,7 @@ open class YcRefreshSpecialUtil(
     private val mLifecycleOwner: LifecycleOwner,
     private val mSmartRefreshLayout: SmartRefreshLayout,
     protected val mAdapter: RecyclerView.Adapter<*>,
-    var mSpecialViewSimple: YcSpecialViewSmart,
+    var mSpecialViewSimple: YcSpecialViewCommon,
     isAutoRefresh: Boolean = true,
     protected val mPageConfigure: IPageConfigure = PageConfigure()
 ) {

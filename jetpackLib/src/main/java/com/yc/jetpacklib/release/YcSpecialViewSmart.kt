@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 /**
  *  兼容SmartRefreshLayout
  */
-open class YcSpecialViewSmart(originalView: RecyclerView, private val containerFl: FrameLayout) : YcSpecialViewCommon(originalView) {
+open class YcSpecialViewSmart(originalView: RecyclerView, private val containerFl: FrameLayout?) : YcSpecialViewCommon(originalView) {
     override fun replaceReal() {
         YcReleaseLayoutUtils.replaceSmart(mOriginalView, mReleaseView.invoke(), containerFl)
     }
