@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:focusable="true"
-    android:minHeight="430dp"
+    android:minHeight="340dp"
     android:focusableInTouchMode="true">
 <!--    <ViewStub-->
 <!--        android:id="@+id/releaseActionBar"-->
