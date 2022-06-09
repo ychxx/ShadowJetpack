@@ -239,20 +239,26 @@ fun YAxis.ycChartRefreshAxisYLabelCount(maxY: Float, yLabelCount: Int = 5, blank
  * @receiver BarLineChartBase<*>
  * @param dataSizeX Int         x轴数据的数量
  * @param xShowLabelCount Int?  x轴最多显示数量（默认使用之前设置的）
+ * @param barWidth Float        设置柱状占1一个单位的比例
  */
-fun BarLineChartBase<*>.ycChartRefreshAxisXLabelCount(dataSizeX: Int, xLabelCount: Int = dataSizeX, xShowLabelCount: Int? = null) {
+fun BarLineChartBase<*>.ycChartRefreshAxisXLabelCount(dataSizeX: Int, xLabelCount: Int = dataSizeX, xShowLabelCount: Int? = null, barWidth: Float = 0.3f) {
     val maxShowLabel = if (xShowLabelCount != null) {
-        xAxis.setLabelCount(xShowLabelCount, true)
+        xAxis.labelCount = xShowLabelCount
         xShowLabelCount
     } else {
         xAxis.labelCount
+    }
+    if (data == null) {
+        data = BarData().apply {
+            this.barWidth = barWidth
+        }
     }
     xAxis.axisMinimum = -0.5f//设置x轴最小值
     if (maxShowLabel >= dataSizeX) {
         xAxis.axisMaximum = dataSizeX - 0.5f
         setVisibleXRange(0f, xLabelCount.toFloat())
     } else {
-        xAxis.axisMaximum = dataSizeX - 0.35f //设置x轴最大值(总数+0.35，从0开始)；0.35为右侧边距，条形柱占0.3，左右边距分别为0.35
+        xAxis.axisMaximum = dataSizeX - (1 - barWidth) / 2 //设置x轴最大值(总数+0.35，从0开始)；0.35为右侧边距，条形柱占0.3，左右边距分别为0.35
         setVisibleXRange(0f, xLabelCount + 0.5f) //多展示半个
     }
 }
@@ -364,12 +370,10 @@ fun LineChart.ycChartSetLineDataSet(lineDataList: List<YcEntry>, index: Int = 0)
  * @param color Int                     颜色
  * @param index Int                     标示（用于区分第几条）
  * @param isHighlightEnabled Boolean    是否高亮(必须有一个是，否则 单击后不会显示提示框（即不显示ChartMarker）)
- * @param barWidth Float                设置柱状占1一个单位的比例
  */
-fun BarChart.ycChartSetBarDataSet(barDataList: List<BarEntry>, color: Int, index: Int = 0, isHighlightEnabled: Boolean = false, barWidth: Float = 0.2f) {
+fun BarChart.ycChartSetBarDataSet(barDataList: List<BarEntry>, color: Int, index: Int = 0, isHighlightEnabled: Boolean = false) {
     if (data == null) {
         data = BarData()
-        data.barWidth = barWidth
     }
     if (data.dataSetCount <= index) {
         val dataSet = BarDataSet(barDataList, "" + index)
