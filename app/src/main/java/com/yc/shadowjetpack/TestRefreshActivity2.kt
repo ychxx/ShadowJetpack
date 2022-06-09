@@ -112,7 +112,7 @@ class TestRefreshActivity2 : YcBaseActivityPlus<TestRefreshActivityBinding>(Test
         mRefreshUtil.mRefreshAndLoadMore = { isRefresh: Boolean, pageIndex: Int, pageSize: Int ->
             mViewModel.getPageProxy(mRequestDataType, pageIndex, pageSize).ycCollect {
                 it.doSuccess {
-                    mAdapter.addAllData(it.data, isRefresh)
+                    this@TestRefreshActivity2.mAdapter.addAllData(it.data, isRefresh)
                 }.doFail {
                     showToast(it.msg ?: "请求错误")
                 }

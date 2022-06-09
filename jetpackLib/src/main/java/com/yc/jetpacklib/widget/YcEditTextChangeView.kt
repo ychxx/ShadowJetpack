@@ -22,7 +22,7 @@ class YcEditTextChangeView @JvmOverloads constructor(context: Context, attrs: At
             override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: Editable) {
-                if (TextUtils.isEmpty(mBeforeData) != TextUtils.isEmpty(s.toString())) {
+                if (mBeforeData != s.toString()) {
                     textChanged?.invoke(s.toString())
                 }
                 mBeforeData = s.toString()

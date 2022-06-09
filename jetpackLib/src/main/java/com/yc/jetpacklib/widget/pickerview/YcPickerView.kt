@@ -1,5 +1,3 @@
-@file:Suppress("DUPLICATE_LABEL_IN_WHEN")
-
 package com.yc.jetpacklib.widget.pickerview
 
 import android.app.Activity
@@ -9,7 +7,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.builder.TimePickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.bigkoo.pickerview.view.TimePickerView
-import com.yc.jetpacklib.extension.hideSoftInput
+import com.yc.jetpacklib.extension.ycIsNotEmpty
 import java.util.*
 
 /**
@@ -30,75 +28,45 @@ object YcPickerView {
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     internal annotation class Type
 
-    var pvCondition: OptionsPickerView<String>? = null
-    var pvStartTime: TimePickerView? = null
-    var pvEndTime: TimePickerView? = null
-
     /*默认条件选择器*/
-    fun showDefaultPickerWithCondition(
-        activity: Activity, titleText: String?, pickerList: List<String>,
+    fun setDefaultConditionPicker(
+        activity: Activity,
+        titleText: String? = null,
+        pickerList: List<String>? = null,
         selectCallBack: ((Int, Int, Int, View?) -> Unit)? = null
-    ) {
-        if (pvCondition == null) {
-            pvCondition = OptionsPickerBuilder(activity) { options1: Int, options2: Int, options3: Int, v: View? ->
-                selectCallBack?.invoke(options1, options2, options3, v)
-            }.pickerDefaultStyle(activity).build()
-        }
-        pvCondition?.setTitleText(titleText)
-        pvCondition?.setPicker(pickerList) //二级选择器
-        activity.hideSoftInput()
-        pvCondition?.show()
+    ): OptionsPickerView<String> {
+        val pvCondition: OptionsPickerView<String> = OptionsPickerBuilder(activity) { options1: Int, options2: Int, options3: Int, v: View? ->
+            selectCallBack?.invoke(options1, options2, options3, v)
+        }.pickerDefaultStyle(activity).build()
+        if (titleText.ycIsNotEmpty()) pvCondition.setTitleText(titleText)
+        if (pickerList.ycIsNotEmpty()) pvCondition.setPicker(pickerList) //二级选择器
+        return pvCondition
     }
 
 
     /*时间选择器*/
-    fun showStartTimePicker(
-        activity: Activity, @Type type: String, titleText: String? = null, selectedDefaultValue: Calendar? = null,
+    fun setTimePicker(
+        activity: Activity,
+        @Type type: String,
+        titleText: String? = null,
+        selectedDefaultValue: Calendar? = null,
         selectCallBack: ((Date, View?) -> Unit)? = null
-    ) {
-        if (pvStartTime == null) {
-            pvStartTime = TimePickerBuilder(activity) { date, v ->
-                selectCallBack?.invoke(date, v)
-            }.apply {
-                when (type) {
-                    YearMonthDate -> setType(booleanArrayOf(true, true, true, false, false, false))//只显示年月日
-                    YearMonth -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
-                    HourMinute -> setType(booleanArrayOf(false, false, false, true, true, false))//只显示时分
-                    else -> setType(booleanArrayOf(true, true, true, true, true, true))//只显示年月
-                }
-            }.timePickerStyle(activity).build()
-        }
-        pvStartTime?.setTimePickerDialogStyle()
-        pvStartTime?.setTitleText(titleText)
-        if (selectedDefaultValue != null) pvStartTime?.setDate(selectedDefaultValue)
-        activity.hideSoftInput()
-        pvStartTime?.show()
+    ): TimePickerView {
+        val pvTime = TimePickerBuilder(activity) { date, v ->
+            selectCallBack?.invoke(date, v)
+        }.apply {
+            when (type) {
+                YearMonthDate -> setType(booleanArrayOf(true, true, true, false, false, false))//只显示年月日
+                YearMonth -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
+                HourMinute -> setType(booleanArrayOf(false, false, false, true, true, false))//只显示时分
+                else -> setType(booleanArrayOf(true, true, true, true, true, true))//只显示年月
+            }
+        }.timePickerStyle(activity).build()
+        pvTime.setTimePickerDialogStyle()
+        if (titleText.ycIsNotEmpty()) pvTime.setTitleText(titleText)
+        if (selectedDefaultValue != null) pvTime.setDate(selectedDefaultValue)
+        return pvTime
     }
-
-    fun showEndTimePicker(
-        activity: Activity, @Type type: String, titleText: String? = null, selectedDefaultValue: Calendar? = null,
-        selectCallBack: ((Date, View?) -> Unit)? = null
-    ) {
-        if (pvEndTime == null) {
-            pvEndTime = TimePickerBuilder(activity) { date, v ->
-                selectCallBack?.invoke(date, v)
-            }.apply {
-                when (type) {
-                    YearMonthDate -> setType(booleanArrayOf(true, true, true, false, false, false))//只显示年月日
-                    YearMonth -> setType(booleanArrayOf(true, true, false, false, false, false))//只显示年月
-                    HourMinute -> setType(booleanArrayOf(false, false, false, true, true, false))//只显示时分
-                    else -> setType(booleanArrayOf(true, true, true, true, true, true))//只显示年月
-                }
-            }.timePickerStyle(activity).build()
-        }
-        pvEndTime?.setTimePickerDialogStyle()
-        pvEndTime?.setTitleText(titleText)
-        if (selectedDefaultValue != null) pvEndTime?.setDate(selectedDefaultValue)
-        activity.hideSoftInput()
-        pvEndTime?.show()
-    }
-
-
 }
 
 
