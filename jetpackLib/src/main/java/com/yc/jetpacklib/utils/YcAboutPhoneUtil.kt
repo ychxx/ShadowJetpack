@@ -11,7 +11,7 @@ import com.yc.jetpacklib.extension.showToast
  * Date: 2022-06-09
  * UseDes:关于手机工具
  */
-object AboutPhoneUtils {
+object YcAboutPhoneUtil {
 
 
     /*
