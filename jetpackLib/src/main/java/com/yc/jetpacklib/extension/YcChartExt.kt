@@ -249,10 +249,9 @@ fun BarLineChartBase<*>.ycChartRefreshAxisXLabelCount(dataSizeX: Int, xLabelCoun
         xAxis.labelCount
     }
     if (data == null) {
-        data = BarData().apply {
-            this.barWidth = barWidth
-        }
+        data = BarData()
     }
+    (data as BarData).barWidth = barWidth
     xAxis.axisMinimum = -0.5f//设置x轴最小值
     if (maxShowLabel >= dataSizeX) {
         xAxis.axisMaximum = dataSizeX - 0.5f
