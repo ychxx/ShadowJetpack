@@ -51,4 +51,41 @@ class YcSwitchFragmentUtil {
         }
     }
 
+    /*
+    * 隐藏fragment
+    * */
+    fun hideFragment(itemId: Int): Boolean {
+        return try {
+            val trx = mFragmentManager.beginTransaction()
+            val fragment = mFragmentMap[itemId]
+            if (fragment!!.isAdded) {
+                trx.hide(mFragmentMap[itemId]!!)
+            }
+            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
+
+
+    /*
+    * 恢复隐藏的fragment
+    * */
+    fun showFragment(itemId: Int): Boolean {
+        return try {
+            val trx = mFragmentManager.beginTransaction()
+            val fragment = mFragmentMap[itemId]
+            if (fragment!!.isAdded) {
+                trx.show(mFragmentMap[itemId]!!)
+                true
+            } else {
+                trx.add(mContainerViewId, fragment)
+                false
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            false
+        }
+    }
 }
