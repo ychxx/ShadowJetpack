@@ -59,7 +59,7 @@ class YcSwitchFragmentUtil {
             val trx = mFragmentManager.beginTransaction()
             val fragment = mFragmentMap[itemId]
             if (fragment!!.isAdded) {
-                trx.hide(mFragmentMap[itemId]!!)
+                trx.hide(fragment)
             }
             true
         } catch (e: Exception) {
@@ -77,7 +77,7 @@ class YcSwitchFragmentUtil {
             val trx = mFragmentManager.beginTransaction()
             val fragment = mFragmentMap[itemId]
             if (fragment!!.isAdded) {
-                trx.show(mFragmentMap[itemId]!!)
+                trx.show(fragment)
                 true
             } else {
                 trx.add(mContainerViewId, fragment)
