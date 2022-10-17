@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btnTestPermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="获取权限" />
+
+    <Button
+        android:id="@+id/btnTestConfig1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="配置format:NB_encoder:NB" />
+
+
+    <Button
+        android:id="@+id/btnTestConfig4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="配置format:WB_encoder:WB" />
+
+    <Button
+        android:id="@+id/btnTestStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="开始" />
+
+    <Button
+        android:id="@+id/btnTestEnd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="结束" />
+</LinearLayout>

@@ -24,7 +24,6 @@ class TestWidgetActivity : YcBaseActivityPlus<TestWidgetBinding>(TestWidgetBindi
     override fun TestWidgetBinding.initView() {
 //        loop.start(true)
         this.ring.setText("1234", "/6070")
-        ivAvater.ycLoadImageNetCircle(null, Date().toInstant().toString(), R.drawable.ic_avater_default, R.drawable.ic_avater_default)
 
         //ivAvater.ycLoadImageNetCircle(null, R.drawable.ic_avater_default, R.drawable.ic_avater_default)
 

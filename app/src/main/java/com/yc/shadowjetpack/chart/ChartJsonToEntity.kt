@@ -20,12 +20,15 @@ class ChartJsonToEntity : IMapper<ChartJson?, ChartEntity?> {
             val barEntry: MutableList<BarEntry> = mutableListOf()
             val barEntry2: MutableList<BarEntry> = mutableListOf()
             val pieEntry: MutableList<PieEntry> = mutableListOf()
+            pieEntry.add(PieEntry(200f,"111"))
+            pieEntry.add(PieEntry(200f,"222"))
+            pieEntry.add(PieEntry(200f,"333"))
             var yMax = 0f
             for ((i, item) in input.yList!!.withIndex()) {
                 //间隔5，且最后一个定点也显示
                 barEntry.add(BarEntry(i.toFloat(), item))
                 barEntry2.add(BarEntry(i.toFloat(), item / 2))
-                pieEntry.add(PieEntry(i.toFloat(), item))
+//                pieEntry.add(PieEntry(i.toFloat(), item))
                 entry.add(YcEntry(i.toFloat(), item, (i == input.yList.size - 1) || i % 5 == 0))
                 if (item > yMax) {
                     yMax = item

@@ -27,6 +27,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.Headers
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
@@ -297,6 +299,12 @@ fun ImageView.ycLoadImageNet(imageNet: String?, placeholderImg: Int = YcJetpack.
         .into(this)
 }
 
+fun ImageView.ycLoadImageHeader(imageNet: String?, headerMap: Map<String, String>) {
+    GlideApp.with(context)
+        .asBitmap()
+        .load(GlideUrl(imageNet) { headerMap })
+        .into(this)
+}
 
 /**
  * 加载网络图片（圆形）

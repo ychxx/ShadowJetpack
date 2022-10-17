@@ -10,6 +10,7 @@ import com.yc.shadowjetpack.chart.TestChartLineActivity
 import com.yc.shadowjetpack.databinding.ActivityMainBinding
 import com.yc.shadowjetpack.databinding.TestItemBinding
 import com.yc.shadowjetpack.socket.TestSocketActivity
+import com.yc.shadowjetpack.web.TestWebViewActivity
 
 data class Item(val content: String, val code: Int)
 class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding::inflate) {
@@ -64,6 +65,16 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 12 -> {
                     startActivity(Intent(this@MainActivity, TestGlideActivity::class.java))
                 }
+                13 -> {
+                    startActivity(Intent(this@MainActivity, TestSoundActivity::class.java))
+                }
+                14 -> {
+                    startActivity(Intent(this@MainActivity, TestWebViewActivity::class.java))
+                }
+                15 -> {
+                    startActivity(Intent(this@MainActivity, TestNetActivity::class.java))
+                }
+
             }
         }
     }
@@ -81,6 +92,8 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
     override fun ActivityMainBinding.initView() {
         rv.ycInitLinearLayoutManage()
         rv.adapter = mAdapter
+        mAdapter.addData(Item("测试webView", 14))
+        mAdapter.addData(Item("测试请求", 15))
         mAdapter.addData(Item("测试加载框", 0))
         mAdapter.addData(Item("测试替换布局", 1))
         mAdapter.addData(Item("测试替换布局2", 2))
@@ -94,5 +107,6 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("动态删除pagingData", 10))
         mAdapter.addData(Item("快速替换pagingData", 11))
         mAdapter.addData(Item("测试Glide", 12))
+        mAdapter.addData(Item("测试录音", 13))
     }
 }

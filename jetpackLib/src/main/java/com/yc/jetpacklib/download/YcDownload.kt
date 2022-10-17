@@ -96,10 +96,11 @@ class YcDownload(val mConfig: YcDownloadConfig) {
         }
     }
 
-    fun start() {
+    fun start(changeRequestParams: ((params: RequestParams) -> Unit)? = null) {
         stop()
         val urlEncode: String = urlToEncode(mConfig.url)
         val requestParams = RequestParams(urlEncode) // 下载地址
+        changeRequestParams?.invoke(requestParams)
         YcFileUtils.createFile(mConfig.saveFilePath)
         requestParams.saveFilePath = mConfig.saveFilePath // 为RequestParams设置文件下载后的保存路径
         callback = x.http().get(requestParams, object : Callback.ProgressCallback<File?> {

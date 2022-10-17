@@ -110,7 +110,7 @@ dependencies {
     api "com.google.code.gson:gson:$gson_version"
 
     /**--下载--**/
-    implementation "org.xutils:xutils:$xutils_version"
+    api "org.xutils:xutils:$xutils_version"
 
     /**-- 加载更多和刷新 --**/
     api "io.github.scwang90:refresh-layout-kernel:$smart_refresh_version"      //核心必须依赖

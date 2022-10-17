@@ -4,7 +4,10 @@ import android.content.Context
 import com.bumptech.glide.module.AppGlideModule
 import com.bumptech.glide.GlideBuilder
 import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.load.model.GlideUrl
+import com.bumptech.glide.load.model.Headers
 import com.bumptech.glide.request.RequestOptions
+import com.google.common.collect.Multimap
 import com.yc.jetpacklib.init.YcJetpack
 
 /**

@@ -98,7 +98,7 @@ class YcEditTextNum @JvmOverloads constructor(context: Context, attrs: Attribute
         mEditText?.isClickable = isInputAble
         mEditText?.isFocusable = isInputAble
         mEditText?.isEnabled = isInputAble
-        mEditText?.setFocusableInTouchMode(isInputAble);
+        mEditText?.isFocusableInTouchMode = isInputAble
         if (isInputAble) {
             mLimitTv?.visibility = VISIBLE
             mNumTv?.visibility = VISIBLE
