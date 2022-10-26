@@ -74,6 +74,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 15 -> {
                     startActivity(Intent(this@MainActivity, TestNetActivity::class.java))
                 }
+                16 -> {
+                    startActivity(Intent(this@MainActivity, TestSendMssActivity::class.java))
+                }
 
             }
         }
@@ -108,5 +111,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
         mAdapter.addData(Item("快速替换pagingData", 11))
         mAdapter.addData(Item("测试Glide", 12))
         mAdapter.addData(Item("测试录音", 13))
+        mAdapter.addData(Item("测试录音", 16))
+
     }
 }

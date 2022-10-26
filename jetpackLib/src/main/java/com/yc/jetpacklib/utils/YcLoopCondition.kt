@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * UseDes:轮循器-有条件的
  * LifecycleOwner.lifecycleScope的协程作用域会导致，在onStop时挂起协程，onResume时才重新启动协程
  */
-open class YcLoopCondition(val owner: LifecycleOwner) {
+open class YcLoopCondition(val owner: LifecycleOwner? = null) {
     companion object {
         @JvmStatic
         fun initApply(owner: LifecycleOwner, periodTime: Long = 2000L, block: YcLoopCondition.() -> Unit) = lazy {
@@ -48,7 +48,7 @@ open class YcLoopCondition(val owner: LifecycleOwner) {
     var mIsDelay: (() -> Boolean)? = null
 
     init {
-        owner.lifecycle.addObserver(object : DefaultLifecycleObserver {
+        owner?.lifecycle?.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
                 finish()
                 mScope.cancel()

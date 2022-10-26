@@ -11,6 +11,8 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:name=".App"
@@ -90,6 +92,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestNetActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestSendMssActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
