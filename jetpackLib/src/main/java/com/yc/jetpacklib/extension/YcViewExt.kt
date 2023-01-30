@@ -299,6 +299,18 @@ fun ImageView.ycLoadImageNet(imageNet: String?, placeholderImg: Int = YcJetpack.
         .into(this)
 }
 
+fun ImageView.ycLoadImageNetLong(imageNet: String?,
+                                 placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+                                 errorImg: Int = YcJetpack.mInstance.mImgIdResFail) {
+    GlideApp.with(context)
+        .asBitmap()
+        .placeholder(placeholderImg)
+        .error(errorImg)
+        .override(com.bumptech.glide.request.target.Target.SIZE_ORIGINAL, com.bumptech.glide.request.target.Target.SIZE_ORIGINAL)
+        .load(imageNet)
+        .into(this)
+}
+
 fun ImageView.ycLoadImageHeader(imageNet: String?, headerMap: Map<String, String>) {
     GlideApp.with(context)
         .asBitmap()
