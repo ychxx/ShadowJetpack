@@ -205,7 +205,6 @@ object YcTime {
     //long类型的时间转换成String类型
     fun longToString(time: Long, format: String): String {
         val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
-        simpleDateFormat.timeZone = TimeZone.getTimeZone("GMT+00:00")
         return simpleDateFormat.format(Date(time))
     }
 

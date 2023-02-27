@@ -2,6 +2,7 @@ package com.yc.jetpacklib.vue3
 
 import android.webkit.WebChromeClient
 import androidx.annotation.IntDef
+import com.yc.jetpacklib.extension.ycIsNotEmpty
 
 /**
  * Creator: yc
@@ -55,43 +56,86 @@ object YcVueSelectorUtil {
     const val SPEECH_RECOGNITION = 50
 
     /**
+     * 跳转到身份证扫描-正面
+     */
+    const val ID_CARD_SCAN_FRONT = 60
+
+    /**
+     * 跳转到身份证扫描-反面
+     */
+    const val ID_CARD_SCAN_BACK = 61
+
+    /**
+     * 跳转到人脸识别
+     */
+    const val FACE_SCAN = 70
+
+    /**
      * 未知
      */
     const val ERROR = -1
 
-    @IntDef(IMG_SELECT, IMG_CAMERA, VIDEO_SELECT, VIDEO_CAMERA, IMG_SELECT_1, IMG_CAMERA_1, VIDEO_SELECT_1, VIDEO_CAMERA_1, SPEECH_RECOGNITION, ERROR)
+    @IntDef(IMG_SELECT,
+            IMG_CAMERA,
+            VIDEO_SELECT,
+            VIDEO_CAMERA,
+            IMG_SELECT_1,
+            IMG_CAMERA_1,
+            VIDEO_SELECT_1,
+            VIDEO_CAMERA_1,
+            SPEECH_RECOGNITION,
+            ERROR,
+            ID_CARD_SCAN_FRONT,
+            ID_CARD_SCAN_BACK,
+            FACE_SCAN)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class SelectorType {}
 
     val VUE_ACCEPT = listOf(
-        "application/alto-costmap+json",
-        "application/alto-costmapfilter+json",
-        "application/alto-directory+json",
-        "application/alto-endpointprop+json",
-        "application/alto-endpointpropparams+json",
-        "application/alto-endpointcost+json",
-        "application/alto-endpointcostparams+json",
-        "application/alto-error+json",
-        "application/alto-networkmapfilter+json",
-        "application/alto-networkmap+json"
+        "*/*",
+        "*/*,image/*",
+        "*/*,audio/*",
+        "*/*,video/*",
+        "*/*,image/*,audio/*",
+        "*/*,image/*,video/*",
+        "*/*,audio/*,video/*",
+        "*/*,image/*,audio/*,video/*",
+        "audio/*",
+        "image/*",
+        "image/*,audio/*",
+        "image/*,video/*",
+        "image/*,audio/*,video/*",
+        "audio/*",
+        "audio/*,video/*"
     )
-    val ANDROID_ACCEPT =
-        listOf(IMG_SELECT, IMG_CAMERA, VIDEO_SELECT, VIDEO_CAMERA, IMG_SELECT_1, IMG_CAMERA_1, VIDEO_SELECT_1, VIDEO_CAMERA_1, SPEECH_RECOGNITION, ERROR)
+    val ANDROID_ACCEPT = listOf(IMG_SELECT,
+                                IMG_CAMERA,
+                                VIDEO_SELECT,
+                                VIDEO_CAMERA,
+                                IMG_SELECT_1,
+                                IMG_CAMERA_1,
+                                VIDEO_SELECT_1,
+                                VIDEO_CAMERA_1,
+                                SPEECH_RECOGNITION,
+                                ERROR,
+                                ID_CARD_SCAN_FRONT,
+                                ID_CARD_SCAN_BACK,
+                                FACE_SCAN)
 
     @SelectorType
     @JvmStatic
     fun acceptVueToAndroid(fileChooserParams: WebChromeClient.FileChooserParams?): Int {
         var accept = ""
         fileChooserParams?.acceptTypes?.forEach {
-            accept += it
+            accept += if (accept.ycIsNotEmpty()) {
+                ",${it}"
+            } else {
+                it
+            }
         }
         VUE_ACCEPT.forEachIndexed { index: Int, item ->
-            if (accept.contains(item)) {
-                return if (index < ANDROID_ACCEPT.size) {
-                    ANDROID_ACCEPT[index]
-                } else {
-                    ERROR
-                }
+            if (accept == item) {
+                return ANDROID_ACCEPT[index]
             }
         }
         return ERROR
