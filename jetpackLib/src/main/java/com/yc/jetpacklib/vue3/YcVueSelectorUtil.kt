@@ -117,7 +117,6 @@ object YcVueSelectorUtil {
                                 VIDEO_SELECT_1,
                                 VIDEO_CAMERA_1,
                                 SPEECH_RECOGNITION,
-                                ERROR,
                                 ID_CARD_SCAN_FRONT,
                                 ID_CARD_SCAN_BACK,
                                 FACE_SCAN)
