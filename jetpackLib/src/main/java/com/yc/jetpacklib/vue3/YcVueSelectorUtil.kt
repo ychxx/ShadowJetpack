@@ -100,7 +100,7 @@ object YcVueSelectorUtil {
         "*/*,image/*,video/*",
         "*/*,audio/*,video/*",
         "*/*,image/*,audio/*,video/*",
-        "audio/*",
+        "video/*",
         "image/*",
         "image/*,audio/*",
         "image/*,video/*",
