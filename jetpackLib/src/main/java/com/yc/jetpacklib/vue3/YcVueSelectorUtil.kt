@@ -70,6 +70,12 @@ object YcVueSelectorUtil {
      */
     const val FACE_SCAN = 70
 
+
+    /**
+     * 跳转到裂缝测量
+     */
+    const val MEASURE_CRACK = 80
+
     /**
      * 未知
      */
@@ -84,10 +90,11 @@ object YcVueSelectorUtil {
             VIDEO_SELECT_1,
             VIDEO_CAMERA_1,
             SPEECH_RECOGNITION,
-            ERROR,
             ID_CARD_SCAN_FRONT,
             ID_CARD_SCAN_BACK,
-            FACE_SCAN)
+            FACE_SCAN,
+            MEASURE_CRACK,
+            ERROR)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class SelectorType {}
 
@@ -119,7 +126,8 @@ object YcVueSelectorUtil {
                                 SPEECH_RECOGNITION,
                                 ID_CARD_SCAN_FRONT,
                                 ID_CARD_SCAN_BACK,
-                                FACE_SCAN)
+                                FACE_SCAN,
+                                MEASURE_CRACK)
 
     @SelectorType
     @JvmStatic
