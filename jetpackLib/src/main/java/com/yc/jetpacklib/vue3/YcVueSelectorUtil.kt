@@ -77,6 +77,10 @@ object YcVueSelectorUtil {
     const val MEASURE_CRACK = 80
 
     /**
+     * 文件选择
+     */
+    const val FILE_SELECT = 100
+    /**
      * 未知
      */
     const val ERROR = -1
@@ -94,6 +98,7 @@ object YcVueSelectorUtil {
             ID_CARD_SCAN_BACK,
             FACE_SCAN,
             MEASURE_CRACK,
+            FILE_SELECT,
             ERROR)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class SelectorType {}
@@ -127,7 +132,8 @@ object YcVueSelectorUtil {
                                 ID_CARD_SCAN_FRONT,
                                 ID_CARD_SCAN_BACK,
                                 FACE_SCAN,
-                                MEASURE_CRACK)
+                                MEASURE_CRACK,
+                                FILE_SELECT)
 
     @SelectorType
     @JvmStatic
