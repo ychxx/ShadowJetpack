@@ -4,6 +4,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import java.util.*
+import kotlin.reflect.KProperty1
 
 /**
  * Creator: yc
@@ -23,18 +24,10 @@ object YcActivityManager {
         activity.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
                 super.onDestroy(owner)
-                finishActivity(activity)
+                mActivityStack.remove(activity)
             }
         })
         mActivityStack.push(activity)
-    }
-
-    /**
-     * 从堆栈中移除指定的Activity
-     */
-    @JvmStatic
-    fun finishActivity(activity: FragmentActivity) {
-        mActivityStack.remove(activity)
     }
 
     /**
@@ -50,18 +43,6 @@ object YcActivityManager {
     }
 
     /**
-     * 结束除当前传入以外所有Activity
-     */
-    @JvmStatic
-    fun returnToActivity(activity: Class<FragmentActivity>) {
-        for (i in mActivityStack.size - 1..0) {
-            if (activity == mActivityStack[i]::class.java) {
-                mActivityStack[i].finish()
-            }
-        }
-    }
-
-    /**
      * 从堆栈中移除所有Activity
      */
     @JvmStatic
@@ -69,21 +50,19 @@ object YcActivityManager {
         for (activity in mActivityStack) {
             activity.finish()
         }
-        mActivityStack.clear()
     }
 
     /**
      * 结束除当前传入以外所有Activity
      */
     @JvmStatic
-    fun finishOthersActivity(activity: FragmentActivity) {
+    fun <T>finishOthersActivity(activityClass : Class<T>) {
         for (itemActivity in mActivityStack) {
-            if (activity !== itemActivity) {
+            if (activityClass != itemActivity.javaClass) {
                 itemActivity.finish()
             }
         }
     }
-
 
     /**
      * 获取到当前显示Activity（堆栈中最后一个传入的activity）
