@@ -51,6 +51,11 @@ object YcVueSelectorUtil {
     const val VIDEO_CAMERA_1 = 41
 
     /**
+     * 音频选择
+     */
+    const val AUDIO_SELECT = 51
+
+    /**
      * 语音识别
      */
     const val SPEECH_RECOGNITION = 50
@@ -80,6 +85,7 @@ object YcVueSelectorUtil {
      * 文件选择
      */
     const val FILE_SELECT = 100
+
     /**
      * 未知
      */
@@ -99,41 +105,46 @@ object YcVueSelectorUtil {
             FACE_SCAN,
             MEASURE_CRACK,
             FILE_SELECT,
+            AUDIO_SELECT,
             ERROR)
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class SelectorType {}
 
     val VUE_ACCEPT = listOf(
+        "image/*",
+        "video/*",
+        "audio/*",
         "*/*",
         "*/*,image/*",
+        "video/*,audio/*",
+        "*/*,image/*,audio/*",
+        "image/*,video/*",
         "*/*,audio/*",
         "*/*,video/*",
-        "*/*,image/*,audio/*",
         "*/*,image/*,video/*",
         "*/*,audio/*,video/*",
         "*/*,image/*,audio/*,video/*",
-        "video/*",
-        "image/*",
         "image/*,audio/*",
         "image/*,video/*",
         "image/*,audio/*,video/*",
-        "audio/*",
-        "audio/*,video/*"
     )
-    val ANDROID_ACCEPT = listOf(IMG_SELECT,
-                                IMG_CAMERA,
-                                VIDEO_SELECT,
-                                VIDEO_CAMERA,
-                                IMG_SELECT_1,
-                                IMG_CAMERA_1,
-                                VIDEO_SELECT_1,
-                                VIDEO_CAMERA_1,
-                                SPEECH_RECOGNITION,
-                                ID_CARD_SCAN_FRONT,
-                                ID_CARD_SCAN_BACK,
-                                FACE_SCAN,
-                                MEASURE_CRACK,
-                                FILE_SELECT)
+    val ANDROID_ACCEPT = listOf(
+        IMG_SELECT,
+        VIDEO_SELECT,
+        AUDIO_SELECT,
+        FILE_SELECT,
+        IMG_CAMERA,
+        VIDEO_CAMERA,
+        IMG_SELECT_1,
+        IMG_CAMERA_1,
+        VIDEO_SELECT_1,
+        VIDEO_CAMERA_1,
+        SPEECH_RECOGNITION,
+        ID_CARD_SCAN_FRONT,
+        ID_CARD_SCAN_BACK,
+        FACE_SCAN,
+        MEASURE_CRACK,
+    )
 
     @SelectorType
     @JvmStatic
