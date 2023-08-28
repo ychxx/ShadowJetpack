@@ -81,32 +81,42 @@ object YcVueSelectorUtil {
      */
     const val MEASURE_CRACK = 80
 
+
     /**
      * 文件选择
      */
     const val FILE_SELECT = 100
 
     /**
+     * 跳转到活体检测
+     */
+    const val LIVING_BODY_TES = 120
+
+
+    /**
      * 未知
      */
     const val ERROR = -1
 
-    @IntDef(IMG_SELECT,
-            IMG_CAMERA,
-            VIDEO_SELECT,
-            VIDEO_CAMERA,
-            IMG_SELECT_1,
-            IMG_CAMERA_1,
-            VIDEO_SELECT_1,
-            VIDEO_CAMERA_1,
-            SPEECH_RECOGNITION,
-            ID_CARD_SCAN_FRONT,
-            ID_CARD_SCAN_BACK,
-            FACE_SCAN,
-            MEASURE_CRACK,
-            FILE_SELECT,
-            AUDIO_SELECT,
-            ERROR)
+    @IntDef(
+        IMG_SELECT,
+        IMG_CAMERA,
+        VIDEO_SELECT,
+        VIDEO_CAMERA,
+        IMG_SELECT_1,
+        IMG_CAMERA_1,
+        VIDEO_SELECT_1,
+        VIDEO_CAMERA_1,
+        SPEECH_RECOGNITION,
+        ID_CARD_SCAN_FRONT,
+        ID_CARD_SCAN_BACK,
+        FACE_SCAN,
+        MEASURE_CRACK,
+        FILE_SELECT,
+        AUDIO_SELECT,
+        LIVING_BODY_TES,
+        ERROR
+    )
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
     annotation class SelectorType {}
 
@@ -127,6 +137,7 @@ object YcVueSelectorUtil {
         "image/*,audio/*",
         "image/*,video/*",
         "image/*,audio/*,video/*",
+        "image/*,video/*",
     )
     val ANDROID_ACCEPT = listOf(
         IMG_SELECT,
@@ -144,6 +155,7 @@ object YcVueSelectorUtil {
         ID_CARD_SCAN_BACK,
         FACE_SCAN,
         MEASURE_CRACK,
+        LIVING_BODY_TES,
     )
 
     @SelectorType
