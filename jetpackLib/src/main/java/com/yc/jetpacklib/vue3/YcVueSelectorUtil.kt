@@ -90,7 +90,7 @@ object YcVueSelectorUtil {
     /**
      * 跳转到活体检测
      */
-    const val LIVING_BODY_TES = 120
+    const val LIVING_BODY_TEST = 120
 
 
     /**
@@ -114,7 +114,7 @@ object YcVueSelectorUtil {
         MEASURE_CRACK,
         FILE_SELECT,
         AUDIO_SELECT,
-        LIVING_BODY_TES,
+        LIVING_BODY_TEST,
         ERROR
     )
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
@@ -137,7 +137,6 @@ object YcVueSelectorUtil {
         "image/*,audio/*",
         "image/*,video/*",
         "image/*,audio/*,video/*",
-        "image/*,video/*",
     )
     val ANDROID_ACCEPT = listOf(
         IMG_SELECT,
@@ -155,7 +154,7 @@ object YcVueSelectorUtil {
         ID_CARD_SCAN_BACK,
         FACE_SCAN,
         MEASURE_CRACK,
-        LIVING_BODY_TES,
+        LIVING_BODY_TEST,
     )
 
     @SelectorType
