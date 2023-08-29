@@ -43,7 +43,10 @@ class TestWebViewActivity : YcBaseActivityPlus<TestWebViewActivityBinding>(TestW
                 YcVueSelectorUtil.SPEECH_RECOGNITION -> {
                     mYcWebChromeClient.setOpenImgResult(it)
                 }
-                YcVueSelectorUtil.IMG_SELECT_1, YcVueSelectorUtil.IMG_CAMERA_1, YcVueSelectorUtil.VIDEO_SELECT_1, YcVueSelectorUtil.VIDEO_CAMERA_1, YcVueSelectorUtil.ERROR -> {
+                YcVueSelectorUtil.IMG_CAMERA_WITNESS_SAMPLE -> {
+                    mYcWebChromeClient.setOpenImgResult(it)//TODO
+                }
+                YcVueSelectorUtil.IMG_SELECT_1, YcVueSelectorUtil.VIDEO_SELECT_1, YcVueSelectorUtil.VIDEO_CAMERA_1, YcVueSelectorUtil.ERROR -> {
                     mYcWebChromeClient.setOpenImgResult(it)
                 }
             }
@@ -69,7 +72,7 @@ class TestWebViewActivity : YcBaseActivityPlus<TestWebViewActivityBinding>(TestW
                         mYcWebChromeClient.setOpenImgResult(null)
                         showToast("语音识别")
                     }
-                    YcVueSelectorUtil.IMG_SELECT_1, YcVueSelectorUtil.IMG_CAMERA_1, YcVueSelectorUtil.VIDEO_SELECT_1, YcVueSelectorUtil.VIDEO_CAMERA_1, YcVueSelectorUtil.ERROR -> {
+                    YcVueSelectorUtil.IMG_SELECT_1, YcVueSelectorUtil.IMG_CAMERA_WITNESS_SAMPLE, YcVueSelectorUtil.VIDEO_SELECT_1, YcVueSelectorUtil.VIDEO_CAMERA_1, YcVueSelectorUtil.ERROR -> {
                         mYcWebChromeClient.setOpenImgResult(null)
                         showToast("未知,请更新app")
                     }

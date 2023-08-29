@@ -36,9 +36,9 @@ object YcVueSelectorUtil {
     const val IMG_SELECT_1 = 11
 
     /**
-     * 拍照自定义1
+     * 见证取样自定义相机
      */
-    const val IMG_CAMERA_1 = 21
+    const val IMG_CAMERA_WITNESS_SAMPLE = 21
 
     /**
      * 视频选择自定义1
@@ -104,7 +104,7 @@ object YcVueSelectorUtil {
         VIDEO_SELECT,
         VIDEO_CAMERA,
         IMG_SELECT_1,
-        IMG_CAMERA_1,
+        IMG_CAMERA_WITNESS_SAMPLE,//见证取样自定义相机
         VIDEO_SELECT_1,
         VIDEO_CAMERA_1,
         SPEECH_RECOGNITION,
@@ -135,8 +135,7 @@ object YcVueSelectorUtil {
         "*/*,audio/*,video/*",
         "*/*,image/*,audio/*,video/*",
         "image/*,audio/*",
-        "image/*,video/*",
-        "image/*,audio/*,video/*",
+        "image/*,audio/*,video/*"
     )
     val ANDROID_ACCEPT = listOf(
         IMG_SELECT,
@@ -146,7 +145,7 @@ object YcVueSelectorUtil {
         IMG_CAMERA,
         VIDEO_CAMERA,
         IMG_SELECT_1,
-        IMG_CAMERA_1,
+        IMG_CAMERA_WITNESS_SAMPLE,
         VIDEO_SELECT_1,
         VIDEO_CAMERA_1,
         SPEECH_RECOGNITION,
