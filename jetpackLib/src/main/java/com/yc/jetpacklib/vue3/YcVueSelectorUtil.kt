@@ -88,12 +88,6 @@ object YcVueSelectorUtil {
     const val FILE_SELECT = 100
 
     /**
-     * 跳转到活体检测
-     */
-    const val LIVING_BODY_TEST = 120
-
-
-    /**
      * 未知
      */
     const val ERROR = -1
@@ -114,7 +108,6 @@ object YcVueSelectorUtil {
         MEASURE_CRACK,
         FILE_SELECT,
         AUDIO_SELECT,
-        LIVING_BODY_TEST,
         ERROR
     )
     @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
@@ -153,7 +146,6 @@ object YcVueSelectorUtil {
         ID_CARD_SCAN_BACK,
         FACE_SCAN,
         MEASURE_CRACK,
-        LIVING_BODY_TEST,
     )
 
     @SelectorType
