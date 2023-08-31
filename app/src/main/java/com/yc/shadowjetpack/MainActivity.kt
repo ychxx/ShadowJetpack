@@ -77,6 +77,9 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 16 -> {
                     startActivity(Intent(this@MainActivity, TestSendMssActivity::class.java))
                 }
+                17 -> {
+                    startActivity(Intent(this@MainActivity, TestAliPayLivingBodyTestActivity::class.java))
+                }
 
             }
         }
@@ -95,6 +98,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
     override fun ActivityMainBinding.initView() {
         rv.ycInitLinearLayoutManage()
         rv.adapter = mAdapter
+        mAdapter.addData(Item("测试阿里活体检测", 17))
         mAdapter.addData(Item("测试webView", 14))
         mAdapter.addData(Item("测试请求", 15))
         mAdapter.addData(Item("测试加载框", 0))

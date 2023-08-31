@@ -27,6 +27,9 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
+        maven {/*阿里活体检测*/
+            url "https://mvn.cloud.alipay.com/nexus/content/repositories/releases/"
+        }
         maven { url 'https://developer.huawei.com/repo/' } //华为扫码
     }
     dependencies {
@@ -44,7 +47,9 @@ allprojects {
         google()
         mavenCentral()
         maven { url 'https://jitpack.io' }
-//        jcenter() // Warning: this repository is going to shut down soon
+        maven {
+            url "https://mvn.cloud.alipay.com/nexus/content/repositories/releases/"
+        }
         maven { url 'https://developer.huawei.com/repo/' } //华为扫码
     }
 }

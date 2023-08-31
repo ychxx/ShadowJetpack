@@ -1,6 +1,7 @@
 package com.yc.shadowjetpack
 
 import android.app.Application
+import com.alipay.mobile.android.verify.sdk.ServiceFactory
 import com.yc.jetpacklib.init.YcJetpack
 
 /**
@@ -13,6 +14,7 @@ class App : Application() {
         super.onCreate()
         YcJetpack.mInstance.apply {
             init(this@App)
+            ServiceFactory.init(this@App) /*阿里活体检测*/
             mCreateSpecialViewBuildBase = {
                 TestSpecialViewConfigureImp(it)
             }

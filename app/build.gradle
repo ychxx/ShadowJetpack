@@ -13,12 +13,21 @@ android {
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     lintOptions {
         abortOnError false
     }
+//    repositories {
+//        flatDir {
+//            dirs 'libs'
+//        }
+//    }
+//    sourceSets {
+//        main {
+//            jniLibs.srcDirs = ['libs']
+//        }
+//    }
     buildTypes {
         release {
             minifyEnabled false
@@ -38,7 +47,7 @@ android {
 }
 
 dependencies {
-
+//    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.1'
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -50,6 +59,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     implementation project(path: ':jetpackLib')
+    //阿里活体
+    implementation('com.mpaas.android:face-verify:3.4.0') {
+//        exclude group: 'com.alibaba', module:'fastjson'//解决com.alibaba:fastjson:1.1.70.android包冲突问题
+    }
 
 //    implementation "androidx.activity:activity-ktx:$activity_version"
 //    implementation "androidx.fragment:fragment:$fragment_version"

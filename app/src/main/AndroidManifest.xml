@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yc.shadowjetpack">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 安装权限 -->
@@ -23,7 +24,8 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ShadowJetpack">
+        android:theme="@style/Theme.ShadowJetpack"
+        tools:replace="android:allowBackup">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -99,6 +101,16 @@
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 
+        <!-- 阿里活体检测-->
+        <activity
+            android:name=".TestAliPayLivingBodyTestActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.alipay.face.ui.ToygerActivity"
+            android:theme="@style/FaceActivity"
+            tools:replace="android:theme" />
+        <!--阿里活体检测-->
     </application>
 
 </manifest>

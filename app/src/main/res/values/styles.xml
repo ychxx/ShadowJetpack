@@ -1,0 +1,29 @@
+<resources>
+
+    <!--阿里活体检测-->
+    <style name="FaceActivity" parent="AlipayFaceAppTheme">
+        <item name="alipayFaceProgressBarColor">@android:color/holo_red_dark</item>
+        <item name="alipayFaceProgressBarBackground">@color/alipay_face_toyger_circle_progress_background</item>
+        <item name="alipayFaceVerifyCaption"></item>
+        <item name="alipayFaceCloseButtonImage">@mipmap/alipay_face_black_close</item>
+        <item name="alipayFaceQuitDialogText">@style/QuitDialogTexts</item>
+        <item name="alipayFaceTimeoutDialogText">@style/TimeoutDialogTexts</item>
+        <item name="alipayFaceFailedDialogText">@style/FailedDialogTexts</item>
+    </style>
+
+    <style name="QuitDialogTexts">
+        <item name="alipayFaceMessageCaption">提示</item>
+        <item name="alipayFaceMessageBody">是否确认退出?</item>
+    </style>
+
+    <style name="TimeoutDialogTexts">
+        <item name="alipayFaceMessageCaption">提示</item>
+        <item name="alipayFaceMessageBody">操作超时</item>
+    </style>
+
+    <style name="FailedDialogTexts">
+        <item name="alipayFaceMessageCaption">提示</item>
+        <item name="alipayFaceMessageBody">活体检测失败!</item>
+    </style>
+    <!--阿里活体检测-->
+</resources>
