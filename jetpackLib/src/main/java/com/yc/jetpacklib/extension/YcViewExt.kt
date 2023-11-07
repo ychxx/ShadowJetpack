@@ -28,8 +28,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.load.model.GlideUrl
-import com.bumptech.glide.load.model.Headers
-import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.CenterInside
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
@@ -299,9 +297,28 @@ fun ImageView.ycLoadImageNet(imageNet: String?, placeholderImg: Int = YcJetpack.
         .into(this)
 }
 
-fun ImageView.ycLoadImageNetLong(imageNet: String?,
-                                 placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
-                                 errorImg: Int = YcJetpack.mInstance.mImgIdResFail) {
+/**
+ * 加载网络图片(设置长宽)
+ */
+fun ImageView.ycLoadImageNetWithSize(
+    imageNet: String?,width: Int = 180, height: Int = 180,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+
+) {
+    GlideApp.with(context)
+        .load(imageNet)
+        .override(maxWidth, maxHeight)
+        .apply(RequestOptions().placeholder(placeholderImg))
+        .error(errorImg)
+        .into(this)
+}
+
+fun ImageView.ycLoadImageNetLong(
+    imageNet: String?,
+    placeholderImg: Int = YcJetpack.mInstance.mImgIdResLoading,
+    errorImg: Int = YcJetpack.mInstance.mImgIdResFail
+) {
     GlideApp.with(context)
         .asBitmap()
         .placeholder(placeholderImg)
@@ -570,4 +587,12 @@ fun ImageView.ycLoadGridImage(
         .apply(RequestOptions().placeholder(placeholderImg))
         .error(errorImg)
         .into(this)
+}
+
+fun Context.pauseRequests() {
+    GlideApp.with(this).pauseRequests()
+}
+
+fun Context.resumeRequests() {
+    GlideApp.with(this).resumeRequests()
 }
