@@ -160,7 +160,7 @@ object YcVueSelectorUtil {
             }
         }
         VUE_ACCEPT.forEachIndexed { index: Int, item ->
-            if (accept == item) {
+            if (accept == item && ANDROID_ACCEPT.size > index) {
                 return ANDROID_ACCEPT[index]
             }
         }
