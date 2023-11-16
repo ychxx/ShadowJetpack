@@ -1,9 +1,12 @@
 package com.yc.jetpacklib.file
 
 import android.content.Context
+import android.os.Build
 import android.os.Environment
 import android.util.Log
 import com.yc.jetpacklib.extension.ycIsEmpty
+import com.yc.jetpacklib.extension.ycLogE
+import com.yc.jetpacklib.init.YcJetpack
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileInputStream
@@ -13,29 +16,53 @@ import java.io.FileInputStream
  * 处理文件相关
  */
 object YcFileUtils {
+    //    /**
+//     * SD卡根目录地址
+//     */
+//    @JvmStatic
+//    val SD_PATH = Environment.getExternalStorageDirectory().path
+//
+//
+//    /**
+//     * 获取sd卡的绝对路径
+//     *
+//     * @return String 如果sd卡存在，返回sd卡的绝对路径，否则返回null
+//     */
+//    @JvmStatic
+//    fun getSDPath(context: Context?): String? {
+//        if (context == null) return null
+//        val sdcard = Environment.getExternalStorageState()
+//        return if (sdcard == Environment.MEDIA_MOUNTED) {
+//            context.getExternalFilesDir(null)?.absolutePath
+//        } else {
+//            null
+//        }
+//    }
     /**
-     * SD卡根目录地址
+     * 获取内部存储路径(其他app会无法找到，系统自带文件夹有的也找不到)
      */
     @JvmStatic
-    val SD_PATH = Environment.getExternalStorageDirectory().path
-
-
-    /**
-     * 获取sd卡的绝对路径
-     *
-     * @return String 如果sd卡存在，返回sd卡的绝对路径，否则返回null
-     */
-    @JvmStatic
-    fun getSDPath(context: Context?): String? {
-        if (context == null) return null
-        val sdcard = Environment.getExternalStorageState()
-        return if (sdcard == Environment.MEDIA_MOUNTED) {
-            context.getExternalFilesDir(null)?.absolutePath
-        } else {
-            null
-        }
+    fun getInternalPath(): String? {
+        return YcJetpack.mInstance.mApplication.filesDir.path
     }
 
+    /**
+     * 获取外部存储路径
+     * @param fileType 文件类型(默认照相机存放位置)
+     * DCIM照相机存放   Environment.DIRECTORY_DCIM
+     * 图片           Environment.DIRECTORY_PICTURES
+     * 视频           Environment.DIRECTORY_MOVIES
+     * 下载           Environment.DIRECTORY_DOWNLOADS
+     */
+    @JvmStatic
+    fun getExternalPath(fileType: String = Environment.DIRECTORY_DCIM): String? {
+        return if (Environment.getExternalStorageState() == Environment.MEDIA_MOUNTED) {
+            YcJetpack.mInstance.mApplication.getExternalFilesDir(fileType)?.path
+        } else {
+            ycLogE("getExternalPath-无权限")
+            getInternalPath()
+        }
+    }
 
     /**
      * 创建一个文件

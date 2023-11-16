@@ -5,7 +5,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import com.yc.jetpacklib.R
 import com.yc.jetpacklib.init.YcJetpack
 import com.yc.jetpacklib.widget.dialog.YcIDialog
 
@@ -15,6 +14,7 @@ import com.yc.jetpacklib.widget.dialog.YcIDialog
  * Date: 2021/3/11 20:23
  * UseDes:权限申请帮助类
  */
+@Deprecated("由于适配10、11、12和品牌机型问题，使用XXPermission第三方库做兼容", replaceWith = ReplaceWith("YcXXPermissionHelper"))
 open class YcPermissionHelper(val activity: FragmentActivity) {
     private var mPermissionRegister: ActivityResultLauncher<Array<String>>? = null
     var mDialog: YcIDialog<*>? = YcJetpack.mInstance.mDefaultPermissionDialog.invoke(activity, activity)

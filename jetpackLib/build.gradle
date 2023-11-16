@@ -8,13 +8,11 @@ plugins {
 
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 34
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 34
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -38,6 +36,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    namespace 'com.yc.jetpacklib'
 }
 
 dependencies {
@@ -127,4 +126,6 @@ dependencies {
     api "com.github.ychxx:Android-PickerView:$picker_view_version"
     /**华为扫描二维码 **/
     implementation "com.huawei.hms:scanplus:$scanplus_version"
+
+    implementation 'com.github.getActivity:XXPermissions:18.5'
 }

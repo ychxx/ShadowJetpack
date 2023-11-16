@@ -110,16 +110,14 @@ class YcUnderlineTextView @JvmOverloads constructor(context: Context, attrs: Att
         }
     }
 
-    override fun draw(canvas: Canvas?) {
+    override fun draw(canvas: Canvas) {
         super.draw(canvas)
-        canvas?.apply {
-            if (mIsSelected) {
-                val startX = paddingLeft + (width - paddingLeft - paddingRight - mTextLength) / 2f
-                val startY = height - paddingBottom - mUnderlineWidth
-                val endX = startX + mTextLength
-                val endY = startY + mUnderlineWidth
-                drawRoundRect(startX, startY.toFloat(), endX, endY.toFloat(), mUnderlineRound, mUnderlineRound, mPaint)
-            }
+        if (mIsSelected) {
+            val startX = paddingLeft + (width - paddingLeft - paddingRight - mTextLength) / 2f
+            val startY = height - paddingBottom - mUnderlineWidth
+            val endX = startX + mTextLength
+            val endY = startY + mUnderlineWidth
+            canvas.drawRoundRect(startX, startY.toFloat(), endX, endY.toFloat(), mUnderlineRound, mUnderlineRound, mPaint)
         }
     }
 }

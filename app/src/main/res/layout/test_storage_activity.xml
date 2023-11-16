@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/requestPermission"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="申请存储权限" />
+
+    <Button
+        android:id="@+id/create1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建外部存储文件" />
+
+    <Button
+        android:id="@+id/create2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建内部存储文件"/>
+
+    <Button
+        android:id="@+id/create3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="创建相册里图片"/>
+</LinearLayout>

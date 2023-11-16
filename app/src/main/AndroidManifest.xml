@@ -1,18 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.yc.shadowjetpack">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 安装权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!--获取设备网络状态，禁用后无法获取网络状态-->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
+    <!--    <uses-permission android:name="android.permission.CALL_PHONE" />-->
+    <!--    <uses-permission android:name="android.permission.SEND_SMS" />-->
+
+    <!-- 存储权限 开始-->
+    <!--不能添加android:maxSdkVersion="29" XXPermission库会报错-->
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <!--不能添加android:maxSdkVersion="32" XXPermission库会报错-->
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <!-- 仅当您的应用程序需要访问其他应用程序创建的图像或照片时才需要。 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <!-- 仅当您的应用程序需要访问其他应用程序创建的视频时才需要 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <!-- 仅当您的应用程序需要访问其他应用程序创建的音频文件时才需要 -->
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <!-- 存储权限  结束-->
+
+    <!-- 适配蓝牙权限 开始-->
+    <!--Android 23(6.0) <=SDK版本<= 30(11.0) -->
+    <!--同时需要蓝牙权限和定位权限时，删除下方ACCESS_FINE_LOCATION和ACCESS_COARSE_LOCATION，使用定位那边（定位不需要现在maxSdk版本）-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.ACCESS_FINE_LOCATION"-->
+<!--        android:maxSdkVersion="30" />-->
+<!--    <uses-permission-->
+<!--        android:name="android.permission.ACCESS_COARSE_LOCATION"-->
+<!--        android:maxSdkVersion="30" />-->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+
+    <!--Android 31(12.0) <=SDK版本<= 34(14.0) -->
+    <!--蓝牙扫描权限,android:usesPermissionFlags="neverForLocation"不需要蓝牙物理位置 -->
+    <uses-permission
+        android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- 适配蓝牙权限  结束-->
+
+    <!-- 适配定位权限 开始-->
+    <uses-permission
+        android:name="android.permission.NEARBY_WIFI_DEVICES"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+    <!--Android 9（API 级别 28） 或更低版本 定位权限-->
+    <uses-permission
+        android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission
+        android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!-- 前台服务权限  -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <!-- 适配定位权限  结束-->
+
 
     <application
         android:name=".App"
@@ -20,12 +80,16 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
-        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ShadowJetpack">
+        <meta-data
+            android:name="ScopedStorage"
+            android:value="true" />
+
         <activity
             android:name=".MainActivity"
+            android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -36,66 +100,93 @@
         </activity>
         <activity
             android:name=".TestShowLoadingActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestSpecialReleaseActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TestBleActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestSpecialReleaseActivity2"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestRefreshActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestWidgetActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".TestStorageActivity"
+            android:exported="false"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".chart.TestChartLineActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestPickerViewActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".socket.TestSocketActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestRefreshActivity2"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestRefreshActivity3"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestRemovePagingDataActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestGlideActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestSoundActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".web.TestWebViewActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestNetActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
         <activity
             android:name=".TestSendMssActivity"
+            android:exported="false"
             android:launchMode="singleTop"
             android:screenOrientation="portrait" />
 

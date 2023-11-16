@@ -88,8 +88,8 @@ class YcRingIntervalView @JvmOverloads constructor(context: Context, attrs: Attr
     private val mRadiusWidth = 20f
 
     @SuppressLint("DrawAllocation")
-    override fun onDraw(canvas: Canvas?) {
-        canvas?.apply {
+    override fun onDraw(canvas: Canvas) {
+        canvas.apply {
             mCircleCenterX = width / 2
             mCircleCenterY = height / 2
             this.translate(mCircleCenterX.toFloat(), mCircleCenterY.toFloat())

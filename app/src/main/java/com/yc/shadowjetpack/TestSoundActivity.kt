@@ -27,7 +27,7 @@ class TestSoundActivity : YcBaseActivityPlus<TestSoundActivityBinding>(TestSound
             mMediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
             mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.AMR_NB)
             mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
-            mMediaRecorder?.setOutputFile(YcFileUtils.getSDPath(this@TestSoundActivity) + File.separator + "recorder_format_nb_encoder_nb.amr")
+            mMediaRecorder?.setOutputFile(YcFileUtils.getInternalPath() + File.separator + "recorder_format_nb_encoder_nb.amr")
         }
 //        btnTestConfig2.setOnClickListener {
 //            if (mMediaRecorder != null) {
@@ -58,7 +58,7 @@ class TestSoundActivity : YcBaseActivityPlus<TestSoundActivityBinding>(TestSound
             mMediaRecorder?.setAudioSource(MediaRecorder.AudioSource.MIC)
             mMediaRecorder?.setOutputFormat(MediaRecorder.OutputFormat.AMR_WB)
             mMediaRecorder?.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_WB)
-            mMediaRecorder?.setOutputFile(YcFileUtils.getSDPath(this@TestSoundActivity) + File.separator + "recorder_format_wb_encoder_wb.amr")
+            mMediaRecorder?.setOutputFile(YcFileUtils.getInternalPath() + File.separator + "recorder_format_wb_encoder_wb.amr")
         }
 
         btnTestStart.setOnClickListener {

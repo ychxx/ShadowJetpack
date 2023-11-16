@@ -119,8 +119,8 @@ class YcRingView @JvmOverloads constructor(context: Context, attrs: AttributeSet
         invalidate()
     }
 
-    override fun draw(canvas: Canvas?) {
-        canvas?.apply {
+    override fun draw(canvas: Canvas)  {
+        canvas.apply {
             this.drawColor(mBgColor)
             val centerX = width / 2f
             val centerY = height / 2f

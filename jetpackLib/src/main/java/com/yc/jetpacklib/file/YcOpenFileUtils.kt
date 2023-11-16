@@ -8,6 +8,7 @@ import androidx.core.content.FileProvider
 import com.yc.jetpacklib.init.YcJetpack
 import java.io.File
 import java.util.*
+
 /**
  *
  */
@@ -105,9 +106,9 @@ object YcOpenFileUtils {
      * @param path 文件路径
      * @return type 文件类型
      */
-    fun getFileType(path: String): String? {
+    fun getFileType(path: String): String {
         //默认类型
-        val type = "*/*"
+        var type = "*/*"
         //获取后缀名前的分隔符"."在path中的位置。
         val index = path.lastIndexOf(".")
         //防止路径不存在"."出现异常
@@ -116,8 +117,9 @@ object YcOpenFileUtils {
         }
         //获取文件的后缀名
         val fileType = path.substring(index).toLowerCase(Locale.getDefault())
-        return if (fileType.isEmpty()) {
-            type
-        } else MIMES[fileType]
+        MIMES[fileType]?.apply {
+            type = this
+        }
+        return type
     }
 }

@@ -56,7 +56,7 @@ object YcActivityManager {
      * 结束除当前传入以外所有Activity
      */
     @JvmStatic
-    fun <T>finishOthersActivity(activityClass : Class<T>) {
+    fun <T> finishOthersActivity(activityClass: Class<T>) {
         for (itemActivity in mActivityStack) {
             if (activityClass != itemActivity.javaClass) {
                 itemActivity.finish()
@@ -70,5 +70,13 @@ object YcActivityManager {
     @JvmStatic
     fun getCurrentActivity(): FragmentActivity? {
         return if (!mActivityStack.isEmpty()) mActivityStack.lastElement() else null
+    }
+
+    /**
+     * 关闭当前activity
+     */
+    @JvmStatic
+    fun finishCurrentActivity() {
+        mActivityStack.removeLastOrNull()?.finish()
     }
 }
