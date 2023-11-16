@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CheckStyle-IDEA">
     <option name="configuration">
@@ -23,22 +22,38 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/drawable/shape_round_test_chart_mask_blue.xml" value="0.238" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_glide_activity.xml" value="0.28229166666666666" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_item.xml" value="0.2947916666666667" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_line_chart.xml" value="0.26979166666666665" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_loading_activity.xml" value="0.3484375" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_net_activity.xml" value="0.3203125" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_refresh_activity.xml" value="0.3484375" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_refresh_activity3.xml" value="0.3484375" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_remove_page_data_activity.xml" value="0.3484375" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_send_smss_activity.xml" value="0.3223958333333333" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_singlelayout.xml" value="0.2657407407407407" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_sound_activity.xml" value="0.33" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_web_view_activity.xml" value="0.25" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/app/src/main/res/layout/test_widget.xml" value="0.225" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/drawable/yc_scan_code_frame_bg.xml" value="0.2275" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/drawable/yc_shape_round_white.xml" value="0.1675" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/drawable/yc_shape_underline.xml" value="0.1828125" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/temp.xml" value="0.17916666666666667" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_actionbar_layout.xml" value="0.28802083333333334" />
-        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_dialog_loading.xml" value="0.28055555555555556" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_chart_marker.xml" value="0.67" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_chart_marker_item.xml" value="0.2635897435897436" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_scan_qrcode_activity.xml" value="0.26979166666666665" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_special_release.xml" value="0.2703125" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_dialog.xml" value="0.25" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_dialog_loading.xml" value="0.33" />
         <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_edt_img.xml" value="0.3338541666666667" />
-        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_popupwindow_album_or_camera.xml" value="0.16302083333333334" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_popupwindow_album_or_camera.xml" value="0.25" />
+        <entry key="..\:/workSpace/studioPrivate/ShadowJetpack/jetpackLib/src/main/res/layout/yc_widget_popupwindow_base_picker.xml" value="0.284375" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="jbr-17" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

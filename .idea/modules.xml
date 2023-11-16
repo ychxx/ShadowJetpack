@@ -4,7 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ShadowJetpack.iml" filepath="$PROJECT_DIR$/.idea/modules/ShadowJetpack.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ShadowJetpack.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.iml" filepath="$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.main.iml" filepath="$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/jetpackLib/ShadowJetpack.jetpackLib.unitTest.iml" />
     </modules>
   </component>
 </project>
