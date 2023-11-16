@@ -1,3 +1,2 @@
 rootProject.name = "ShadowJetpack"
-//include ':app'
-include ':jetpackLib'
+include ':app',':jetpackLib'
