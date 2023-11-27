@@ -42,8 +42,12 @@ object YcFileUtils {
      * 获取内部存储路径(其他app会无法找到，系统自带文件夹有的也找不到)
      */
     @JvmStatic
-    fun getInternalPath(): String? {
-        return YcJetpack.mInstance.mApplication.filesDir.path
+    fun getInternalPath(): String {
+        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            Environment.getExternalStorageDirectory().path
+        }else{
+            YcJetpack.mInstance.mApplication.filesDir.path
+        }
     }
 
     /**
