@@ -7,6 +7,7 @@ import com.yc.jetpacklib.extension.showToast
 import com.yc.jetpacklib.file.YcFileUtils
 import com.yc.jetpacklib.image.YcImgUtils
 import com.yc.jetpacklib.image.YcImgUtils.copyToMediaPicture
+import com.yc.jetpacklib.image.YcImgUtils.postUpdate
 import com.yc.jetpacklib.permission.XXPermissionUtil
 import com.yc.jetpacklib.permission.YcXXPermissionHelper
 import com.yc.jetpacklib.utils.YcResources
@@ -35,19 +36,19 @@ class TestStorageActivity : YcBaseActivityPlus<TestStorageActivityBinding>(TestS
             val filePath = YcFileUtils.getExternalPath() + File.separator + "test1.jpeg"
             YcFileUtils.createFile(filePath)
             YcImgUtils.bitmapToFile(YcResources.getDrawable(R.drawable.test).toBitmap(), filePath)
-            copyToMediaPicture(this@TestStorageActivity, filePath, true)
+            postUpdate(this@TestStorageActivity, filePath)
         }
         create2.setOnClickListener {
             val filePath = YcFileUtils.getInternalPath() + File.separator + "test2.jpeg"
             YcFileUtils.createFile(filePath)
             YcImgUtils.bitmapToFile(YcResources.getDrawable(R.drawable.test).toBitmap(), filePath)
-            copyToMediaPicture(this@TestStorageActivity, filePath, true)
+            postUpdate(this@TestStorageActivity, filePath)
         }
         create3.setOnClickListener {
             val filePath = YcFileUtils.getExternalPath(Environment.DIRECTORY_PICTURES) + File.separator + "test3.jpeg"
             YcFileUtils.createFile(filePath)
             YcImgUtils.bitmapToFile(YcResources.getDrawable(R.drawable.test).toBitmap(), filePath)
-            copyToMediaPicture(this@TestStorageActivity, filePath, true)
+            postUpdate(this@TestStorageActivity, filePath)
         }
     }
 }

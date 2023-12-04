@@ -1,6 +1,7 @@
 package com.yc.jetpacklib.socket
 
 import com.yc.jetpacklib.extension.ycLogESimple
+import com.yc.jetpacklib.extension.ycTry
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
@@ -160,6 +161,21 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
         if (mSocket != null && mSocket!!.isConnected) {
             ycLogESimple("socket 发送的数据：$sendData")
             mOutStream?.write(sendData.toByteArray())
+            mOutStream?.flush()
+        } else {
+            ycLogESimple("socket 未连接或者断开了")
+        }
+        cancel()
+    }
+
+    /**
+     * 发送数据
+     * @param sendData ByteArray
+     */
+    open fun send(sendData: ByteArray) = scope.launch(mCoroutineSend) {
+        if (mSocket != null && mSocket!!.isConnected) {
+            ycLogESimple("socket 发送的数据：${sendData.contentToString()}")
+            mOutStream?.write(sendData)
             mOutStream?.flush()
         } else {
             ycLogESimple("socket 未连接或者断开了")

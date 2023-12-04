@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaScannerConnection
 import android.net.Uri
 import android.os.Build
 import android.os.Handler
@@ -138,52 +139,61 @@ object YcImgUtils {
             null
         }
     }
-
+    fun postUpdate(context: Context, filePath: String,){
+        MediaScannerConnection.scanFile(context, arrayOf(filePath), null, null)
+    }
     /**
      * 复制到系统相册里
      */
     fun copyToMediaPicture(context: Context, filePath: String, isImg: Boolean): Boolean {
-        if (TextUtils.isEmpty(filePath)) return false
-        val file = File(filePath)
-        //判断android Q  (10 ) 版本
-        return if (Build.VERSION.SDK_INT >= 29) {
-            if (!file.exists()) {
-                false
-            } else {
-                try {
-                    if (isImg) {
-                        MediaStore.Images.Media.insertImage(context.contentResolver, file.absolutePath, file.name, null)
-                    } else {
-                        val values = ContentValues()
-                        values.put(MediaStore.Video.Media.DATA, file.absolutePath)
-                        values.put(MediaStore.Video.Media.DISPLAY_NAME, file.name)
-                        values.put(MediaStore.Video.Media.MIME_TYPE, "video/*")
-                        values.put(MediaStore.Video.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
-                        values.put(MediaStore.Video.Media.DATE_MODIFIED, System.currentTimeMillis() / 1000)
-                        val resolver = context.contentResolver
-                        val uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values)
-                    }
-                    true
-                } catch (e: java.lang.Exception) {
-                    e.printStackTrace()
+        try {
+            if (TextUtils.isEmpty(filePath)) return false
+            val file = File(filePath)
+            //判断android Q  (10 ) 版本
+            return if (Build.VERSION.SDK_INT >= 29) {
+                if (!file.exists()) {
                     false
+                } else {
+                    try {
+                        if (isImg) {
+                            MediaStore.Images.Media.insertImage(context.contentResolver, file.absolutePath, file.name, null)
+                        } else {
+                            val values = ContentValues()
+                            values.put(MediaStore.Video.Media.DATA, file.absolutePath)
+                            values.put(MediaStore.Video.Media.DISPLAY_NAME, file.name)
+                            values.put(MediaStore.Video.Media.MIME_TYPE, "video/*")
+                            values.put(MediaStore.Video.Media.DATE_ADDED, System.currentTimeMillis() / 1000)
+                            values.put(MediaStore.Video.Media.DATE_MODIFIED, System.currentTimeMillis() / 1000)
+                            val resolver = context.contentResolver
+                            val uri = resolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, values)
+                        }
+                        true
+                    } catch (e: java.lang.Exception) {
+                        e.printStackTrace()
+                        false
+                    }
                 }
+            } else { //老方法
+                if (isImg) {
+                    val values = ContentValues()
+                    values.put(MediaStore.Images.Media.DATA, file.absolutePath)
+                    values.put(MediaStore.Images.Media.MIME_TYPE, "image/*")
+                    values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString() + "")
+                    context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
+//                    context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.absolutePath)))
+                    MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), null, null)
+                } else {
+                    val localContentResolver = context.contentResolver
+                    val localContentValues = getVideoContentValues(File(filePath), System.currentTimeMillis())
+                    val localUri = localContentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, localContentValues)
+//                    context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri))
+                    MediaScannerConnection.scanFile(context, arrayOf(file.absolutePath), null, null)
+                }
+                true
             }
-        } else { //老方法
-            if (isImg) {
-                val values = ContentValues()
-                values.put(MediaStore.Images.Media.DATA, file.absolutePath)
-                values.put(MediaStore.Images.Media.MIME_TYPE, "image/*")
-                values.put(MediaStore.Images.ImageColumns.DATE_TAKEN, System.currentTimeMillis().toString() + "")
-                context.contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-                context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + file.absolutePath)))
-            } else {
-                val localContentResolver = context.contentResolver
-                val localContentValues = getVideoContentValues(File(filePath), System.currentTimeMillis())
-                val localUri = localContentResolver.insert(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, localContentValues)
-                context.sendBroadcast(Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, localUri))
-            }
-            true
+        } catch (e: Exception) {
+            e.printStackTrace()
+            return false
         }
     }
 
