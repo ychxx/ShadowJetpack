@@ -144,7 +144,7 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
                 val buffers = ByteArray(1024)
                 while (mState.get() == YcSocketState.CONNED && mInputStream?.read(buffers).also { dataSize = it ?: 0 } != -1) {
                     mReceiveChannel.send(String(buffers, 0, dataSize).apply {
-                        ycLogESimple("socket 收到数据：$this")
+                        ycLogESimple("socket 收到数据(转字符串)：$this --\n收到原始数据：${buffers.contentToString()}" )
                         ycTry {
                             mReceive?.invoke(this, buffers.copyOf(dataSize))
                         }
