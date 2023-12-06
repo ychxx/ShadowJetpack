@@ -21,7 +21,7 @@ private const val RECONNECT_MAX_NUM = 3
 open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxNum: Int = RECONNECT_MAX_NUM) {
     var mFail: ((error: String, errorCode: @YcSocketState.Error Int) -> Unit)? = null
     var mConnSuccess: (() -> Unit)? = null
-    var mReceive: ((data:String) -> Unit)? = null
+    var mReceive: ((data: String, originalData: ByteArray) -> Unit)? = null
     protected var mSocket: Socket? = null
     protected var mState: AtomicInteger = AtomicInteger(YcSocketState.PREPARE)
     protected var mCreateSocketJob: Job? = null
@@ -146,7 +146,7 @@ open class YcSocket(private val scope: CoroutineScope, private val reconnectMaxN
                     mReceiveChannel.send(String(buffers, 0, dataSize).apply {
                         ycLogESimple("socket 收到数据：$this")
                         ycTry {
-                            mReceive?.invoke(this)
+                            mReceive?.invoke(this, buffers.copyOf(dataSize))
                         }
                     })
                 }
