@@ -2,6 +2,7 @@ package com.yc.jetpacklib.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.os.Build.VERSION_CODES.R
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.method.DigitsKeyListener
@@ -37,7 +38,7 @@ open class YcCommonEditTextDialog @JvmOverloads constructor(context: Context, mL
         mLifecycleOwner.lifecycle.addObserver(object : DefaultLifecycleObserver {
             override fun onDestroy(owner: LifecycleOwner) {
                 if (this@YcCommonEditTextDialog.isShowing) {
-                    cancel()
+                    dismiss()
                 }
             }
         })

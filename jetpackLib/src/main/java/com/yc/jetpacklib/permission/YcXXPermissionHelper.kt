@@ -100,16 +100,22 @@ open class YcXXPermissionHelper {
             show()
         }
     }
+    /**
+     * 申请开始回调
+     */
+    var mStartCall: (() -> Unit)? = null
 
     /**
      * 开始申请权限
      * @receiver AppCompatActivity  在AppCompatActivity里调用
      * 注：在onCreate之后的生命周期里调用
      */
-    fun start() {
-        mXXRequestPermission.hasSuccess = mXXRequestPermission.permission.isEmpty() || XXPermissions.isGranted(context, mXXRequestPermission.permission)
-        mXXRequestPermission.hasLocationSuccess = mXXRequestPermission.permissionLocation.isEmpty() || XXPermissions.isGranted(context,
-                                                                                                                               mXXRequestPermission.permissionLocation)
+    open fun start() {
+        mStartCall?.invoke()
+        mXXRequestPermission.hasSuccess = mXXRequestPermission.permission.isEmpty() ||
+                XXPermissions.isGranted(context, mXXRequestPermission.permission)
+        mXXRequestPermission.hasLocationSuccess = mXXRequestPermission.permissionLocation.isEmpty() ||
+                XXPermissions.isGranted(context, mXXRequestPermission.permissionLocation)
         if (!mXXRequestPermission.hasSuccess) {
             ycLogE("申请正常权限" + mXXRequestPermission.permission.toString())
             XXPermissions.with(context)

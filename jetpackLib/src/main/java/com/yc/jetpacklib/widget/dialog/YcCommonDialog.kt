@@ -2,6 +2,7 @@ package com.yc.jetpacklib.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.os.Build.VERSION_CODES.R
 import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
@@ -35,7 +36,7 @@ class YcCommonDialog @JvmOverloads constructor(
             override fun onDestroy(owner: LifecycleOwner) {
                 Log.e("YcCommonDialog", "onDestroy: ")
                 if (this@YcCommonDialog.isShowing) {
-                    cancel()
+                    dismiss()
                 }
             }
         })

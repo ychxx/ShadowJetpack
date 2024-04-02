@@ -45,6 +45,20 @@ object XXPermissionUtil {
      * 联系人权限
      */
     val CONTACTS = Permission.Group.CONTACTS
+
+    /**
+     * 读取电话状态
+     * 需要注意的是：这个权限在某些手机上面是没办法获取到的，因为某些系统禁止应用获得该权限
+     * 所以你要是申请了这个权限之后没有弹授权框，而是直接回调授权失败方法
+     * 请不要惊慌，这个不是 Bug、不是 Bug、不是 Bug，而是正常现象
+     * 后续情况汇报：有人反馈在 iQOO 手机上面获取不到该权限，在清单文件加入下面这个权限就可以了（这里只是做记录，并不代表这种方式就一定有效果）
+     */
+    val READ_PHONE_STATE = Permission.READ_PHONE_STATE
+
+    /**
+     * 通知权限权限
+     */
+    val POST_NOTIFICATIONS = Permission.POST_NOTIFICATIONS
     fun hasSelfXXPermissions(context: Context, vararg permissions: String): Boolean {
         if (XXPermissions.isGranted(context, *permissions)) {
             return false
