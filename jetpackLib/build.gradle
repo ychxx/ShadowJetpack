@@ -3,9 +3,18 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
+    id 'maven-publish'
 }
-
-
+afterEvaluate {
+    android.libraryVariants.each {variant->
+        publishing.publications.create(variant.name,MavenPublication){
+            from components.findByName(variant.name)
+            groupId = 'com.yc'//自定义
+            artifactId = 'jetpacklib'//自定义
+            version = '1.49'//自定义
+        }
+    }
+}
 android {
     compileSdkVersion 34
 
