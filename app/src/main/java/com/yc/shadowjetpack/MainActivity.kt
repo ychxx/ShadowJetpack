@@ -11,7 +11,6 @@ import com.yc.jetpacklib.extension.ycLogD
 import com.yc.jetpacklib.extension.ycLogE
 import com.yc.jetpacklib.permission.YcPermissionHelper
 import com.yc.jetpacklib.recycleView.YcRecyclerViewAdapter
-import com.yc.jetpacklib.ui.YcScanQrcodeActivity
 import com.yc.shadowjetpack.chart.TestChartLineActivity
 import com.yc.shadowjetpack.databinding.ActivityMainBinding
 import com.yc.shadowjetpack.databinding.TestItemBinding
@@ -65,7 +64,7 @@ class MainActivity : YcBaseActivityPlus<ActivityMainBinding>(ActivityMainBinding
                 }
 
                 8 -> {
-                    YcScanQrcodeActivity.newInstance(this@MainActivity, mLauncher, R.color.jetpack_black_scan_bg)
+//                    YcScanQrcodeActivity.newInstance(this@MainActivity, mLauncher, R.color.jetpack_black_scan_bg)
                 }
 
                 9 -> {

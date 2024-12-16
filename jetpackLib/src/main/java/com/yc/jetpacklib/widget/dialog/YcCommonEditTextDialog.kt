@@ -2,7 +2,6 @@ package com.yc.jetpacklib.widget.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.os.Build.VERSION_CODES.R
 import android.text.InputFilter
 import android.text.TextUtils
 import android.text.method.DigitsKeyListener

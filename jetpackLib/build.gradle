@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id 'com.huawei.agconnect'/*二维码 华为*/
 }
 
 
@@ -124,8 +123,6 @@ dependencies {
     /**-- 仿iOS的选择器 --**/
 //    api 'com.contrarywind:Android-PickerView:4.1.9'
     api "com.github.ychxx:Android-PickerView:$picker_view_version"
-    /**华为扫描二维码 **/
-    implementation "com.huawei.hms:scanplus:$scanplus_version"
 
     implementation 'com.github.getActivity:XXPermissions:18.5'
 }
